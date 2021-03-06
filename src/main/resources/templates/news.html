@@ -1,23 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>World Time</title>
-    <!-- plugin css for this page -->
-    <link
-            rel="stylesheet"
-            href="/vendors/mdi/css/materialdesignicons.min.css"
-    />
-    <link rel="stylesheet" href="/vendors/aos/dist/aos.css/aos.css"/>
-    <!-- End plugin css for this page -->
-    <link rel="shortcut icon" href="/images/favicon.png"/>
-    <!-- inject:css -->
-    <link rel="stylesheet" href="/css/style.css">
-    <!-- endinject -->
-</head>
+<th:block th:include="~{fragments/head}"></th:block>
+
 
 <body>
 <div class="container-scroller">
@@ -45,7 +29,7 @@
                                         <div class="col-sm-4 grid-margin">
                                             <div class="rotate-img">
                                                 <img
-                                                        src="/images/magazine/Magzine_7.jpg"
+                                                        src="/img/magazine/img"
                                                         alt="banner"
                                                         class="img-fluid"
                                                 />
@@ -70,7 +54,7 @@
                                         <div class="col-sm-4 grid-margin">
                                             <div class="rotate-img">
                                                 <img
-                                                        src="/images/magazine/Magzine_8.jpg"
+                                                        src="/img/magazine/img"
                                                         alt="banner"
                                                         class="img-fluid"
                                                 />
@@ -95,7 +79,7 @@
                                         <div class="col-sm-4 grid-margin">
                                             <div class="rotate-img">
                                                 <img
-                                                        src="/images/magazine/Magzine_9.jpg"
+                                                        src="/img/magazine/img"
                                                         alt="banner"
                                                         class="img-fluid"
                                                 />
@@ -120,7 +104,7 @@
                                         <div class="col-sm-4 grid-margin">
                                             <div class="rotate-img">
                                                 <img
-                                                        src="/images/magazine/Magzine_10.jpg"
+                                                        src="/img/magazine/img"
                                                         alt="banner"
                                                         class="img-fluid"
                                                 />
@@ -145,7 +129,7 @@
                                         <div class="col-sm-4 grid-margin">
                                             <div class="rotate-img">
                                                 <img
-                                                        src="/images/magazine/Magzine_11.jpg"
+                                                        src="/img/magazine/img"
                                                         alt="banner"
                                                         class="img-fluid"
                                                 />
@@ -170,7 +154,7 @@
                                         <div class="col-sm-4 grid-margin">
                                             <div class="rotate-img">
                                                 <img
-                                                        src="/images/magazine/Magzine_12.jpg"
+                                                        src="/img/magazine/img"
                                                         alt="banner"
                                                         class="img-fluid"
                                                 />
@@ -211,7 +195,7 @@
                                                     <div class="col-sm-4">
                                                         <div class="rotate-img">
                                                             <img
-                                                                    src="/images/magazine/Magzine_1.jpg"
+                                                                    src="/img/magazine/img"
                                                                     alt="banner"
                                                                     class="img-fluid"
                                                             />
@@ -236,7 +220,7 @@
                                                     <div class="col-sm-4">
                                                         <div class="rotate-img">
                                                             <img
-                                                                    src="/images/magazine/Magzine_2.jpg"
+                                                                    src="/img/magazine/img"
                                                                     alt="banner"
                                                                     class="img-fluid"
                                                             />
@@ -261,7 +245,7 @@
                                                     <div class="col-sm-4">
                                                         <div class="rotate-img">
                                                             <img
-                                                                    src="/images/magazine/Magzine_3.jpg"
+                                                                    src="/img/magazine/img"
                                                                     alt="banner"
                                                                     class="img-fluid"
                                                             />
@@ -278,7 +262,7 @@
                                         <div class="mb-4">
                                             <div class="rotate-img">
                                                 <img
-                                                        src="/images/magazine/Magzine_4.jpg"
+                                                        src="/img/magazine/img"
                                                         alt="banner"
                                                         class="img-fluid"
                                                 />
@@ -293,7 +277,7 @@
                                         <div class="mb-4">
                                             <div class="rotate-img">
                                                 <img
-                                                        src="/images/magazine/Magzine_5.jpg"
+                                                        src="/img/magazine/img"
                                                         alt="banner"
                                                         class="img-fluid"
                                                 />
@@ -308,7 +292,7 @@
                                         <div class="mb-4">
                                             <div class="rotate-img">
                                                 <img
-                                                        src="/images/magazine/Magzine_6.jpg"
+                                                        src="/img/magazine/img"
                                                         alt="banner"
                                                         class="img-fluid"
                                                 />
@@ -337,7 +321,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-5">
-                            <img src="/images/logo.svg" class="footer-logo" alt=""/>
+                            <img src="/img/img" class="footer-logo" alt=""/>
                             <h5 class="font-weight-normal mt-4 mb-5">
                                 Newspaper is your news, entertainment, music fashion website. We
                                 provide you with the latest breaking news and videos straight from
@@ -369,7 +353,7 @@
                                         <div class="row">
                                             <div class="col-3">
                                                 <img
-                                                        src="/images/dashboard/home_1.jpg"
+                                                        src="/img/dashboard/img"
                                                         alt="thumb"
                                                         class="img-fluid"
                                                 />
@@ -390,7 +374,7 @@
                                         <div class="row">
                                             <div class="col-3">
                                                 <img
-                                                        src="/images/dashboard/home_2.jpg"
+                                                        src="/img/dashboard/img"
                                                         alt="thumb"
                                                         class="img-fluid"
                                                 />
@@ -411,7 +395,7 @@
                                         <div class="row">
                                             <div class="col-3">
                                                 <img
-                                                        src="/images/dashboard/home_3.jpg"
+                                                        src="/img/dashboard/img"
                                                         alt="thumb"
                                                         class="img-fluid"
                                                 />

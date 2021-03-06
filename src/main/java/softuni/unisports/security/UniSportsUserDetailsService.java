@@ -14,17 +14,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class DemoUserDetailsService implements UserDetailsService {
+public class UniSportsUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public DemoUserDetailsService(UserRepository userRepository) {
+    public UniSportsUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User with username " + username +  " was not found!"));
 
         return mapToUserDetails(userEntity);
     }
