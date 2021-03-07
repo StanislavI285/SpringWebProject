@@ -33,8 +33,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/users/login").
                 usernameParameter("username"). //<----- като параметър е името на полето от HTML формата
                 passwordParameter("password"). //<----- като параметър името на полето от HTML формата
-                defaultSuccessUrl("index"). // <----- къде редиректваме след успешен login
-                failureForwardUrl("users/login-error"); //<----- къде редиректваме след неуспешен login
+                defaultSuccessUrl("/index"). // <----- къде редиректваме след успешен login
+                failureForwardUrl("/users/login-error"); //<----- къде редиректваме след неуспешен login
 
     }
 

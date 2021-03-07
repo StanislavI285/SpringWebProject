@@ -12,7 +12,7 @@ public class RoleEntity extends BaseEntity {
     public RoleEntity() {
     }
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     @Enumerated(EnumType.STRING)
     public RoleEnum getName() {
         return name;
