@@ -11564,6 +11564,7 @@ footer {
 footer .footer-top {
     background: #032a63;
     padding: 74px 0 48px 0;
+
 }
 
 footer .footer-top .social-media {
@@ -11707,3 +11708,12 @@ footer .footer-bottom {
     text-decoration: underline;
     text-decoration-color: #4d7cff;
 }
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+}
+
+
