@@ -5,7 +5,7 @@
 
 <body>
 <th:block th:include="~{fragments/_navbar}"></th:block>
-<div class="container h-100">
+<div class="container-scroller">
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-10 col-md-8 col-lg-6">
             <!-- Form -->
@@ -15,23 +15,24 @@
                 <!-- Input fields -->
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control username" id="username" placeholder="Username..." name="username">
+                    <input type="text" class="form-control" id="username" placeholder="Username..." name="username">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control password" id="password" placeholder="Password..." name="password">
+                    <input type="password" class="form-control" id="password" placeholder="Password..." name="password">
                 </div>
                 <button type="submit" class="btn btn-primary btn-customized">Login</button>
             </form>
         </div>
     </div>
+    <p></p>
 </div>
-<p></p>
-</body>
+
 <!-- main-panel ends -->
 <!-- container-scroller ends -->
 
 <!-- partial:partials/_footer.html -->
+<!-- TODO screen bouncing when scrolling to bottom -->
 <footer>
     <div class="footer-top">
         <div class="container">
@@ -185,8 +186,7 @@
 </footer>
 
 <!-- partial -->
-</div>
-</div>
+
 <!-- inject:js -->
 <script src="/vendors/js/vendor.bundle.base.js"></script>
 <!-- endinject -->

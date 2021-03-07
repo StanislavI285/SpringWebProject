@@ -46,6 +46,8 @@ public class DBInit implements CommandLineRunner {
         adminUser.
                 setUsername("admin").
                 setEmail("admin@unisports.com").
+                setFirstName("Pesho").
+                setLastName("Peshov").
                 setPassword(passwordEncoder.encode("12345")).
                 setRoles(List.of(adminRole, moderatorRole, userRole)).
                 setCreated(LocalDateTime.now()).

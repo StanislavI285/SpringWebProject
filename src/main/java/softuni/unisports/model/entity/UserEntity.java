@@ -16,6 +16,8 @@ import java.util.List;
 public class UserEntity extends BaseEntity {
 
     private String username;
+    private String firstName;
+    private String lastName;
     private String password;
     private String email;
     private String imageUrl;
@@ -27,13 +29,33 @@ public class UserEntity extends BaseEntity {
     }
 
     @Column(name = "username", nullable = false, unique = true)
-    @Size(min = 5, max = 20)
+    @Size(min = 3, max = 20)
     public String getUsername() {
         return username;
     }
 
     public UserEntity setUsername(String username) {
         this.username = username;
+        return this;
+    }
+
+    @Column(name = "first_name", nullable = false)
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public UserEntity setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    @Column(name = "last_name", nullable = false)
+    public String getLastName() {
+        return lastName;
+    }
+
+    public UserEntity setLastName(String lastName) {
+        this.lastName = lastName;
         return this;
     }
 
