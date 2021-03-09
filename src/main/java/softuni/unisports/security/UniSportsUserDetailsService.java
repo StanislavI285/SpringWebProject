@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import softuni.unisports.model.entity.RoleEntity;
 import softuni.unisports.model.entity.UserEntity;
 import softuni.unisports.repository.UserRepository;
 
@@ -25,13 +26,13 @@ public class UniSportsUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() ->
-                new UsernameNotFoundException("User with username " + username +  " was not found!"));
+                new UsernameNotFoundException("User with username " + username + " was not found!"));
 
         return mapToUserDetails(userEntity);
     }
 
     private UserDetails mapToUserDetails(UserEntity userEntity) {
-
+        List<RoleEntity> roles = userEntity.getRoles();
         List<SimpleGrantedAuthority> authorities = userEntity.
                 getRoles().
                 stream().

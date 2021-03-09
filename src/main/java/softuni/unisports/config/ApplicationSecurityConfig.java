@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import softuni.unisports.security.UniSportsUserDetailsService;
 
 @Configuration
@@ -25,16 +26,17 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.
+                csrf().disable(). //TODO check why not working without this line
                 authorizeRequests().
                 antMatchers("/js/**", "/css/**", "/img/**").permitAll().  //<----- статичните ресурси са видими от всеки
-                antMatchers("/", "/users/login", "/users/register").permitAll(). //<----- страници, които са видими от всеки
-                    and().
-                formLogin()
-                .loginPage("/users/login").
-                usernameParameter("username"). //<----- като параметър е името на полето от HTML формата
-                passwordParameter("password"). //<----- като параметър името на полето от HTML формата
-                defaultSuccessUrl("/index"). // <----- къде редиректваме след успешен login
-                failureForwardUrl("/users/login-error"); //<----- къде редиректваме след неуспешен login
+                anyRequest().permitAll().
+                and().
+                formLogin().
+                loginPage("/users/login"). //<----- като параметър името на полето от HTML формата
+                usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
+                passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
+                defaultSuccessUrl("/travel"). // <----- къде редиректваме след успешен login
+                failureUrl("/users/login-error"); //<----- къде редиректваме след неуспешен login
 
     }
 

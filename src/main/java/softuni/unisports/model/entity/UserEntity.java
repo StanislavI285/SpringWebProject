@@ -3,10 +3,7 @@ package softuni.unisports.model.entity;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -101,7 +98,7 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     public List<RoleEntity> getRoles() {
         return roles;
     }

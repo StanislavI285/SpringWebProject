@@ -1,16 +1,12 @@
 package softuni.unisports.web;
 
 
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import softuni.unisports.model.binding.UserLoginBindingModel;
 
-import javax.validation.Valid;
-
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UsersController {
 
@@ -22,16 +18,22 @@ public class UsersController {
     }
 
 
-    @PostMapping("/login")
-    public ModelAndView loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel) {
-        return null;
-
-    }
-
     @GetMapping("/register")
     public ModelAndView register(ModelAndView modelAndView) {
         modelAndView.setViewName("register");
         return modelAndView;
 
+    }
+
+    @GetMapping("/login-error")
+    public ModelAndView errorLogin(@ModelAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                                           String username) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("bad_credentials", true);
+        modelAndView.addObject("username", username);
+        modelAndView.setViewName("/login");
+
+        return modelAndView;
     }
 }
