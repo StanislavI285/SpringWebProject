@@ -26,18 +26,27 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.
-                csrf().disable(). //TODO check why not working without this line
-                authorizeRequests().
+//                csrf().disable(). //in html must be th:action instead of action, in order to have csrf token and the login to work properly
+        authorizeRequests().
                 antMatchers("/js/**", "/css/**", "/img/**").permitAll().  //<----- статичните ресурси са видими от всеки
                 anyRequest().permitAll().
                 and().
                 formLogin().
-                loginPage("/users/login"). //<----- като параметър името на полето от HTML формата
+                //<----- като параметър името на полето от HTML формата
+                        loginPage("/users/login").
                 usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY).
                 passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY).
-                defaultSuccessUrl("/travel"). // <----- къде редиректваме след успешен login
-                failureUrl("/users/login-error"); //<----- къде редиректваме след неуспешен login
-
+                // <----- къде редиректваме след успешен login
+                        defaultSuccessUrl("/").
+                //<----- къде редиректваме след неуспешен login
+                        failureUrl("/users/login-error").
+                and().
+                    logout().
+                        //кой endpoint извършва logout, e.g. http://localhost:8080/logout (Must be a POST Request!!!!!!)
+                        logoutUrl("/logout").
+                        logoutSuccessUrl("/").
+                        invalidateHttpSession(true).
+                        deleteCookies("JSESSIONID");
     }
 
     @Override

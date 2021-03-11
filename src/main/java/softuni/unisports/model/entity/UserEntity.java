@@ -1,11 +1,9 @@
 package softuni.unisports.model.entity;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,8 +16,8 @@ public class UserEntity extends BaseEntity {
     private String password;
     private String email;
     private String imageUrl;
-    private List<ArticleEntity> articles;
-    private List<RoleEntity> roles;
+    private List<ArticleEntity> articles = new ArrayList<>();
+    private List<RoleEntity> roles = new ArrayList<>();
 
 
     public UserEntity() {
@@ -57,7 +55,7 @@ public class UserEntity extends BaseEntity {
     }
 
     @Column(name = "password", nullable = false)
-    @Size(min = 8)
+    @Size(min = 5)
     public String getPassword() {
         return password;
     }
@@ -98,13 +96,18 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     public List<RoleEntity> getRoles() {
         return roles;
     }
 
     public UserEntity setRoles(List<RoleEntity> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public UserEntity addRole(RoleEntity roleEntity) {
+        this.roles.add(roleEntity);
         return this;
     }
 }

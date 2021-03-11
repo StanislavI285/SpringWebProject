@@ -6,6 +6,7 @@ import softuni.unisports.model.entity.RoleEntity;
 import softuni.unisports.repository.RoleRepository;
 import softuni.unisports.service.RoleService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +22,14 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void seedRoles() {
         if (this.roleRepository.count() == 0) {
-            List<RoleEntity> rolesList = new ArrayList<>() {
-                {
-                    add(new RoleEntity().setName(RoleEnum.ADMIN));
-                    add(new RoleEntity().setName(RoleEnum.MODERATOR));
-                    add(new RoleEntity().setName(RoleEnum.USER));
-                }
-            };
+            List<RoleEntity> rolesList = new ArrayList<>() {};
+
+            RoleEntity adminRole = new RoleEntity().
+                    setName(RoleEnum.ADMIN);
+
+            rolesList.add(new RoleEntity().setName(RoleEnum.ADMIN));
+            rolesList.add(new RoleEntity().setName(RoleEnum.MODERATOR));
+            rolesList.add(new RoleEntity().setName(RoleEnum.USER));
             this.roleRepository.saveAll(rolesList);
         }
     }

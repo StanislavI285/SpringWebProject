@@ -52,9 +52,7 @@ public class DBInit implements CommandLineRunner {
                     setFirstName("Pesho").
                     setLastName("Peshov").
                     setPassword(passwordEncoder.encode("12345")).
-                    setRoles(List.of(adminRole, moderatorRole, userRole)).
-                    setCreated(LocalDateTime.now()).
-                    setUpdated(LocalDateTime.now());
+                    setRoles(List.of(adminRole, moderatorRole, userRole));
 
             this.userService.seedUsers(List.of(adminUser));
         }

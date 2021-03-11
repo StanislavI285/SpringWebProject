@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
 
     private String id;
-    private LocalDateTime created;
-    private LocalDateTime updated;
 
 
     public BaseEntity() {
@@ -33,23 +31,4 @@ public abstract class BaseEntity {
         return this;
     }
 
-    @CreatedDate
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public BaseEntity setCreated(LocalDateTime created) {
-        this.created = created;
-        return this;
-    }
-
-    @UpdateTimestamp
-    public LocalDateTime getUpdated() {
-        return updated;
-    }
-
-    public BaseEntity setUpdated(LocalDateTime updated) {
-        this.updated = updated;
-        return this;
-    }
 }
