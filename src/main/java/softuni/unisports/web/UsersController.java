@@ -4,6 +4,7 @@ package softuni.unisports.web;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.unisports.model.binding.UserRegistrationBindingModel;
 import softuni.unisports.model.service.UserRegistrationServiceModel;
 import softuni.unisports.service.UserService;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
@@ -34,22 +37,33 @@ public class UsersController {
 
 
     @GetMapping("/register")
-    public String register() {
+    public String register(Model model) {
+
+        if (!model.containsAttribute("userRegistrationBindingModel")) {
+            model.addAttribute("userRegistrationBindingModel", new UserRegistrationBindingModel());
+        }
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(UserRegistrationBindingModel userRegistrationBindingModel,
-                                     BindingResult bindingResult,
-                                     RedirectAttributes redirectAttributes) {
+    public String registerUser(@Valid @ModelAttribute UserRegistrationBindingModel userRegistrationBindingModel,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
 
         UserRegistrationServiceModel userServiceModel = modelMapper.map(userRegistrationBindingModel, UserRegistrationServiceModel.class);
 
-        //TODO Validation
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationBindingModel", bindingResult);
+
+            return "redirect:/users/register";
+        }
+
+
+        //TODO validate if username exists in DB
 
         userService.registerUser(userServiceModel);
 
-        //TODO if not working properly change method to return String
         return "redirect:/";
     }
 

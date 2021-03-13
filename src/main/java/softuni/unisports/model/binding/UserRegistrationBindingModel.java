@@ -1,10 +1,14 @@
 package softuni.unisports.model.binding;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import softuni.unisports.model.validators.FieldMatch;
 
+import javax.validation.constraints.*;
+
+
+@FieldMatch(
+        first = "password",
+        second = "confirmPassword"
+)
 public class UserRegistrationBindingModel {
 
     private String username;
@@ -64,6 +68,7 @@ public class UserRegistrationBindingModel {
 
     //Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:
     @NotBlank
+    @Size(min = 8)
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
     public String getPassword() {
         return password;

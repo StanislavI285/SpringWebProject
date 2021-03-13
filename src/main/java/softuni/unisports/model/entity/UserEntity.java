@@ -55,7 +55,7 @@ public class UserEntity extends BaseEntity {
     }
 
     @Column(name = "password", nullable = false)
-    @Size(min = 5)
+    @Size(min = 8)
     public String getPassword() {
         return password;
     }
