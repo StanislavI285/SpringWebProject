@@ -42,6 +42,11 @@ public class UsersController {
         if (!model.containsAttribute("userRegistrationBindingModel")) {
             model.addAttribute("userRegistrationBindingModel", new UserRegistrationBindingModel());
         }
+
+        if (!model.containsAttribute("usernameExistsError")) {
+            model.addAttribute("usernameExistsError", false);
+            System.out.println(model.getAttribute("usernameExistsError"));
+        }
         return "register";
     }
 
@@ -56,11 +61,17 @@ public class UsersController {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationBindingModel", bindingResult);
 
-            return "redirect:/users/register";
+            return "redirect:register";
         }
 
 
-        //TODO validate if username exists in DB
+        if (userService.userExists(userRegistrationBindingModel.getUsername())) {
+            redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
+            redirectAttributes.addFlashAttribute("usernameExistsError", true);
+
+            System.out.println(userService.userExists(userRegistrationBindingModel.getUsername()));
+            return "redirect:register";
+        }
 
         userService.registerUser(userServiceModel);
 

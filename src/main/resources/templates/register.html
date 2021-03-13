@@ -28,7 +28,8 @@
                             name="username">
                     <small id="usernameError" class="invalid-feedback">
                         Invalid username! Username must be at least 3 characters long.</small>
-                    <!--                    <small >Username already exists</small>-->
+                    <small th:if="${usernameExistsError}" id="usernameUniqueError"
+                           class="text-light form-text bg-danger rounded">Username already exists!</small>
                 </div>
 
 
@@ -79,7 +80,7 @@
                            id="password"
                            placeholder="Password...">
                     <small id="passwordError" class="invalid-feedback">
-                        Invalid password! Password must be at least 8 characters long and contain:
+                        Invalid password! Passwords should match, must be at least 8 characters long and contain:
                         <br> - at least one uppercase letter
                         <br> - at least one lowercase letter
                         <br> - at least one number
@@ -95,9 +96,9 @@
                            class="form-control"
                            id="confirmPassword"
                            placeholder="Confirm password...">
-<!--                    <small id="confirmPasswordError" class="invalid-feedback">-->
-<!--                        Passwords not matching!-->
-<!--                    </small>-->
+                    <small id="confirmPasswordError" class="invalid-feedback">
+                        Passwords not matching!
+                    </small>
 
                 </div>
                 <button type="submit" class="btn btn-primary btn-customized">Sign in</button>

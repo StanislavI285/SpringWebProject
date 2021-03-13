@@ -7,7 +7,8 @@ import javax.validation.constraints.*;
 
 @FieldMatch(
         first = "password",
-        second = "confirmPassword"
+        second = "confirmPassword",
+        message = "Passwords are not matching."
 )
 public class UserRegistrationBindingModel {
 

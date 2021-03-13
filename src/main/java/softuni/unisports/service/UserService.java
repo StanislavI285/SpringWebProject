@@ -1,6 +1,5 @@
 package softuni.unisports.service;
 
-import softuni.unisports.model.entity.RoleEntity;
 import softuni.unisports.model.entity.UserEntity;
 import softuni.unisports.model.service.UserRegistrationServiceModel;
 
@@ -10,4 +9,6 @@ public interface UserService {
     void seedUsers(List<UserEntity> adminUser);
 
     void registerUser(UserRegistrationServiceModel userRegistrationServiceModel);
+
+    boolean userExists(String username);
 }
