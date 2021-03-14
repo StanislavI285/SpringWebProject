@@ -11,4 +11,6 @@ public interface UserService {
     void registerUser(UserRegistrationServiceModel userRegistrationServiceModel);
 
     boolean userExists(String username);
+
+    boolean emailExists(String email);
 }

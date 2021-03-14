@@ -29,7 +29,7 @@
                     <small id="usernameError" class="invalid-feedback">
                         Invalid username! Username must be at least 3 characters long.</small>
                     <small th:if="${usernameExistsError}" id="usernameUniqueError"
-                           class="text-light form-text bg-danger rounded">Username already exists!</small>
+                           class="alert alert-danger">Username already exists!</small>
                 </div>
 
 
@@ -70,6 +70,8 @@
                             name="email">
                     <small id="emailError" class="invalid-feedback">
                         Invalid email address!</small>
+                    <small th:if="${emailExistsError}" id="emailExistsError" class="alert alert-danger">
+                        There is already a user registered with this email!</small>
                 </div>
                 <div class="form-group">
                     <label for="password">Password*</label>

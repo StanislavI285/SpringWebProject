@@ -41,12 +41,10 @@ public class UsersController {
 
         if (!model.containsAttribute("userRegistrationBindingModel")) {
             model.addAttribute("userRegistrationBindingModel", new UserRegistrationBindingModel());
+            model.addAttribute("usernameExistsError", false);
+            model.addAttribute("emailExistsError", false);
         }
 
-        if (!model.containsAttribute("usernameExistsError")) {
-            model.addAttribute("usernameExistsError", false);
-            System.out.println(model.getAttribute("usernameExistsError"));
-        }
         return "register";
     }
 
@@ -70,6 +68,13 @@ public class UsersController {
             redirectAttributes.addFlashAttribute("usernameExistsError", true);
 
             System.out.println(userService.userExists(userRegistrationBindingModel.getUsername()));
+            return "redirect:register";
+        }
+
+        if (userService.emailExists(userRegistrationBindingModel.getEmail())) {
+            redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
+            redirectAttributes.addFlashAttribute("emailExistsError", true);
+
             return "redirect:register";
         }
 
