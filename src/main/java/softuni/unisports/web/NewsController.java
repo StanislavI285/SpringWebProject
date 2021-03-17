@@ -1,5 +1,6 @@
 package softuni.unisports.web;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,9 +9,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.unisports.model.binding.NewsAddBindingModel;
 import softuni.unisports.model.entity.NewsEntity;
+import softuni.unisports.model.service.NewsAddServiceModel;
+import softuni.unisports.service.CategoryService;
 import softuni.unisports.service.NewsService;
+import softuni.unisports.service.UserService;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,9 +26,15 @@ import java.util.stream.Collectors;
 public class NewsController {
 
     private final NewsService newsService;
+    private final UserService userService;
+    private final CategoryService categoryService;
+    private final ModelMapper modelMapper;
 
-    public NewsController(NewsService newsService) {
+    public NewsController(NewsService newsService, UserService userService, ModelMapper modelMapper, CategoryService categoryService) {
         this.newsService = newsService;
+        this.userService = userService;
+        this.modelMapper = modelMapper;
+        this.categoryService = categoryService;
     }
 
 
@@ -53,8 +65,16 @@ public class NewsController {
 
 
     @GetMapping("/add")
-    public ModelAndView addNews() {
+    public ModelAndView addNews(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("add-news");
+
+        if (!modelAndView.getModel().containsKey("newsAddBindingModel")) {
+            modelAndView.addObject("newsAddBindingModel", new NewsAddBindingModel());
+        }
+
+        modelAndView.addObject("categories", this.categoryService.getAllCategories());
+        modelAndView.addObject("author", principal.getName());
+
         return modelAndView;
     }
 
@@ -62,18 +82,21 @@ public class NewsController {
     @PostMapping("/add")
     public ModelAndView addNewsConfirm(@Valid @ModelAttribute NewsAddBindingModel newsAddBindingModel,
                                        BindingResult bindingResult,
-                                       RedirectAttributes redirectAttributes) {
+                                       RedirectAttributes redirectAttributes) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
+
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("newsAddBindingModel", newsAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.newsAddBindingModel", bindingResult);
             modelAndView.setViewName("redirect:/add-news");
+            return modelAndView;
         }
 
-        //TODO save in DB
-        System.out.println();
+        NewsAddServiceModel newsAddServiceModel = modelMapper.map(newsAddBindingModel, NewsAddServiceModel.class);
+        this.newsService.addNews(newsAddServiceModel);
 
+        modelAndView.setViewName("redirect:/");
         return modelAndView;
     }
 

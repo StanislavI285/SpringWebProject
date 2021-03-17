@@ -2,9 +2,7 @@ package softuni.unisports.model.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +15,7 @@ public class NewsEntity extends BaseEntity {
     private CategoryEntity category;
     private Set<CountryEntity> countries = new HashSet<>();
     private Set<CommentEntity> comments = new HashSet<>();
-    private int views;
+    private int views = 0;
     private LocalDateTime addedOn;
     private LocalDateTime lastUpdated;
     private String imageUrl;

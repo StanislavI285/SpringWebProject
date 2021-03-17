@@ -1,20 +1,18 @@
 package softuni.unisports.model.binding;
 
-import softuni.unisports.model.entity.UserEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 public class NewsAddBindingModel {
 
     private String title;
     private String content;
-    private UserEntity author;
+    private String author;
     private String category;
-    private LocalDateTime addedOn;
-    private LocalDateTime lastUpdated;
-    private String imageUrl;
+    private MultipartFile image;
 
     public NewsAddBindingModel() {
     }
@@ -40,13 +38,12 @@ public class NewsAddBindingModel {
         return this;
     }
 
-
     @NotBlank
-    public UserEntity getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public NewsAddBindingModel setAuthor(UserEntity author) {
+    public NewsAddBindingModel setAuthor(String author) {
         this.author = author;
         return this;
     }
@@ -61,23 +58,13 @@ public class NewsAddBindingModel {
         return this;
     }
 
-    @NotBlank
-    public LocalDateTime getAddedOn() {
-        return addedOn;
+    @NotNull
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public NewsAddBindingModel setAddedOn(LocalDateTime addedOn) {
-        this.addedOn = addedOn;
-        return this;
-    }
-
-    @NotBlank
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public NewsAddBindingModel setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public NewsAddBindingModel setImage(MultipartFile image) {
+        this.image = image;
         return this;
     }
 }

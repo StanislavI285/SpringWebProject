@@ -17,6 +17,7 @@ import softuni.unisports.security.UniSportsUserDetailsService;
 import softuni.unisports.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -71,5 +72,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean emailExists(String email) {
         return this.userRepository.findByEmail(email).isPresent();
+    }
+
+    @Override
+    public UserEntity findUserByUsername(String name) {
+        return this.userRepository.findByUsername(name).get();
     }
 }

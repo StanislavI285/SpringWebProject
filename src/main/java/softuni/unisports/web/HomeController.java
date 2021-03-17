@@ -69,6 +69,12 @@ public class HomeController {
         return modelAndView;
     }
 
+    @GetMapping("/moderator-panel")
+    public ModelAndView moderatorPanel(ModelAndView modelAndView) {
+        modelAndView.setViewName("moderator-panel");
+        return modelAndView;
+    }
+
 
 
 

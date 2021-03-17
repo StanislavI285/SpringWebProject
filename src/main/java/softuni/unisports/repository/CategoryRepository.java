@@ -1,6 +1,7 @@
 package softuni.unisports.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import softuni.unisports.enums.CategoryEnum;
 import softuni.unisports.model.entity.CategoryEntity;
@@ -11,4 +12,7 @@ import java.util.Optional;
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
     Optional<CategoryEntity> findByName(CategoryEnum football);
+
+    @Query("SELECT c FROM CategoryEntity c ORDER BY c.name ASC")
+    List<CategoryEntity> findAllOrderedAlphabetically();
 }

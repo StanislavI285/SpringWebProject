@@ -4,6 +4,7 @@ import softuni.unisports.model.entity.UserEntity;
 import softuni.unisports.model.service.UserRegistrationServiceModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     void seedUsers(List<UserEntity> adminUser);
@@ -13,4 +14,6 @@ public interface UserService {
     boolean userExists(String username);
 
     boolean emailExists(String email);
+
+    UserEntity findUserByUsername(String name);
 }

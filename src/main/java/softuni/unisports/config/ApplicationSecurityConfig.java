@@ -30,7 +30,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         authorizeRequests().
                 antMatchers("/js/**", "/css/**", "/img/**").permitAll().  //<----- статичните ресурси са видими от всеки
                 antMatchers("/admin-panel").hasAnyAuthority("ROLE_ADMIN"). //<----- само админ има достъп до админ панел
-                antMatchers("/news/add").hasAuthority("ROLE_MODERATOR"). //<----- админ и модератор могат да добавят новини
+                antMatchers("/news/add", "/moderator-panel").hasAuthority("ROLE_MODERATOR"). //<----- админ и модератор могат да добавят новини
                 anyRequest().permitAll().
                 and().
                 formLogin().
