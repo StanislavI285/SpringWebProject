@@ -12,7 +12,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/uni_sports_db?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
     username: root
-    password: UniPass_2019
+    password: "${MYSQL_KEY}"
   jpa:
     hibernate:
       ddl-auto: update
@@ -21,3 +21,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
+
+cloudinary:
+  cloud-name: dhrjhgp37
+  api-key: 353485742747155
+  api-secret: "${CLOUDINARY_SECRET}"

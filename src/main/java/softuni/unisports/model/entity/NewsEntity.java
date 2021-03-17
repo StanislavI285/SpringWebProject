@@ -19,6 +19,7 @@ public class NewsEntity extends BaseEntity {
     private Set<CommentEntity> comments = new HashSet<>();
     private int views;
     private LocalDateTime addedOn;
+    private LocalDateTime lastUpdated;
     private String imageUrl;
 
     public NewsEntity() {
@@ -100,6 +101,16 @@ public class NewsEntity extends BaseEntity {
 
     public NewsEntity setAddedOn(LocalDateTime addedOn) {
         this.addedOn = addedOn;
+        return this;
+    }
+
+    @Column(name = "last_updated")
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public NewsEntity setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
         return this;
     }
 

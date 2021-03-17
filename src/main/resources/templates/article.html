@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="https://www.thymeleaf.org">
+<th:block th:include="~{fragments/head}"></th:block>
+
+
+<body>
+<div class="container-scroller">
+    <div class="main-panel">
+        <!-- partial:../partials/_navbar.html -->
+        <th:block th:include="~{fragments/_navbar}"></th:block>
+
+        <!-- partial -->
+        <th:block th:include="~{fragments/flash-news-banner}"></th:block>
+        <div class="content-wrapper">
+            <div class="container">
+                <div class="col-sm-12" th:object="${newsEntity}">
+                    <div class="card" data-aos="fade-up">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h1 class="font-weight-600 mb-4" th:text="*{title}">NEWS</h1>
+                                    <img src="https://bvb-fotos.de/storage/library/2020-2021-amateure-bvb2-svs/960x960/TBI_0032.jpg" width="800" height="600" alt="">
+                                    <p th:each="p : ${paragraphs}" th:text="${p}" class="news-single-article"></p>
+                                    <p th:text="|Author: *{author.firstName} *{author.lastName}|"></p>
+                                    <p><a href="/contactus" th:text="*{author.email}"></a></p>
+                                    <img th:src="*{author.imageUrl}" alt="author-photo" style="width:50px;height:50px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- main-panel ends -->
+        <!-- container-scroller ends -->
+
+        <!-- partial:../partials/_footer.html -->
+     <th:block th:include="~{fragments/_footer}"></th:block>
+
+        <!-- partial -->
+    </div>
+</div>
+<!-- inject:js -->
+<script src="/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- plugin js for this page -->
+
+<script src="/vendors/aos/dist/aos.js/aos.js"></script>
+<!-- End plugin js for this page -->
+<!-- Custom js for this page-->
+<script src="/js/demo.js"></script>
+<script src="/js/jquery.easeScroll.js"></script>
+<!-- End custom js for this page-->
+</body>
+</html>
