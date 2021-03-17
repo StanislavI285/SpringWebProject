@@ -19,11 +19,7 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/news")
-    public ModelAndView news(ModelAndView modelAndView) {
-        modelAndView.setViewName("news");
-        return modelAndView;
-    }
+
 
     @GetMapping("/standings")
     public ModelAndView standings(ModelAndView modelAndView) {
@@ -64,6 +60,12 @@ public class HomeController {
     @GetMapping("/contactus")
     public ModelAndView contactus(ModelAndView modelAndView) {
         modelAndView.setViewName("contactus");
+        return modelAndView;
+    }
+
+    @GetMapping("/admin-panel")
+    public ModelAndView adminPanel(ModelAndView modelAndView) {
+        modelAndView.setViewName("admin-panel");
         return modelAndView;
     }
 

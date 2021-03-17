@@ -16,7 +16,7 @@ public class UserEntity extends BaseEntity {
     private String password;
     private String email;
     private String imageUrl;
-    private List<ArticleEntity> articles = new ArrayList<>();
+    private List<NewsEntity> news = new ArrayList<>();
     private List<RoleEntity> roles = new ArrayList<>();
 
 
@@ -87,12 +87,12 @@ public class UserEntity extends BaseEntity {
     }
 
     @OneToMany
-    public List<ArticleEntity> getArticles() {
-        return articles;
+    public List<NewsEntity> getNews() {
+        return news;
     }
 
-    public UserEntity setArticles(List<ArticleEntity> articles) {
-        this.articles = articles;
+    public UserEntity setNews(List<NewsEntity> news) {
+        this.news = news;
         return this;
     }
 

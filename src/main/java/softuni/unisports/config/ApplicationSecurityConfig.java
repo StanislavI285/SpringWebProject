@@ -39,7 +39,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 // <----- къде редиректваме след успешен login
                         defaultSuccessUrl("/").
                 //<----- къде редиректваме след неуспешен login
-                        failureUrl("/users/login-error").
+                        failureForwardUrl("/users/login-error").
                 and().
                     logout().
                         //кой endpoint извършва logout, e.g. http://localhost:8080/logout (Must be a POST Request!!!!!!)

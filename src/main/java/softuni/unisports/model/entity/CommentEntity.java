@@ -8,7 +8,7 @@ import java.util.List;
 public class CommentEntity extends BaseEntity {
 
     private UserEntity author;
-    private ArticleEntity articleEntity;
+    private NewsEntity newsEntity;
     private List<UserEntity> likes;
     private String parentCommentId;
 
@@ -26,12 +26,12 @@ public class CommentEntity extends BaseEntity {
     }
 
     @ManyToOne
-    public ArticleEntity getArticleEntity() {
-        return articleEntity;
+    public NewsEntity getNewsEntity() {
+        return newsEntity;
     }
 
-    public CommentEntity setArticleEntity(ArticleEntity articleEntity) {
-        this.articleEntity = articleEntity;
+    public CommentEntity setNewsEntity(NewsEntity newsEntity) {
+        this.newsEntity = newsEntity;
         return this;
     }
 

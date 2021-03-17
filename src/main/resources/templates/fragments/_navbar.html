@@ -33,7 +33,7 @@
                                 <a th:href="@{/users/register}" class="nav-link">Sign in</a>
                             </li>
                             <li sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-item">
-                                <a th:href="@{/aboutus}" class="nav-link">Admin Panel</a>
+                                <a th:href="@{/admin-panel}" class="nav-link">Admin Panel</a>
                             </li>
                             <li sec:authorize="isAuthenticated()" class="nav-item">
                                 <form th:action="@{/logout}" method="POST">
@@ -79,7 +79,7 @@
                                         <a class="nav-link" href="/">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/news">News</a>
+                                        <a class="nav-link" href="/news/all">News</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="/galleries">Galleries</a>
@@ -91,7 +91,7 @@
                                         <a class="nav-link" href="/results">Results</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/politics">POLITICS</a>
+                                        <a class="nav-link" href="/politics">Politics</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="/travel">Travel</a>

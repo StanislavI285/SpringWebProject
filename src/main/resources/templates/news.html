@@ -23,156 +23,35 @@
                                     </h1>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row"> <!-- th:each for all news items from DB -->
                                 <div class="col-lg-8">
-                                    <div class="row">
+                                    <div class="row" th:each="n : ${allNews}" th:object="${n}">
                                         <div class="col-sm-4 grid-margin">
                                             <div class="rotate-img">
                                                 <img
-                                                        src="/img/magazine/img"
+                                                        src="https://bvb-fotos.de/storage/library/2020-2021-amateure-bvb2-svs/960x960/TBI_0032.jpg"
                                                         alt="banner"
                                                         class="img-fluid"
                                                 />
                                             </div>
                                         </div>
                                         <div class="col-sm-8 grid-margin">
-                                            <h2 class="font-weight-600 mb-2">
-                                                No charges over 2017 battle bus cases
-                                            </h2>
-                                            <p class="fs-13 text-muted mb-0">
-                                                <span class="mr-2">Photo </span>10 Minutes ago
-                                            </p>
-                                            <p class="fs-15">
-                                                Lorem Ipsum has been the industry's standard dummy
-                                                text ever since the 1500s, when an unknown printer
-                                                took a galley of type and scrambled it to make a
-                                                type specimen book.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-4 grid-margin">
-                                            <div class="rotate-img">
-                                                <img
-                                                        src="/img/magazine/img"
-                                                        alt="banner"
-                                                        class="img-fluid"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8 grid-margin">
-                                            <h2 class="font-weight-600 mb-2">
-                                                No charges over 2017 battle bus cases
-                                            </h2>
-                                            <p class="fs-13 text-muted mb-0">
-                                                <span class="mr-2">Photo </span>10 Minutes ago
-                                            </p>
-                                            <p class="fs-15">
-                                                Lorem Ipsum has been the industry's standard dummy
-                                                text ever since the 1500s, when an unknown printer
-                                                took a galley of type and scrambled it to make a
-                                                type specimen book.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-4 grid-margin">
-                                            <div class="rotate-img">
-                                                <img
-                                                        src="/img/magazine/img"
-                                                        alt="banner"
-                                                        class="img-fluid"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8 grid-margin">
-                                            <h2 class="font-weight-600 mb-2">
-                                                Kaine: Trump Jr. may have committed treason
-                                            </h2>
-                                            <p class="fs-13 text-muted mb-0">
-                                                <span class="mr-2">Photo </span>10 Minutes ago
-                                            </p>
-                                            <p class="fs-15">
-                                                Lorem Ipsum has been the industry's standard dummy
-                                                text ever since the 1500s, when an unknown printer
-                                                took a galley of type and scrambled it to make a
-                                                type specimen book.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-4 grid-margin">
-                                            <div class="rotate-img">
-                                                <img
-                                                        src="/img/magazine/img"
-                                                        alt="banner"
-                                                        class="img-fluid"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8 grid-margin">
-                                            <h2 class="font-weight-600 mb-2">
-                                                South Korea’s Moon Jae-in sworn in vowing to address
-                                            </h2>
-                                            <p class="fs-13 text-muted mb-0">
-                                                <span class="mr-2">Photo </span>10 Minutes ago
-                                            </p>
-                                            <p class="fs-15">
-                                                Lorem Ipsum has been the industry's standard dummy
-                                                text ever since the 1500s, when an unknown printer
-                                                took a galley of type and scrambled it to make a
-                                                type specimen book.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-4 grid-margin">
-                                            <div class="rotate-img">
-                                                <img
-                                                        src="/img/magazine/img"
-                                                        alt="banner"
-                                                        class="img-fluid"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8 grid-margin">
-                                            <h2 class="font-weight-600 mb-2">
-                                                No charges over 2017 battle bus cases
-                                            </h2>
-                                            <p class="fs-13 text-muted mb-0">
-                                                <span class="mr-2">Photo </span>10 Minutes ago
-                                            </p>
-                                            <p class="fs-15">
-                                                Lorem Ipsum has been the industry's standard dummy
-                                                text ever since the 1500s, when an unknown printer
-                                                took a galley of type and scrambled it to make a
-                                                type specimen book.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-4 grid-margin">
-                                            <div class="rotate-img">
-                                                <img
-                                                        src="/img/magazine/img"
-                                                        alt="banner"
-                                                        class="img-fluid"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8 grid-margin">
-                                            <h2 class="font-weight-600 mb-2">
-                                                Kaine: Trump Jr. may have committed treason
-                                            </h2>
-                                            <p class="fs-13 text-muted mb-0">
-                                                <span class="mr-2">Photo </span>10 Minutes ago
-                                            </p>
-                                            <p class="fs-15">
-                                                Lorem Ipsum has been the industry's standard dummy
-                                                text ever since the 1500s, when an unknown printer
-                                                took a galley of type and scrambled it to make a
-                                                type specimen book.
-                                            </p>
+                                            <a th:href="@{/news/{id}(id = *{id})}">
+                                                <h2 class="font-weight-600 mb-2" th:text="*{title}"
+                                                    th:href="@{/news/{id}(id = *{id})}">
+                                                    No charges over 2017 battle bus cases
+                                                </h2>
+                                                <p class="fs-13 text-muted mb-0">
+                                                    <span class="mr-2" th:text="*{category.getName()}">Photo </span>10
+                                                    Minutes ago
+                                                </p>
+                                                <!--                                                <p class="fs-15" th:text="*{content}">-->
+                                                <!--                                                    Lorem Ipsum has been the industry's standard dummy-->
+                                                <!--                                                    text ever since the 1500s, when an unknown printer-->
+                                                <!--                                                    took a galley of type and scrambled it to make a-->
+                                                <!--                                                    type specimen book.-->
+                                                <!--                                                </p>-->
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -180,80 +59,33 @@
                                     <h2 class="mb-4 text-primary font-weight-600">
                                         Latest news
                                     </h2>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="border-bottom pb-4 pt-4">
-                                                <div class="row">
-                                                    <div class="col-sm-8">
-                                                        <h5 class="font-weight-600 mb-1">
-                                                            Ways to stay social online while in self..
-                                                        </h5>
-                                                        <p class="fs-13 text-muted mb-0">
-                                                            <span class="mr-2">Photo </span>10 Minutes ago
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <div class="rotate-img">
-                                                            <img
-                                                                    src="/img/magazine/img"
-                                                                    alt="banner"
-                                                                    class="img-fluid"
-                                                            />
+                                    <div class="row" th:each="news : ${latestNews}" th:object="${news}">
+                                        <a th:href="@{/news/{id}(id = *{id})}">
+                                            <div class="col-sm-12">
+                                                <div class="border-bottom pb-4 pt-4">
+                                                    <div class="row">
+                                                        <div class="col-sm-8">
+                                                            <h5 class="font-weight-600 mb-1" th:text="*{title}">
+                                                                Ways to stay social online while in self..
+                                                            </h5>
+                                                            <p class="fs-13 text-muted mb-0">
+                                                                <span class="mr-2" th:text="*{category.name}">Photo </span>10
+                                                                Minutes ago
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="rotate-img">
+                                                                <img
+                                                                        src="img/icon.png"
+                                                                        alt="banner"
+                                                                        class="img-fluid"
+                                                                />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="border-bottom pb-4 pt-4">
-                                                <div class="row">
-                                                    <div class="col-sm-8">
-                                                        <h5 class="font-weight-600 mb-1">
-                                                            Premier League players join charity..
-                                                        </h5>
-                                                        <p class="fs-13 text-muted mb-0">
-                                                            <span class="mr-2">Photo </span>10 Minutes ago
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <div class="rotate-img">
-                                                            <img
-                                                                    src="/img/magazine/img"
-                                                                    alt="banner"
-                                                                    class="img-fluid"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="pt-4">
-                                                <div class="row">
-                                                    <div class="col-sm-8">
-                                                        <h5 class="font-weight-600 mb-1">
-                                                            UK Athletics board changed stance on..
-                                                        </h5>
-                                                        <p class="fs-13 text-muted mb-0">
-                                                            <span class="mr-2">Photo </span>10 Minutes ago
-                                                        </p>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <div class="rotate-img">
-                                                            <img
-                                                                    src="/img/magazine/img"
-                                                                    alt="banner"
-                                                                    class="img-fluid"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </a>
                                     </div>
                                     <div class="trending">
                                         <h2 class="mb-4 text-primary font-weight-600">
