@@ -1,22 +1,38 @@
 package softuni.unisports.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
+import softuni.unisports.model.entity.NewsEntity;
+import softuni.unisports.service.NewsService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 public class HomeController {
 
+    private final NewsService newsService;
+
+    public HomeController(NewsService newsService) {
+        this.newsService = newsService;
+    }
+
     @GetMapping("/")
-    public ModelAndView home(ModelAndView modelAndView) {
+    public String home(Model model) {
         LocalDateTime currentDate = LocalDateTime.now();
         String dateStr = currentDate.format(DateTimeFormatter.ofPattern("MMMM dd, yyyy hh:mm a"));
-        modelAndView.addObject("currentDate", dateStr);
-        modelAndView.setViewName("index");
-        return modelAndView;
+        model.addAttribute("currentDate", dateStr);
+
+
+        if (this.newsService.getAllNewsSortedByDate().size() > 2) {
+            List<NewsEntity> latestNews = this.newsService.getAllNewsSortedByDate().subList(0, 3);
+            model.addAttribute("latestNews", latestNews);
+        }
+
+        return "index";
     }
 
 

@@ -1,11 +1,9 @@
 package softuni.unisports.model.binding;
 
-import org.hibernate.annotations.NotFound;
 import org.springframework.web.multipart.MultipartFile;
 import softuni.unisports.model.validators.multipartFile.MultiPartNotNull;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class NewsAddBindingModel {
@@ -19,8 +17,8 @@ public class NewsAddBindingModel {
     public NewsAddBindingModel() {
     }
 
-    @NotBlank
-    @Size(min = 10, max = 80)
+
+    @Size(min = 10, max = 80, message = "Article title is required and it must be between 10 and 80 characters long.")
     public String getTitle() {
         return title;
     }
@@ -30,7 +28,7 @@ public class NewsAddBindingModel {
         return this;
     }
 
-    @NotBlank
+    @NotBlank(message = "Article content cannot be blank.")
     public String getContent() {
         return content;
     }
@@ -50,7 +48,7 @@ public class NewsAddBindingModel {
         return this;
     }
 
-    @NotBlank
+    @NotBlank(message = "Please select a category.")
     public String getCategory() {
         return category;
     }

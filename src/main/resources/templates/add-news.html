@@ -46,12 +46,10 @@
                                 Add News Article
                             </h1>
                             <form
+                                    enctype="multipart/form-data"
                                     method="POST"
                                     th:action="@{/news/add}"
-                                    th:object="${newsAddBindingModel}"
-                                    enctype="multipart/form-data"
-                                    >
-
+                                    th:object="${newsAddBindingModel}">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -63,39 +61,48 @@
                                                     name="title"
                                                     placeholder="Title *"
                                                     spellcheck="true"
-                                                    th:value="*{title}"
+                                                    th:errorclass="is-invalid"
+                                                    th:field="*{title}"
                                                     type="text"
                                             />
+                                            <small th:errors="*{title}" th:if="${#fields.hasErrors('title')}">Please add
+                                                article content.</small>
                                         </div>
                                         <div class="form-group">
                                             <label for="category">Category: </label>
                                             <select
-                                                    aria-describedby="category"
-                                                    class="form-control"
-                                                    id="category"
-                                                    name="category">
+                                                    th:errorclass="is-invalid"
+                                                    th:field="*{category}"
+                                                aria-describedby="category"
+                                                class="form-control"
+                                                id="category"
+                                                name="category">
                                                 <option value="">Select category</option>
                                                 <option th:each="c : ${categories}"
                                                         th:text="${c.name}"
                                                         th:value="${c.name}"
                                                 ></option>
                                             </select>
+                                            <small th:errors="*{category}" th:if="${#fields.hasErrors('category')}">Category
+                                                must be selected.</small>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-
                                             <div class="form-group">
-                                                <label for="category">Image: </label>
+                                                <label for="image">Image: </label>
                                                 <input
-
                                                         aria-describedby="image"
                                                         class="form-control"
                                                         id="image"
                                                         name="image"
+                                                        th:errorclass="is-invalid"
+                                                        th:field="*{image}"
                                                         type="file"
 
                                                 />
+                                                <small th:errors="*{image}" th:if="${#fields.hasErrors('image')}">Please
+                                                    select an image to be uploaded.</small>
                                             </div>
                                         </div>
                                     </div>
@@ -106,15 +113,18 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label for="article">Content:</label>
-                                                    <textarea
-                                                            th:value="*{content}"
-                                                            class="form-control textarea"
-                                                            id="article"
-                                                            name="content"
-                                                            placeholder="Article text ...">
-                                                    </textarea>
+                                                    <label for="content">Content:</label>
+                                                    <textarea class="form-control textarea"
+                                                              id="content"
+                                                              name="content"
+                                                              placeholder="Article text ..."
+                                                              th:errorclass="is-invalid"
+                                                              th:field="*{content}"></textarea>
+                                                    <small th:errors="*{content}"
+                                                           th:if="${#fields.hasErrors('content')}">Please type article
+                                                        content.</small>
                                                 </div>
+
                                             </div>
                                         </div>
                                         <div class="row">
@@ -124,30 +134,30 @@
                                                     <input
                                                             aria-describedby="author"
                                                             class="form-control"
-                                                            readonly="readonly"
                                                             id="author"
                                                             name="author"
                                                             placeholder="Author name *"
+                                                            readonly="readonly"
                                                             th:value="${author}"
                                                             type="text"
                                                     />
                                                 </div>
                                             </div>
-<!--                                            <div class="col-sm-6">-->
-<!--                                                <div class="form-group">-->
-<!--                                                    <label for="article">Author email: </label>-->
-<!--                                                    <input-->
-<!--                                                            aria-describedby="email"-->
-<!--                                                            class="form-control"-->
-<!--                                                            disabled="disabled"-->
-<!--                                                            id="email"-->
-<!--                                                            name="author"-->
-<!--                                                            placeholder="Email *"-->
-<!--                                                            th:value="${authorEmail}"-->
-<!--                                                            type="email"-->
-<!--                                                    />-->
-<!--                                                </div>-->
-<!--                                            </div>-->
+                                            <!--                                            <div class="col-sm-6">-->
+                                            <!--                                                <div class="form-group">-->
+                                            <!--                                                    <label for="article">Author email: </label>-->
+                                            <!--                                                    <input-->
+                                            <!--                                                            aria-describedby="email"-->
+                                            <!--                                                            class="form-control"-->
+                                            <!--                                                            disabled="disabled"-->
+                                            <!--                                                            id="email"-->
+                                            <!--                                                            name="author"-->
+                                            <!--                                                            placeholder="Email *"-->
+                                            <!--                                                            th:value="${authorEmail}"-->
+                                            <!--                                                            type="email"-->
+                                            <!--                                                    />-->
+                                            <!--                                                </div>-->
+                                            <!--                                            </div>-->
                                         </div>
 
                                         <div class="row">

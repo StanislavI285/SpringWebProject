@@ -53,7 +53,7 @@ public class UsersController {
                                BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
 
-        UserRegistrationServiceModel userServiceModel = modelMapper.map(userRegistrationBindingModel, UserRegistrationServiceModel.class);
+
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
@@ -63,11 +63,10 @@ public class UsersController {
         }
 
 
+
         if (userService.userExists(userRegistrationBindingModel.getUsername())) {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
             redirectAttributes.addFlashAttribute("usernameExistsError", true);
-
-            System.out.println(userService.userExists(userRegistrationBindingModel.getUsername()));
             return "redirect:register";
         }
 
@@ -78,6 +77,7 @@ public class UsersController {
             return "redirect:register";
         }
 
+        UserRegistrationServiceModel userServiceModel = modelMapper.map(userRegistrationBindingModel, UserRegistrationServiceModel.class);
         userService.registerUser(userServiceModel);
 
         return "redirect:/";

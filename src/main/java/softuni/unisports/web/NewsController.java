@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.unisports.model.binding.NewsAddBindingModel;
@@ -70,42 +69,36 @@ public class NewsController {
 
 
     @GetMapping("/add")
-    public ModelAndView addNews(Principal principal) {
-        ModelAndView modelAndView = new ModelAndView("add-news");
+    public String addNews(Principal principal, Model model) {
 
-        if (!modelAndView.getModel().containsKey("newsAddBindingModel")) {
-            modelAndView.addObject("newsAddBindingModel", new NewsAddBindingModel());
+
+        if (!model.containsAttribute("newsAddBindingModel")) {
+            model.addAttribute("newsAddBindingModel", new NewsAddBindingModel());
         }
 
-        modelAndView.addObject("categories", this.categoryService.getAllCategories());
-        modelAndView.addObject("author", principal.getName());
+        model.addAttribute("categories", this.categoryService.getAllCategories());
+        model.addAttribute("author", principal.getName());
 
-        return modelAndView;
+        return "add-news";
     }
 
 
     @PostMapping("/add")
-    public ModelAndView addNewsConfirm(@Valid @ModelAttribute NewsAddBindingModel newsAddBindingModel,
-                                       BindingResult bindingResult,
-                                       RedirectAttributes redirectAttributes) throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
+    public String addNewsConfirm(@Valid @ModelAttribute NewsAddBindingModel newsAddBindingModel,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) throws IOException {
 
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("newsAddBindingModel", newsAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.newsAddBindingModel", bindingResult);
-            modelAndView.setViewName("redirect:/news/add");
-            return modelAndView;
+            return "redirect:add";
         }
-
-        MultipartFile multipartFile = newsAddBindingModel.getImage();
-        boolean isEmpty = multipartFile.isEmpty();
 
         NewsAddServiceModel newsAddServiceModel = modelMapper.map(newsAddBindingModel, NewsAddServiceModel.class);
         this.newsService.addNews(newsAddServiceModel);
 
-        modelAndView.setViewName("redirect:/");
-        return modelAndView;
+        return "redirect:/";
     }
 
 
