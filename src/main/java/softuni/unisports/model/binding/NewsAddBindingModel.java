@@ -1,6 +1,8 @@
 package softuni.unisports.model.binding;
 
+import org.hibernate.annotations.NotFound;
 import org.springframework.web.multipart.MultipartFile;
+import softuni.unisports.model.validators.multipartFile.MultiPartNotNull;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -58,7 +60,7 @@ public class NewsAddBindingModel {
         return this;
     }
 
-    @NotNull
+    @MultiPartNotNull
     public MultipartFile getImage() {
         return image;
     }

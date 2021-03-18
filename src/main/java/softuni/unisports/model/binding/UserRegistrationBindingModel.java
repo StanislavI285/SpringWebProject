@@ -1,6 +1,6 @@
 package softuni.unisports.model.binding;
 
-import softuni.unisports.model.validators.FieldMatch;
+import softuni.unisports.model.validators.fieldMatch.FieldMatch;
 
 import javax.validation.constraints.*;
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.unisports.model.binding.NewsAddBindingModel;
@@ -43,8 +44,12 @@ public class NewsController {
         ModelAndView modelAndView = new ModelAndView("news");
         List<NewsEntity> allNews = this.newsService.getAllNewsSortedByDate();
         model.addAttribute("allNews", allNews);
-        List<NewsEntity> latestNews = allNews.subList(0, 2);
-        model.addAttribute("latestNews", latestNews);
+
+        if (allNews.size() > 2) {
+            List<NewsEntity> latestNews = allNews.subList(0, 3);
+            model.addAttribute("latestNews", latestNews);
+        }
+
         return "news";
     }
 
@@ -57,7 +62,7 @@ public class NewsController {
         List<String> paragraphs =
                 Arrays.
                         stream(newsEntity.getContent().trim().split("\n")).
-                        filter(p -> p.length() > 0).
+                        filter(p -> p.length() > 0).     //------- filter empty rows
                         collect(Collectors.toList());
         modelAndView.addObject("paragraphs", paragraphs);
         return modelAndView;
@@ -89,9 +94,12 @@ public class NewsController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("newsAddBindingModel", newsAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.newsAddBindingModel", bindingResult);
-            modelAndView.setViewName("redirect:/add-news");
+            modelAndView.setViewName("redirect:/news/add");
             return modelAndView;
         }
+
+        MultipartFile multipartFile = newsAddBindingModel.getImage();
+        boolean isEmpty = multipartFile.isEmpty();
 
         NewsAddServiceModel newsAddServiceModel = modelMapper.map(newsAddBindingModel, NewsAddServiceModel.class);
         this.newsService.addNews(newsAddServiceModel);

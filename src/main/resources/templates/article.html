@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <h1 class="font-weight-600 mb-4" th:text="*{title}">NEWS</h1>
-                                    <img src="https://bvb-fotos.de/storage/library/2020-2021-amateure-bvb2-svs/960x960/TBI_0032.jpg" width="800" height="600" alt="">
+                                    <img th:src="*{imageUrl}" width="1000" height="600" alt="">
                                     <p th:each="p : ${paragraphs}" th:text="${p}" class="news-single-article"></p>
                                     <p th:text="|Author: *{author.firstName} *{author.lastName}|"></p>
                                     <p><a href="/contactus" th:text="*{author.email}"></a></p>

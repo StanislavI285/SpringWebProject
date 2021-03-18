@@ -14,6 +14,7 @@ import softuni.unisports.service.NewsService;
 import softuni.unisports.service.UserService;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -54,7 +55,9 @@ public class NewsServiceImpl implements NewsService {
         newsEntity.
                 setImageUrl(imageUrl).
                 setAuthor(author).
-                setCategory(category);
+                setCategory(category).
+                setAddedOn(LocalDateTime.now()).
+                setLastUpdated(LocalDateTime.now());
 
         newsRepository.save(newsEntity);
 

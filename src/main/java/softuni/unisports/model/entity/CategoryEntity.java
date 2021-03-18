@@ -14,6 +14,10 @@ public class CategoryEntity{
     public CategoryEntity() {
     }
 
+    public CategoryEntity(CategoryEnum name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
