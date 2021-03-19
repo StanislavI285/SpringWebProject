@@ -6,14 +6,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.unisports.model.binding.UserRegistrationBindingModel;
-import softuni.unisports.model.service.UserRegistrationServiceModel;
+import softuni.unisports.model.service.UserServiceModel;
+import softuni.unisports.model.view.UserViewModel;
 import softuni.unisports.service.UserService;
 
 import javax.validation.Valid;
@@ -48,6 +46,17 @@ public class UsersController {
         return "register";
     }
 
+    @GetMapping("/profile/show/{username}")
+    public String userProfile(@PathVariable String username, Model model) {
+
+       UserViewModel user = modelMapper.map(this.userService.findUserByUsername(username), UserViewModel.class);
+       model.addAttribute("userView", user);
+
+
+
+        return "user-profile";
+    }
+
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute UserRegistrationBindingModel userRegistrationBindingModel,
                                BindingResult bindingResult,
@@ -77,7 +86,7 @@ public class UsersController {
             return "redirect:register";
         }
 
-        UserRegistrationServiceModel userServiceModel = modelMapper.map(userRegistrationBindingModel, UserRegistrationServiceModel.class);
+        UserServiceModel userServiceModel = modelMapper.map(userRegistrationBindingModel, UserServiceModel.class);
         userService.registerUser(userServiceModel);
 
         return "redirect:/";

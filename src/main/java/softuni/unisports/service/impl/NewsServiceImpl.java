@@ -6,7 +6,9 @@ import org.springframework.web.multipart.MultipartFile;
 import softuni.unisports.model.entity.CategoryEntity;
 import softuni.unisports.model.entity.NewsEntity;
 import softuni.unisports.model.entity.UserEntity;
-import softuni.unisports.model.service.NewsAddServiceModel;
+import softuni.unisports.model.service.NewsServiceModel;
+import softuni.unisports.model.service.UserServiceModel;
+import softuni.unisports.model.view.NewsViewModel;
 import softuni.unisports.repository.NewsRepository;
 import softuni.unisports.service.CategoryService;
 import softuni.unisports.service.CloudinaryService;
@@ -35,8 +37,9 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public NewsEntity getNewsById(String id) {
-        return this.newsRepository.findById(id).orElseThrow(NullPointerException::new);
+    public NewsViewModel getNewsById(String id) {
+        NewsEntity newsEntity = this.newsRepository.findById(id).orElseThrow(NullPointerException::new);
+        return this.modelMapper.map(newsEntity, NewsViewModel.class);
     }
 
     @Override
@@ -45,13 +48,13 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public void addNews(NewsAddServiceModel newsAddServiceModel) throws IOException {
-        MultipartFile image = newsAddServiceModel.getImage();
+    public void addNews(NewsServiceModel newsServiceModel) throws IOException {
+        MultipartFile image = newsServiceModel.getImage();
         String imageUrl = cloudinaryService.uploadImage(image);
-        NewsEntity newsEntity = modelMapper.map(newsAddServiceModel, NewsEntity.class);
-        UserEntity author = this.userService.findUserByUsername(newsAddServiceModel.getAuthor());
-        CategoryEntity category = this.categoryService.findByName(newsAddServiceModel.getCategory());
-
+        NewsEntity newsEntity = modelMapper.map(newsServiceModel, NewsEntity.class);
+        CategoryEntity category = this.categoryService.findByName(newsServiceModel.getCategory());
+        UserServiceModel userServiceModel = this.userService.findUserByUsername(newsServiceModel.getAuthor());
+        UserEntity author = modelMapper.map(userServiceModel, UserEntity.class);
         newsEntity.
                 setImageUrl(imageUrl).
                 setAuthor(author).

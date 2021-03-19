@@ -1,6 +1,6 @@
 package softuni.unisports.model.service;
 
-public class UserRegistrationServiceModel {
+public class UserServiceModel {
 
     private String username;
     private String firstName;
@@ -8,14 +8,14 @@ public class UserRegistrationServiceModel {
     private String email;
     private String password;
 
-    public UserRegistrationServiceModel() {
+    public UserServiceModel() {
     }
 
     public String getUsername() {
         return username;
     }
 
-    public UserRegistrationServiceModel setUsername(String username) {
+    public UserServiceModel setUsername(String username) {
         this.username = username;
         return this;
     }
@@ -24,7 +24,7 @@ public class UserRegistrationServiceModel {
         return firstName;
     }
 
-    public UserRegistrationServiceModel setFirstName(String firstName) {
+    public UserServiceModel setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -33,7 +33,7 @@ public class UserRegistrationServiceModel {
         return lastName;
     }
 
-    public UserRegistrationServiceModel setLastName(String lastName) {
+    public UserServiceModel setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
@@ -42,7 +42,7 @@ public class UserRegistrationServiceModel {
         return email;
     }
 
-    public UserRegistrationServiceModel setEmail(String email) {
+    public UserServiceModel setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -51,7 +51,7 @@ public class UserRegistrationServiceModel {
         return password;
     }
 
-    public UserRegistrationServiceModel setPassword(String password) {
+    public UserServiceModel setPassword(String password) {
         this.password = password;
         return this;
     }

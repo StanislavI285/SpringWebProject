@@ -1,9 +1,8 @@
 package softuni.unisports.model.service;
 
 import org.springframework.web.multipart.MultipartFile;
-import softuni.unisports.model.entity.UserEntity;
 
-public class NewsAddServiceModel {
+public class NewsServiceModel {
 
     private String title;
     private String content;
@@ -11,14 +10,14 @@ public class NewsAddServiceModel {
     private String category;
     private MultipartFile image;
 
-    public NewsAddServiceModel() {
+    public NewsServiceModel() {
     }
 
     public String getTitle() {
         return title;
     }
 
-    public NewsAddServiceModel setTitle(String title) {
+    public NewsServiceModel setTitle(String title) {
         this.title = title;
         return this;
     }
@@ -27,7 +26,7 @@ public class NewsAddServiceModel {
         return content;
     }
 
-    public NewsAddServiceModel setContent(String content) {
+    public NewsServiceModel setContent(String content) {
         this.content = content;
         return this;
     }
@@ -36,7 +35,7 @@ public class NewsAddServiceModel {
         return author;
     }
 
-    public NewsAddServiceModel setAuthor(String author) {
+    public NewsServiceModel setAuthor(String author) {
         this.author = author;
         return this;
     }
@@ -45,7 +44,7 @@ public class NewsAddServiceModel {
         return category;
     }
 
-    public NewsAddServiceModel setCategory(String category) {
+    public NewsServiceModel setCategory(String category) {
         this.category = category;
         return this;
     }
@@ -54,7 +53,7 @@ public class NewsAddServiceModel {
         return image;
     }
 
-    public NewsAddServiceModel setImage(MultipartFile image) {
+    public NewsServiceModel setImage(MultipartFile image) {
         this.image = image;
         return this;
     }

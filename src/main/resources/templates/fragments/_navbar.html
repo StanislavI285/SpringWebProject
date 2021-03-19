@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="zxx" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+<html lang="zxx" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="https://www.thymeleaf.org">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <th:block>
     <header id="header">
         <div class="container">
@@ -10,41 +10,64 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <ul class="navbar-top-left-menu">
                             <li class="nav-item">
-                                <a href="/aboutus" class="nav-link">About</a>
+                                <a class="nav-link" href="/aboutus">About</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Events</a>
+                                <a class="nav-link" href="/events">Events</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Write for Us</a>
+                                <a class="nav-link" href="#">Write for Us</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">In the Press</a>
+                                <a class="nav-link" href="#">In the Press</a>
                             </li>
                         </ul>
                         <ul class="navbar-top-right-menu">
                             <li class="nav-item">
-                                <a href="#" class="nav-link"><i class="mdi mdi-magnify"></i></a>
+                                <a class="nav-link" href="#"><i class="mdi mdi-magnify"></i></a>
                             </li>
-                            <li sec:authorize="!isAuthenticated()" class="nav-item">
-                                <a th:href="@{/users/login}" class="nav-link">Login</a>
+                            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                                <a class="nav-link" th:href="@{/users/login}">Login</a>
                             </li>
-                            <li sec:authorize="!isAuthenticated()" class="nav-item">
-                                <a th:href="@{/users/register}" class="nav-link">Sign in</a>
+                            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                                <a class="nav-link" th:href="@{/users/register}">Sign in</a>
                             </li>
-                            <li sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-item">
-                                <a th:href="@{/admin-panel}" class="nav-link">Admin Panel</a>
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <button class="dropbtn" sec:authorize="isAuthenticated()">Profile</button>
+                                    <div class="dropdown-content" sec:authorize="isAuthenticated()">
+                                        <div sec:authorize="isAuthenticated()">
+                                            <a class="nav-link" th:href="@{/users/profile/show/{username}(username = ${loggedUsername})}">My Profile</a>
+                                        </div>
+                                        <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                                            <a class="nav-link" th:href="@{/admin-panel}">Admin Panel</a>
+                                        </div>
+                                        <div sec:authorize="hasAuthority('ROLE_MODERATOR')">
+                                            <a class="nav-link" th:href="@{/moderator-panel}">Moderator Panel</a>
+                                        </div>
+                                        <div>
+                                            <form method="POST" th:action="@{/logout}">
+                                                <button class="button" type="submit">
+                                                    Logout
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!--                                    <div class="dropdown-content" sec:authorize="hasAuthority('ROLE_MODERATOR')">-->
+                                    <!--                                        <a class="nav-link" th:href="@{/moderator-panel}">Moderator Panel</a>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="dropdown-content" sec:authorize="isAuthenticated()">-->
+                                    <!--                                        <form method="POST" th:action="@{/logout}">-->
+                                    <!--                                            <button class="button nav-link" type="submit">-->
+                                    <!--                                                Logout-->
+                                    <!--                                            </button>-->
+                                    <!--                                        </form>-->
+                                    <!--                                    </div>-->
+                                </div>
                             </li>
-                            <li sec:authorize="hasAuthority('ROLE_MODERATOR')" class="nav-item">
-                                <a th:href="@{/moderator-panel}" class="nav-link">Moderator Panel</a>
-                            </li>
-                            <li sec:authorize="isAuthenticated()" class="nav-item">
-                                <form th:action="@{/logout}" method="POST">
-                                    <button type="submit" class="button nav-link">
-                                        Logout
-                                    </button>
-                                </form>
-                            </li>
+                            <!--                            <li sec:authorize="hasAuthority('ROLE_USER')" th:object="${principal}" class="nav-item">-->
+                            <!--                                <a th:href="@{/users/profile/show/{username}(username = ${principal.getUsername()})}" class="nav-link">My Profile</a>-->
+                            <!--                            </li>-->
                         </ul>
                     </div>
                 </div>
@@ -52,17 +75,17 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <a class="navbar-brand" href="/"
-                            ><img src="/img/logo-new2.jpg" alt=""
+                            ><img alt="" src="/img/logo-new2.jpg"
                             /></a>
                         </div>
                         <div>
                             <button
-                                    class="navbar-toggler"
-                                    type="button"
-                                    data-target="#navbarSupportedContent"
                                     aria-controls="navbarSupportedContent"
                                     aria-expanded="false"
                                     aria-label="Toggle navigation"
+                                    class="navbar-toggler"
+                                    data-target="#navbarSupportedContent"
+                                    type="button"
                             >
                                 <span class="navbar-toggler-icon"></span>
                             </button>

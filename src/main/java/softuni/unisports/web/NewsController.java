@@ -9,7 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.unisports.model.binding.NewsAddBindingModel;
 import softuni.unisports.model.entity.NewsEntity;
-import softuni.unisports.model.service.NewsAddServiceModel;
+import softuni.unisports.model.service.NewsServiceModel;
+import softuni.unisports.model.view.NewsViewModel;
 import softuni.unisports.service.CategoryService;
 import softuni.unisports.service.NewsService;
 import softuni.unisports.service.UserService;
@@ -56,11 +57,12 @@ public class NewsController {
     @GetMapping("/{id}")
     public ModelAndView showNewsArticle(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView("article");
-        NewsEntity newsEntity = this.newsService.getNewsById(id);
-        modelAndView.addObject("newsEntity", newsEntity);
+
+        NewsViewModel newsViewModel = this.newsService.getNewsById(id);
+        modelAndView.addObject("newsViewModel", newsViewModel);
         List<String> paragraphs =
                 Arrays.
-                        stream(newsEntity.getContent().trim().split("\n")).
+                        stream(newsViewModel.getContent().trim().split("\n")).
                         filter(p -> p.length() > 0).     //------- filter empty rows
                         collect(Collectors.toList());
         modelAndView.addObject("paragraphs", paragraphs);
@@ -75,6 +77,7 @@ public class NewsController {
         if (!model.containsAttribute("newsAddBindingModel")) {
             model.addAttribute("newsAddBindingModel", new NewsAddBindingModel());
         }
+
 
         model.addAttribute("categories", this.categoryService.getAllCategories());
         model.addAttribute("author", principal.getName());
@@ -95,8 +98,8 @@ public class NewsController {
             return "redirect:add";
         }
 
-        NewsAddServiceModel newsAddServiceModel = modelMapper.map(newsAddBindingModel, NewsAddServiceModel.class);
-        this.newsService.addNews(newsAddServiceModel);
+        NewsServiceModel newsServiceModel = modelMapper.map(newsAddBindingModel, NewsServiceModel.class);
+        this.newsService.addNews(newsServiceModel);
 
         return "redirect:/";
     }

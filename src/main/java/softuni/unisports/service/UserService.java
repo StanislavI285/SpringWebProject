@@ -1,19 +1,18 @@
 package softuni.unisports.service;
 
 import softuni.unisports.model.entity.UserEntity;
-import softuni.unisports.model.service.UserRegistrationServiceModel;
+import softuni.unisports.model.service.UserServiceModel;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
     void seedUsers(List<UserEntity> adminUser);
 
-    void registerUser(UserRegistrationServiceModel userRegistrationServiceModel);
+    void registerUser(UserServiceModel userServiceModel);
 
     boolean userExists(String username);
 
     boolean emailExists(String email);
 
-    UserEntity findUserByUsername(String name);
+    UserServiceModel findUserByUsername(String name);
 }

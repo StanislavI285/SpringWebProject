@@ -10,14 +10,13 @@ import org.springframework.stereotype.Service;
 import softuni.unisports.enums.RoleEnum;
 import softuni.unisports.model.entity.RoleEntity;
 import softuni.unisports.model.entity.UserEntity;
-import softuni.unisports.model.service.UserRegistrationServiceModel;
+import softuni.unisports.model.service.UserServiceModel;
 import softuni.unisports.repository.RoleRepository;
 import softuni.unisports.repository.UserRepository;
 import softuni.unisports.security.UniSportsUserDetailsService;
 import softuni.unisports.service.UserService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -42,8 +41,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registerUser(UserRegistrationServiceModel userRegistrationServiceModel) {
-        UserEntity userEntity = modelMapper.map(userRegistrationServiceModel, UserEntity.class);
+    public void registerUser(UserServiceModel userServiceModel) {
+        UserEntity userEntity = modelMapper.map(userServiceModel, UserEntity.class);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
 
         RoleEntity userRole = roleRepository.findByName(RoleEnum.USER).
@@ -75,7 +74,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity findUserByUsername(String name) {
-        return this.userRepository.findByUsername(name).get();
+    public UserServiceModel findUserByUsername(String name) {
+        UserServiceModel userServiceModel = modelMapper.
+                map(this.userRepository.findByUsername(name).get(),
+                        UserServiceModel.class);
+        return userServiceModel;
     }
 }
