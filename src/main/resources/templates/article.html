@@ -19,13 +19,34 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <h1 class="font-weight-600 mb-4" th:text="*{title}">NEWS</h1>
-                                    <img th:src="*{imageUrl}" width="1000" height="600" alt="">
-                                    <p th:each="p : ${paragraphs}" th:text="${p}" class="news-single-article"></p>
+                                    <img alt="" class="article-main-image" height="600" th:src="*{imageUrl}"
+                                         width="1000">
+                                    <p class="news-article-paragraph" th:each="p : ${paragraphs}" th:text="${p}"></p>
                                     <p th:text="|Author: *{author.firstName} *{author.lastName}|"></p>
                                     <p><a href="/contactus" th:text="*{author.email}"></a></p>
-                                    <img th:src="*{author.imageUrl}" alt="author-photo" style="width:50px;height:50px;">
+                                    <img alt="author-photo" style="width:50px;height:50px;" th:src="*{author.imageUrl}">
                                 </div>
                             </div>
+                        </div>
+                        <div class="card-body">
+                            <h4>Comments</h4>
+                            <form action="POST">
+                                <div class="form-group">
+                                    <label for="comment-username">User:</label>
+                                    <input id="comment-username"
+                                           type="text"
+                                           readonly="readonly"
+                                           th:value="${loggedUsername}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="comment-text-area">Comment:</label>
+                                    <textarea
+                                            class="form-control textarea"
+                                            id="comment-text-area"
+                                            placeholder="Add a comment..."
+                                           type="text"></textarea>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -35,7 +56,7 @@
         <!-- container-scroller ends -->
 
         <!-- partial:../partials/_footer.html -->
-     <th:block th:include="~{fragments/_footer}"></th:block>
+        <th:block th:include="~{fragments/_footer}"></th:block>
 
         <!-- partial -->
     </div>

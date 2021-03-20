@@ -51,7 +51,7 @@ public class UsersController {
 
        UserViewModel user = modelMapper.map(this.userService.findUserByUsername(username), UserViewModel.class);
        model.addAttribute("userView", user);
-
+       //TODO fill the html template for user profile and implement the controller
 
 
         return "user-profile";
