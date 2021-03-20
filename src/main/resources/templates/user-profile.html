@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<th:block th:include="~{fragments/head}"></th:block>
+<body>
+<div class="container-scroller">
+    <div class="main-panel">
+        <th:block th:include="~{fragments/_navbar}"></th:block>
+
+        <!-- partial -->
+        <th:block th:include="~{fragments/flash-news-banner}"></th:block>
+    </div>
+</div>
+</body>
+</html>
