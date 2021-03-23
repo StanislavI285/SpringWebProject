@@ -3,7 +3,7 @@
 <th:block th:include="~{fragments/head}"></th:block>
 
 
-<body>
+<body onload=loadComments()>
 <div class="container-scroller">
     <div class="main-panel">
         <!-- partial:../partials/_navbar.html -->
@@ -28,25 +28,36 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <h4>Comments</h4>
-                            <form action="POST">
+                        <div class="container">
+                            <h3>Comments</h3>
+                            <div class="card-body">
+                                <!--                                <form>-->
+                                <param hidden="hidden" id="news-id" th:value="${newsViewModel.id}">
+
                                 <div class="form-group">
-                                    <label for="comment-username">User:</label>
-                                    <input id="comment-username"
-                                           type="text"
-                                           readonly="readonly"
-                                           th:value="${loggedUsername}">
+                                    <label for="from-username">User:</label>
+                                    </br>
+                                    <input id="from-username"
+                                           th:value="${loggedUsername}"
+                                           type="text">
                                 </div>
                                 <div class="form-group">
-                                    <label for="comment-text-area">Comment:</label>
+                                    <label for="comment-input-content">Comment:</label>
+                                    </br>
                                     <textarea
-                                            class="form-control textarea"
-                                            id="comment-text-area"
+                                            class="comment-input-content"
+                                            id="comment-input-content"
                                             placeholder="Add a comment..."
-                                           type="text"></textarea>
+                                            style="width:300px;height:100px"
+                                            type="text"></textarea>
                                 </div>
-                            </form>
+                                <div class="form-group">
+                                    <button onclick=addComment()>Send comment</button>
+                                </div>
+                                <!--                                </form>-->
+                            </div>
+                            <div class="card-body" id="comments-section">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,6 +81,7 @@
 <!-- End plugin js for this page -->
 <!-- Custom js for this page-->
 <script src="/js/demo.js"></script>
+<script src="/js/comment.js"></script>
 <script src="/js/jquery.easeScroll.js"></script>
 <!-- End custom js for this page-->
 </body>

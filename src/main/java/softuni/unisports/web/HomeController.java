@@ -1,23 +1,27 @@
 package softuni.unisports.web;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-import softuni.unisports.model.entity.NewsEntity;
+import softuni.unisports.model.view.NewsViewModel;
 import softuni.unisports.service.NewsService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
 
     private final NewsService newsService;
+    private final ModelMapper modelMapper;
 
-    public HomeController(NewsService newsService) {
+    public HomeController(NewsService newsService, ModelMapper modelMapper) {
         this.newsService = newsService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/")
@@ -28,13 +32,15 @@ public class HomeController {
 
 
         if (this.newsService.getAllNewsSortedByDate().size() > 2) {
-            List<NewsEntity> latestNews = this.newsService.getAllNewsSortedByDate().subList(0, 3);
+            List<NewsViewModel> latestNews = this.newsService.
+                    getAllNewsSortedByDate().subList(0, 3).
+                    stream().map(n -> modelMapper.map(n, NewsViewModel.class)).
+                    collect(Collectors.toList());
             model.addAttribute("latestNews", latestNews);
         }
 
         return "index";
     }
-
 
 
     @GetMapping("/standings")
@@ -49,21 +55,9 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/politics")
-    public ModelAndView category03(ModelAndView modelAndView) {
-        modelAndView.setViewName("politics");
-        return modelAndView;
-    }
-
     @GetMapping("/results")
     public ModelAndView results(ModelAndView modelAndView) {
         modelAndView.setViewName("results");
-        return modelAndView;
-    }
-
-    @GetMapping("/travel")
-    public ModelAndView travel(ModelAndView modelAndView) {
-        modelAndView.setViewName("travel");
         return modelAndView;
     }
 
@@ -90,8 +84,6 @@ public class HomeController {
         modelAndView.setViewName("moderator-panel");
         return modelAndView;
     }
-
-
 
 
 }

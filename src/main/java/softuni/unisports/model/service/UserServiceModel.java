@@ -1,14 +1,24 @@
 package softuni.unisports.model.service;
 
 public class UserServiceModel {
-
+    private String id;
     private String username;
     private String firstName;
     private String lastName;
     private String email;
+    private String imageUrl;
     private String password;
 
     public UserServiceModel() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public UserServiceModel setId(String id) {
+        this.id = id;
+        return this;
     }
 
     public String getUsername() {
@@ -44,6 +54,15 @@ public class UserServiceModel {
 
     public UserServiceModel setEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public UserServiceModel setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 

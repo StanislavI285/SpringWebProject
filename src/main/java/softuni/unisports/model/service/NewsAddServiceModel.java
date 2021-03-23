@@ -1,30 +1,28 @@
-package softuni.unisports.model.view;
+package softuni.unisports.model.service;
 
-import softuni.unisports.enums.CategoryEnum;
-import softuni.unisports.model.entity.CategoryEntity;
+import org.springframework.web.multipart.MultipartFile;
 import softuni.unisports.model.entity.CommentEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class NewsViewModel {
+public class NewsAddServiceModel {
     private String id;
     private String title;
     private String content;
-    private UserViewModel author;
-    private CategoryEntity category;
+    private String author;
+    private String category;
     private Set<CommentEntity> comments = new HashSet<>();
-    private String imageUrl;
+    private MultipartFile image;
 
-
-    public NewsViewModel() {
+    public NewsAddServiceModel() {
     }
 
     public String getId() {
         return id;
     }
 
-    public NewsViewModel setId(String id) {
+    public NewsAddServiceModel setId(String id) {
         this.id = id;
         return this;
     }
@@ -33,7 +31,7 @@ public class NewsViewModel {
         return title;
     }
 
-    public NewsViewModel setTitle(String title) {
+    public NewsAddServiceModel setTitle(String title) {
         this.title = title;
         return this;
     }
@@ -42,45 +40,44 @@ public class NewsViewModel {
         return content;
     }
 
-    public NewsViewModel setContent(String content) {
+    public NewsAddServiceModel setContent(String content) {
         this.content = content;
         return this;
     }
 
-    public UserViewModel getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public NewsViewModel setAuthor(UserViewModel author) {
+    public NewsAddServiceModel setAuthor(String author) {
         this.author = author;
         return this;
     }
 
-    public CategoryEntity getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public NewsViewModel setCategory(CategoryEntity category) {
+    public NewsAddServiceModel setCategory(String category) {
         this.category = category;
         return this;
     }
-
 
     public Set<CommentEntity> getComments() {
         return comments;
     }
 
-    public NewsViewModel setComments(Set<CommentEntity> comments) {
+    public NewsAddServiceModel setComments(Set<CommentEntity> comments) {
         this.comments = comments;
         return this;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public NewsViewModel setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public NewsAddServiceModel setImage(MultipartFile image) {
+        this.image = image;
         return this;
     }
 }

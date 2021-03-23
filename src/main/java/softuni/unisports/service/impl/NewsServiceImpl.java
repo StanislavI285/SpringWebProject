@@ -6,7 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 import softuni.unisports.model.entity.CategoryEntity;
 import softuni.unisports.model.entity.NewsEntity;
 import softuni.unisports.model.entity.UserEntity;
-import softuni.unisports.model.service.NewsServiceModel;
+import softuni.unisports.model.service.NewsAddServiceModel;
+import softuni.unisports.model.service.NewsGetServiceModel;
 import softuni.unisports.model.service.UserServiceModel;
 import softuni.unisports.model.view.NewsViewModel;
 import softuni.unisports.repository.NewsRepository;
@@ -18,6 +19,7 @@ import softuni.unisports.service.UserService;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NewsServiceImpl implements NewsService {
@@ -36,6 +38,7 @@ public class NewsServiceImpl implements NewsService {
         this.modelMapper = modelMapper;
     }
 
+
     @Override
     public NewsViewModel getNewsById(String id) {
         NewsEntity newsEntity = this.newsRepository.findById(id).orElseThrow(NullPointerException::new);
@@ -43,17 +46,20 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<NewsEntity> getAllNewsSortedByDate() {
-        return this.newsRepository.findAllByAddedOn();
+    public List<NewsGetServiceModel> getAllNewsSortedByDate() {
+        return this.newsRepository.findAllByAddedOn().
+                stream().
+                map(n -> modelMapper.map(n, NewsGetServiceModel.class)).
+                collect(Collectors.toList());
     }
 
     @Override
-    public void addNews(NewsServiceModel newsServiceModel) throws IOException {
-        MultipartFile image = newsServiceModel.getImage();
+    public void addNews(NewsAddServiceModel newsAddServiceModel) throws IOException {
+        MultipartFile image = newsAddServiceModel.getImage();
         String imageUrl = cloudinaryService.uploadImage(image);
-        NewsEntity newsEntity = modelMapper.map(newsServiceModel, NewsEntity.class);
-        CategoryEntity category = this.categoryService.findByName(newsServiceModel.getCategory());
-        UserServiceModel userServiceModel = this.userService.findUserByUsername(newsServiceModel.getAuthor());
+        NewsEntity newsEntity = modelMapper.map(newsAddServiceModel, NewsEntity.class);
+        CategoryEntity category = this.categoryService.findByName(newsAddServiceModel.getCategory());
+        UserServiceModel userServiceModel = this.userService.findUserByUsername(newsAddServiceModel.getAuthor());
         UserEntity author = modelMapper.map(userServiceModel, UserEntity.class);
         newsEntity.
                 setImageUrl(imageUrl).

@@ -4,7 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -16,8 +18,8 @@ public class UserEntity extends BaseEntity {
     private String password;
     private String email;
     private String imageUrl;
-    private List<NewsEntity> news = new ArrayList<>();
-    private List<RoleEntity> roles = new ArrayList<>();
+    private Set<NewsEntity> news = new HashSet<>();
+    private Set<RoleEntity> roles = new HashSet<>();
 
 
     public UserEntity() {
@@ -87,24 +89,27 @@ public class UserEntity extends BaseEntity {
     }
 
     @OneToMany
-    public List<NewsEntity> getNews() {
+    public Set<NewsEntity> getNews() {
         return news;
     }
 
-    public UserEntity setNews(List<NewsEntity> news) {
+    public UserEntity setNews(Set<NewsEntity> news) {
         this.news = news;
         return this;
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
-    public List<RoleEntity> getRoles() {
+    public Set<RoleEntity> getRoles() {
         return roles;
     }
 
-    public UserEntity setRoles(List<RoleEntity> roles) {
+    public UserEntity setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
         return this;
     }
+
+
+
 
     public UserEntity addRole(RoleEntity roleEntity) {
         this.roles.add(roleEntity);

@@ -1,4 +1,4 @@
-package softuni.unisports.model.view;
+package softuni.unisports.model.service;
 
 import softuni.unisports.enums.CategoryEnum;
 import softuni.unisports.model.entity.CategoryEntity;
@@ -7,24 +7,24 @@ import softuni.unisports.model.entity.CommentEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-public class NewsViewModel {
+public class NewsGetServiceModel {
+
     private String id;
     private String title;
     private String content;
-    private UserViewModel author;
+    private UserServiceModel author;
     private CategoryEntity category;
     private Set<CommentEntity> comments = new HashSet<>();
     private String imageUrl;
 
-
-    public NewsViewModel() {
+    public NewsGetServiceModel() {
     }
 
     public String getId() {
         return id;
     }
 
-    public NewsViewModel setId(String id) {
+    public NewsGetServiceModel setId(String id) {
         this.id = id;
         return this;
     }
@@ -33,7 +33,7 @@ public class NewsViewModel {
         return title;
     }
 
-    public NewsViewModel setTitle(String title) {
+    public NewsGetServiceModel setTitle(String title) {
         this.title = title;
         return this;
     }
@@ -42,16 +42,16 @@ public class NewsViewModel {
         return content;
     }
 
-    public NewsViewModel setContent(String content) {
+    public NewsGetServiceModel setContent(String content) {
         this.content = content;
         return this;
     }
 
-    public UserViewModel getAuthor() {
+    public UserServiceModel getAuthor() {
         return author;
     }
 
-    public NewsViewModel setAuthor(UserViewModel author) {
+    public NewsGetServiceModel setAuthor(UserServiceModel author) {
         this.author = author;
         return this;
     }
@@ -60,17 +60,16 @@ public class NewsViewModel {
         return category;
     }
 
-    public NewsViewModel setCategory(CategoryEntity category) {
+    public NewsGetServiceModel setCategory(CategoryEntity category) {
         this.category = category;
         return this;
     }
-
 
     public Set<CommentEntity> getComments() {
         return comments;
     }
 
-    public NewsViewModel setComments(Set<CommentEntity> comments) {
+    public NewsGetServiceModel setComments(Set<CommentEntity> comments) {
         this.comments = comments;
         return this;
     }
@@ -79,7 +78,7 @@ public class NewsViewModel {
         return imageUrl;
     }
 
-    public NewsViewModel setImageUrl(String imageUrl) {
+    public NewsGetServiceModel setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }

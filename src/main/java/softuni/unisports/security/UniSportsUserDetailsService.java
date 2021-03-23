@@ -12,6 +12,7 @@ import softuni.unisports.model.entity.UserEntity;
 import softuni.unisports.repository.UserRepository;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -32,7 +33,7 @@ public class UniSportsUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails mapToUserDetails(UserEntity userEntity) {
-        List<RoleEntity> roles = userEntity.getRoles();
+        Set<RoleEntity> roles = userEntity.getRoles();
         List<SimpleGrantedAuthority> authorities = userEntity.
                 getRoles().
                 stream().

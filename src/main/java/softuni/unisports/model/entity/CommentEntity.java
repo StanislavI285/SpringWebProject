@@ -1,6 +1,7 @@
 package softuni.unisports.model.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -9,8 +10,8 @@ public class CommentEntity extends BaseEntity {
 
     private UserEntity author;
     private NewsEntity newsEntity;
-    private List<UserEntity> likes;
-    private String parentCommentId;
+    private String content;
+    private LocalDateTime addedOn;
 
     public CommentEntity() {
     }
@@ -35,23 +36,24 @@ public class CommentEntity extends BaseEntity {
         return this;
     }
 
-    @OneToMany
-    public List<UserEntity> getLikes() {
-        return likes;
+
+    @Column(name = "content", columnDefinition = "TEXT")
+    public String getContent() {
+        return content;
     }
 
-    public CommentEntity setLikes(List<UserEntity> likes) {
-        this.likes = likes;
+    public CommentEntity setContent(String content) {
+        this.content = content;
         return this;
     }
 
-    @Column(name = "parent_comment_id")
-    public String getParentCommentId() {
-        return parentCommentId;
+    @Column(name = "added_on")
+    public LocalDateTime getAddedOn() {
+        return addedOn;
     }
 
-    public CommentEntity setParentCommentId(String parentCommentId) {
-        this.parentCommentId = parentCommentId;
+    public CommentEntity setAddedOn(LocalDateTime addedOn) {
+        this.addedOn = addedOn;
         return this;
     }
 }

@@ -17,6 +17,7 @@ import softuni.unisports.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class DBInit implements CommandLineRunner {
@@ -147,7 +148,7 @@ public class DBInit implements CommandLineRunner {
                 setFirstName("Pesho").
                 setLastName("Peshov").
                 setPassword(passwordEncoder.encode("12345")).
-                setRoles(List.of(adminRole, moderatorRole, userRole));
+                setRoles(Set.of(adminRole, moderatorRole, userRole));
 
         this.userService.seedUsers(List.of(adminUser));
 
@@ -166,7 +167,7 @@ public class DBInit implements CommandLineRunner {
                 setFirstName("Ivan").
                 setLastName("Ivanov").
                 setPassword(passwordEncoder.encode("12345")).
-                setRoles(List.of(moderatorRole, userRole));
+                setRoles(Set.of(moderatorRole, userRole));
 
         this.userService.seedUsers(List.of(moderatorUser));
 
