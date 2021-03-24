@@ -1,5 +1,7 @@
 package softuni.unisports.model.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +19,7 @@ public class CommentEntity extends BaseEntity {
     }
 
     @ManyToOne
+    @JoinColumn(name = "author_id")
     public UserEntity getAuthor() {
         return author;
     }
@@ -27,6 +30,7 @@ public class CommentEntity extends BaseEntity {
     }
 
     @ManyToOne
+    @JoinColumn(name="news_entity_id")
     public NewsEntity getNewsEntity() {
         return newsEntity;
     }
@@ -37,7 +41,7 @@ public class CommentEntity extends BaseEntity {
     }
 
 
-    @Column(name = "content", columnDefinition = "TEXT")
+    @Column(name = "content", columnDefinition = "TEXT", nullable = false)
     public String getContent() {
         return content;
     }
@@ -48,6 +52,7 @@ public class CommentEntity extends BaseEntity {
     }
 
     @Column(name = "added_on")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     public LocalDateTime getAddedOn() {
         return addedOn;
     }

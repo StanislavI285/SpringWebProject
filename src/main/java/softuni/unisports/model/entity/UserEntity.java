@@ -19,6 +19,7 @@ public class UserEntity extends BaseEntity {
     private String email;
     private String imageUrl;
     private Set<NewsEntity> news = new HashSet<>();
+    private Set<CommentEntity> comments = new HashSet<>();
     private Set<RoleEntity> roles = new HashSet<>();
 
 
@@ -88,13 +89,23 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    @OneToMany
+    @OneToMany(mappedBy="author", fetch = FetchType.EAGER)
     public Set<NewsEntity> getNews() {
         return news;
     }
 
     public UserEntity setNews(Set<NewsEntity> news) {
         this.news = news;
+        return this;
+    }
+
+    @OneToMany(mappedBy = "author")
+    public Set<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public UserEntity setComments(Set<CommentEntity> comments) {
+        this.comments = comments;
         return this;
     }
 
@@ -107,9 +118,6 @@ public class UserEntity extends BaseEntity {
         this.roles = roles;
         return this;
     }
-
-
-
 
     public UserEntity addRole(RoleEntity roleEntity) {
         this.roles.add(roleEntity);

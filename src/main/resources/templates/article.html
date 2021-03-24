@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zxx" xmlns:th="https://www.thymeleaf.org">
+<html lang="zxx" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="https://www.thymeleaf.org">
 <th:block th:include="~{fragments/head}"></th:block>
 
 
@@ -14,6 +15,7 @@
         <div class="content-wrapper">
             <div class="container">
                 <div class="col-sm-12" th:object="${newsViewModel}">
+                    <input id="news-id" name="news-id" th:value="${newsViewModel.id}" type="hidden">
                     <div class="card" data-aos="fade-up">
                         <div class="card-body">
                             <div class="row">
@@ -30,10 +32,10 @@
                         </div>
                         <div class="container">
                             <h3>Comments</h3>
-                            <div class="card-body">
+                            <div
+                                    class="card-body"
+                                    sec:authorize="isAuthenticated()">
                                 <!--                                <form>-->
-                                <param hidden="hidden" id="news-id" th:value="${newsViewModel.id}">
-
                                 <div class="form-group">
                                     <label for="from-username">User:</label>
                                     </br>
@@ -42,6 +44,11 @@
                                            type="text">
                                 </div>
                                 <div class="form-group">
+                                    <input
+                                            id="csrf-token"
+                                            th:name="${_csrf.parameterName}"
+                                            th:value="${_csrf.token}"
+                                            type="hidden"/>
                                     <label for="comment-input-content">Comment:</label>
                                     </br>
                                     <textarea
@@ -52,9 +59,19 @@
                                             type="text"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <button onclick=addComment()>Send comment</button>
+                                    <button id="send-comment-btn" onclick=addComment()>Send comment</button>
                                 </div>
                                 <!--                                </form>-->
+                            </div>
+                            <div
+                                    sec:authorize="!isAuthenticated()"
+                                    class="login-box-comments"
+                                    id="login-box">
+                                <p>Please login to add a comment.</p>
+                                <nav>
+                                    <a class="nav-item" href="/users/login">Login</a>
+                                    <a class="nav-item" href="/users/register">Register</a>
+                                </nav>
                             </div>
                             <div class="card-body" id="comments-section">
                             </div>

@@ -1,6 +1,7 @@
 package softuni.unisports.model.binding;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 public class CommentBindingModel {
     private String author;

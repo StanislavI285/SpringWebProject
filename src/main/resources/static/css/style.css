@@ -11808,3 +11808,16 @@ footer .footer-bottom {
     border-width: 1px;
     margin-bottom: 10px;
 }
+
+.login-box-comments {
+    background-color: #D6D6D6;
+    display: inherit;
+    border-style: double;
+    border-width: 2px;
+    width: 220px;
+}
+
+.login-box-comments .nav-item{
+    color: #032A63;
+    margin: 20px;
+}

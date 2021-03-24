@@ -1,5 +1,7 @@
 package softuni.unisports.model.view;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 public class CommentViewModel {
@@ -28,6 +30,7 @@ public class CommentViewModel {
         return this;
     }
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     public LocalDateTime getDateAdded() {
         return addedOn;
     }

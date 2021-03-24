@@ -1,5 +1,11 @@
 package softuni.unisports.model.service;
 
+import softuni.unisports.model.entity.NewsEntity;
+import softuni.unisports.model.entity.RoleEntity;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class UserServiceModel {
     private String id;
     private String username;
@@ -8,6 +14,8 @@ public class UserServiceModel {
     private String email;
     private String imageUrl;
     private String password;
+    private Set<NewsEntity> news = new HashSet<>();
+    private Set<RoleEntity> roles = new HashSet<>();
 
     public UserServiceModel() {
     }
@@ -72,6 +80,24 @@ public class UserServiceModel {
 
     public UserServiceModel setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public Set<NewsEntity> getNews() {
+        return news;
+    }
+
+    public UserServiceModel setNews(Set<NewsEntity> news) {
+        this.news = news;
+        return this;
+    }
+
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public UserServiceModel setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
         return this;
     }
 }

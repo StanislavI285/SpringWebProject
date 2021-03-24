@@ -1,11 +1,13 @@
 package softuni.unisports.model.service;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 public class CommentServiceModel {
 
     private UserServiceModel author;
-    private String newsEntity;
+    private String newsId;
     private String content;
     private LocalDateTime addedOn;
 
@@ -21,12 +23,12 @@ public class CommentServiceModel {
         return this;
     }
 
-    public String getNewsEntity() {
-        return newsEntity;
+    public String getNewsId() {
+        return newsId;
     }
 
-    public CommentServiceModel setNewsEntity(String newsEntity) {
-        this.newsEntity = newsEntity;
+    public CommentServiceModel setNewsId(String newsId) {
+        this.newsId = newsId;
         return this;
     }
 
@@ -39,6 +41,7 @@ public class CommentServiceModel {
         return this;
     }
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     public LocalDateTime getAddedOn() {
         return addedOn;
     }

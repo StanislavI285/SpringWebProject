@@ -6,6 +6,7 @@ import softuni.unisports.model.binding.CommentBindingModel;
 import softuni.unisports.model.service.CommentServiceModel;
 import softuni.unisports.model.view.CommentViewModel;
 import softuni.unisports.service.CommentService;
+import softuni.unisports.service.UserService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,11 +16,13 @@ import java.util.stream.Collectors;
 public class CommentsRestController {
 
     private final CommentService commentService;
+    private final UserService userService;
     private final ModelMapper modelMapper;
 
-    public CommentsRestController(CommentService commentService, ModelMapper modelMapper) {
+    public CommentsRestController(CommentService commentService, UserService userService, ModelMapper modelMapper) {
 
         this.commentService = commentService;
+        this.userService = userService;
         this.modelMapper = modelMapper;
     }
 
@@ -41,9 +44,9 @@ public class CommentsRestController {
 
         System.out.println();
         CommentServiceModel commentServiceModel = this.modelMapper.map(commentBindingModel, CommentServiceModel.class);
+        commentServiceModel.setAuthor(userService.findUserByUsername(commentBindingModel.getAuthor()));
 
-
-//        this.commentService.addCommentToNews(commentServiceModel);
+        this.commentService.addCommentToNews(commentServiceModel);
 
         return commentBindingModel;
     }

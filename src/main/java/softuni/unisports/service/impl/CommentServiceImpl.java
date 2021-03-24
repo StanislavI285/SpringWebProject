@@ -6,6 +6,7 @@ import softuni.unisports.model.entity.CommentEntity;
 import softuni.unisports.model.entity.NewsEntity;
 import softuni.unisports.model.entity.UserEntity;
 import softuni.unisports.model.service.CommentServiceModel;
+import softuni.unisports.model.service.UserServiceModel;
 import softuni.unisports.repository.CommentRepository;
 import softuni.unisports.service.CommentService;
 import softuni.unisports.service.NewsService;
@@ -46,8 +47,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void addCommentToNews(CommentServiceModel commentServiceModel) {
         CommentEntity commentEntity = this.modelMapper.map(commentServiceModel, CommentEntity.class);
-        UserEntity author = modelMapper.map(userService.findUserByUsername(commentServiceModel.getAuthor().getUsername()), UserEntity.class);
-        NewsEntity newsEntity = modelMapper.map(this.newsService.getNewsById(commentServiceModel.getNewsEntity()), NewsEntity.class);
+        UserServiceModel userServiceModel = userService.findUserByUsername(commentServiceModel.getAuthor().getUsername());
+        UserEntity author = modelMapper.map(userServiceModel, UserEntity.class);
+        NewsEntity newsEntity = modelMapper.map(this.newsService.getNewsById(commentServiceModel.getNewsId()), NewsEntity.class);
         commentEntity.setAuthor(author);
         commentEntity.setNewsEntity(newsEntity);
         commentEntity.setAddedOn(LocalDateTime.now());

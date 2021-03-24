@@ -44,6 +44,7 @@ public class NewsEntity extends BaseEntity {
     }
 
     @ManyToOne
+    @JoinColumn(name = "author_id")
     public UserEntity getAuthor() {
         return author;
     }
@@ -73,7 +74,7 @@ public class NewsEntity extends BaseEntity {
         return this;
     }
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "newsEntity", fetch = FetchType.EAGER)
     public Set<CommentEntity> getComments() {
         return comments;
     }
