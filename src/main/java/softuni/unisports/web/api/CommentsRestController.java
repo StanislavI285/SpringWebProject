@@ -27,6 +27,7 @@ public class CommentsRestController {
     }
 
 
+
     @GetMapping(value = "/{newsId}", produces = "application/json")
     public List<CommentViewModel> getComments(@PathVariable String newsId) {
         List<CommentViewModel> comments =

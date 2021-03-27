@@ -49,9 +49,9 @@ public class UsersController {
     @GetMapping("/profile/show/{username}")
     public String userProfile(@PathVariable String username, Model model) {
 
-       UserViewModel user = modelMapper.map(this.userService.findUserByUsername(username), UserViewModel.class);
-       model.addAttribute("userView", user);
-       //TODO fill the html template for user profile and implement the controller
+        UserViewModel user = modelMapper.map(this.userService.findUserByUsername(username), UserViewModel.class);
+        model.addAttribute("userView", user);
+        //TODO fill the html template for user profile and implement the controller
 
 
         return "user-profile";
@@ -63,14 +63,12 @@ public class UsersController {
                                RedirectAttributes redirectAttributes) {
 
 
-
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userRegistrationBindingModel", userRegistrationBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationBindingModel", bindingResult);
 
             return "redirect:register";
         }
-
 
 
         if (userService.userExists(userRegistrationBindingModel.getUsername())) {
@@ -105,4 +103,6 @@ public class UsersController {
 
         return modelAndView;
     }
+
+
 }

@@ -22,7 +22,59 @@
                                 <a class="nav-link" href="#">In the Press</a>
                             </li>
                         </ul>
-                        <ul class="navbar-top-right-menu">
+                        <
+                    </div>
+                </div>
+                <div class="navbar-bottom">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <a class="navbar-brand" href="/">
+                                <img alt="" src="/img/logo-new2.jpg"/>
+                            </a>
+                        </div>
+                        <div>
+                            <button
+                                    aria-controls="navbarSupportedContent"
+                                    aria-expanded="false"
+                                    aria-label="Toggle navigation"
+                                    class="navbar-toggler"
+                                    data-target="#navbarSupportedContent"
+                                    type="button"
+                            >
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div
+                                    class="navbar-collapse justify-content-center collapse"
+                                    id="navbarSupportedContent"
+                            >
+                                <ul class="navbar-nav d-lg-flex justify-content-between align-items-center">
+                                    <li>
+                                        <button class="navbar-close">
+                                            <i class="mdi mdi-close"></i>
+                                        </button>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="/">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/news/all">News</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/galleries">Galleries</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/standings">Standings</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/results">Results</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/contactus">Contact</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <ul class="navbar-nav d-lg-flex justify-content-between align-items-center">
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="mdi mdi-magnify"></i></a>
                             </li>
@@ -37,7 +89,9 @@
                                     <button class="dropbtn" sec:authorize="isAuthenticated()">Profile</button>
                                     <div class="dropdown-content" sec:authorize="isAuthenticated()">
                                         <div sec:authorize="isAuthenticated()">
-                                            <a class="nav-link" th:href="@{/users/profile/show/{username}(username = ${loggedUsername})}">My Profile</a>
+                                            <a class="nav-link"
+                                               th:href="@{/users/profile/show/{username}(username = ${loggedUsername})}">My
+                                                Profile</a>
                                         </div>
                                         <div sec:authorize="hasAuthority('ROLE_ADMIN')">
                                             <a class="nav-link" th:href="@{/admin-panel}">Admin Panel</a>
@@ -68,76 +122,6 @@
                             <!--                            <li sec:authorize="hasAuthority('ROLE_USER')" th:object="${principal}" class="nav-item">-->
                             <!--                                <a th:href="@{/users/profile/show/{username}(username = ${principal.getUsername()})}" class="nav-link">My Profile</a>-->
                             <!--                            </li>-->
-                        </ul>
-                    </div>
-                </div>
-                <div class="navbar-bottom">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <a class="navbar-brand" href="/"
-                            ><img alt="" src="/img/logo-new2.jpg"
-                            /></a>
-                        </div>
-                        <div>
-                            <button
-                                    aria-controls="navbarSupportedContent"
-                                    aria-expanded="false"
-                                    aria-label="Toggle navigation"
-                                    class="navbar-toggler"
-                                    data-target="#navbarSupportedContent"
-                                    type="button"
-                            >
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div
-                                    class="navbar-collapse justify-content-center collapse"
-                                    id="navbarSupportedContent"
-                            >
-                                <ul
-                                        class="navbar-nav d-lg-flex justify-content-between align-items-center"
-                                >
-                                    <li>
-                                        <button class="navbar-close">
-                                            <i class="mdi mdi-close"></i>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="/">Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/news/all">News</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/galleries">Galleries</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/standings">Standings</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/results">Results</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/contactus">Contact</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <ul class="social-media">
-                            <li>
-                                <a href="#">
-                                    <i class="mdi mdi-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="mdi mdi-youtube"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="mdi mdi-twitter"></i>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>

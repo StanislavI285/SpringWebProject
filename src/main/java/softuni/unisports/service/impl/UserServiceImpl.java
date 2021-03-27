@@ -5,6 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import softuni.unisports.enums.RoleEnum;
@@ -17,6 +18,9 @@ import softuni.unisports.security.UniSportsUserDetailsService;
 import softuni.unisports.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -79,5 +83,28 @@ public class UserServiceImpl implements UserService {
                 map(this.userRepository.findByUsername(name).get(),
                         UserServiceModel.class);
         return userServiceModel;
+    }
+
+    @Override
+    public void addUserRole(String username, RoleEnum roleEnum) {
+        UserEntity user = this.userRepository.
+                findByUsername(username).
+                orElseThrow(() -> new NullPointerException("No user exists with this username"));
+        user.addRole(this.roleRepository.findByName(roleEnum).get());
+        this.userRepository.save(user);
+    }
+
+    public List<String> getUserRoles(String username) {
+        Set<RoleEntity> roleEntities = this.userRepository.findByUsername(username).get().getRoles(); //<-- check for username already made in roles controller
+        List<String> rolesAsString = roleEntities.stream().map(r -> r.getName().toString()).collect(Collectors.toList());
+        return rolesAsString;
+    }
+
+    @Override
+    public boolean checkPasswordMatch(String username, String adminPassword) {
+        String dbPassword = this.userRepository.findByUsername(username).get().getPassword();
+        boolean result = passwordEncoder.matches(adminPassword, dbPassword);
+        return result;
+
     }
 }

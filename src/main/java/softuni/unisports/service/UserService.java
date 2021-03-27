@@ -1,5 +1,7 @@
 package softuni.unisports.service;
 
+import softuni.unisports.enums.RoleEnum;
+import softuni.unisports.model.entity.RoleEntity;
 import softuni.unisports.model.entity.UserEntity;
 import softuni.unisports.model.service.UserServiceModel;
 
@@ -15,4 +17,10 @@ public interface UserService {
     boolean emailExists(String email);
 
     UserServiceModel findUserByUsername(String name);
+
+    void addUserRole(String username, RoleEnum roleEnum);
+
+    public List<String> getUserRoles(String username);
+
+    boolean checkPasswordMatch(String username, String adminPassword);
 }

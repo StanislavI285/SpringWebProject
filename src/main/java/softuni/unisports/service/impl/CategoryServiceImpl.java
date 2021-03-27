@@ -25,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryEntity findByName(String name) {
-       return this.categoryRepository.findByName(CategoryEnum.valueOf(name)).get();
+       return this.categoryRepository.findByName(CategoryEnum.valueOf(name)).orElseThrow(NullPointerException::new);
     }
 
     @Override

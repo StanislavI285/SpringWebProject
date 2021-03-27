@@ -40,14 +40,14 @@ $(function() {
     });
   });
 
-  // $(".navbar-bottom  .navbar-nav a").on("click", function() {
-  //   $(".navbar-bottom  .navbar-nav")
-  //     .find("li.active")
-  //     .removeClass("active");
-  //   $(this)
-  //     .parent("li")
-  //     .addClass("active");
-  // });
+  $(".navbar-bottom  .navbar-nav a").on("click", function() {
+    $(".navbar-bottom  .navbar-nav")
+      .find("li.active")
+      .removeClass("active");
+    $(this)
+      .parent("li")
+      .addClass("active");
+  });
 
   $("html").easeScroll({
     frameRate: 60,

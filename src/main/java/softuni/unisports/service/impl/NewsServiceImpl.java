@@ -41,7 +41,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public NewsViewModel getNewsById(String id) {
-        NewsEntity newsEntity = this.newsRepository.findById(id).orElseThrow(NullPointerException::new);
+        System.out.println(id);
+        NewsEntity newsEntity = this.newsRepository.findById(id).get();
         return this.modelMapper.map(newsEntity, NewsViewModel.class);
     }
 
