@@ -8,7 +8,7 @@ import softuni.unisports.model.service.UserServiceModel;
 import java.util.List;
 
 public interface UserService {
-    void seedUsers(List<UserEntity> adminUser);
+    void seedUser(UserServiceModel userServiceModel);
 
     void registerUser(UserServiceModel userServiceModel);
 

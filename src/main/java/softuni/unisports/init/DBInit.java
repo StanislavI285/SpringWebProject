@@ -6,18 +6,17 @@ import org.springframework.stereotype.Component;
 import softuni.unisports.enums.CategoryEnum;
 import softuni.unisports.enums.RoleEnum;
 import softuni.unisports.model.entity.CategoryEntity;
-import softuni.unisports.model.entity.NewsEntity;
-import softuni.unisports.model.entity.RoleEntity;
-import softuni.unisports.model.entity.UserEntity;
+import softuni.unisports.model.service.RoleServiceModel;
+import softuni.unisports.model.service.UserServiceModel;
 import softuni.unisports.repository.CategoryRepository;
 import softuni.unisports.repository.NewsRepository;
 import softuni.unisports.repository.UserRepository;
 import softuni.unisports.service.RoleService;
 import softuni.unisports.service.UserService;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+
 
 @Component
 public class DBInit implements CommandLineRunner {
@@ -42,13 +41,10 @@ public class DBInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-
         initRoles();
-
 
         if (userRepository.count() == 0) {
             initAdminUser();
-            initModeratorUser();
         }
 
         if (categoryRepository.count() == 0) {
@@ -135,42 +131,19 @@ public class DBInit implements CommandLineRunner {
         this.roleService.seedRoles();
     }
 
+
     private void initAdminUser() {
 
-        UserEntity adminUser = new UserEntity();
-        RoleEntity adminRole = this.roleService.getRole(RoleEnum.ADMIN);
-        RoleEntity moderatorRole = this.roleService.getRole(RoleEnum.MODERATOR);
-        RoleEntity userRole = this.roleService.getRole(RoleEnum.USER);
+        UserServiceModel rootUser = new UserServiceModel();
 
-        adminUser.
-                setUsername("admin").
-                setEmail("admin@unisports.com").
-                setFirstName("Pesho").
-                setLastName("Peshov").
-                setPassword(passwordEncoder.encode("12345")).
-                setRoles(Set.of(adminRole, moderatorRole, userRole));
+        rootUser.
+                setUsername("root").
+                setEmail("root@unisports.com").
+                setFirstName("Root").
+                setLastName("Rootson").
+                setPassword(passwordEncoder.encode("12345"));
 
-        this.userService.seedUsers(List.of(adminUser));
-
-    }
-
-    private void initModeratorUser() {
-
-        UserEntity moderatorUser = new UserEntity();
-        RoleEntity adminRole = this.roleService.getRole(RoleEnum.ADMIN);
-        RoleEntity moderatorRole = this.roleService.getRole(RoleEnum.MODERATOR);
-        RoleEntity userRole = this.roleService.getRole(RoleEnum.USER);
-
-        moderatorUser.
-                setUsername("moderator").
-                setEmail("moderator@unisports.com").
-                setFirstName("Ivan").
-                setLastName("Ivanov").
-                setPassword(passwordEncoder.encode("12345")).
-                setRoles(Set.of(moderatorRole, userRole));
-
-        this.userService.seedUsers(List.of(moderatorUser));
-
+        this.userService.seedUser(rootUser);
     }
 
 

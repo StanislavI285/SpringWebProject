@@ -12,6 +12,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.unisports.model.binding.UserRegistrationBindingModel;
 import softuni.unisports.model.service.UserServiceModel;
 import softuni.unisports.model.view.UserViewModel;
+import softuni.unisports.repository.RoleRepository;
+import softuni.unisports.service.RoleService;
 import softuni.unisports.service.UserService;
 
 import javax.validation.Valid;
@@ -22,6 +24,7 @@ public class UsersController {
 
     private final ModelMapper modelMapper;
     private final UserService userService;
+
 
     public UsersController(ModelMapper modelMapper, UserService userService) {
         this.modelMapper = modelMapper;

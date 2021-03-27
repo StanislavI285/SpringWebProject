@@ -9,30 +9,37 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.unisports.enums.RoleEnum;
 import softuni.unisports.model.binding.UserRoleUpdateBindingModel;
+import softuni.unisports.service.RoleService;
 import softuni.unisports.service.UserService;
 
 import javax.validation.Valid;
-import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/roles")
 public class RolesController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
-    public RolesController(UserService userService) {
+    public RolesController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
 
     @GetMapping()
     public String addRole(Model model) {
 
+        model.addAttribute("roles", List.of("ADMIN", "MODERATOR")); // <--- every registered user gets USER role, only 1 is ROOT
+
         if (!model.containsAttribute("userRoleUpdateBindingModel")) {
             model.addAttribute("userRoleUpdateBindingModel", new UserRoleUpdateBindingModel());
             model.addAttribute("nonExistingUsernameError", false);
             model.addAttribute("roleAlreadyPresentError", false);
             model.addAttribute("passwordError", false);
+            model.addAttribute("sameUserError", false);
+            model.addAttribute("successfullyAddedRole", false);
         }
 
         return "role-management";
@@ -69,8 +76,14 @@ public class RolesController {
             return "redirect:/roles";
         }
 
-        this.userService.addUserRole(userRoleUpdateBindingModel.getUsername(), RoleEnum.valueOf(userRoleUpdateBindingModel.getRole()));
+        if (principal.getUsername().equals(userRoleUpdateBindingModel.getUsername())) {
+            redirectAttributes.addFlashAttribute("userRoleUpdateBindingModel", userRoleUpdateBindingModel);
+            redirectAttributes.addFlashAttribute("sameUserError", true);
+            return "redirect:/roles";
+        }
 
+        this.userService.addUserRole(userRoleUpdateBindingModel.getUsername(), RoleEnum.valueOf(userRoleUpdateBindingModel.getRole()));
+        redirectAttributes.addFlashAttribute("successfullyAddedRole", true);
         return "redirect:/roles";
     }
 }

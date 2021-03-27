@@ -5,7 +5,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import softuni.unisports.enums.RoleEnum;
@@ -17,8 +16,8 @@ import softuni.unisports.repository.UserRepository;
 import softuni.unisports.security.UniSportsUserDetailsService;
 import softuni.unisports.service.UserService;
 
+import javax.management.relation.Role;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,8 +39,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void seedUsers(List<UserEntity> users) {
-        this.userRepository.saveAll(users);
+    public void seedUser(UserServiceModel user) {
+
+        UserEntity userEntity = modelMapper.map(user, UserEntity.class);
+        RoleEntity rootRole = roleRepository.findByName(RoleEnum.ROOT).get();
+        RoleEntity adminRole = roleRepository.findByName(RoleEnum.ADMIN).get();
+        RoleEntity moderatorRole = roleRepository.findByName(RoleEnum.MODERATOR).get();
+        RoleEntity userRole = roleRepository.findByName(RoleEnum.USER).get();
+        userEntity.setRoles(Set.of(rootRole, adminRole, moderatorRole, userRole));
+        this.userRepository.save(userEntity);
     }
 
     @Override
@@ -90,7 +96,14 @@ public class UserServiceImpl implements UserService {
         UserEntity user = this.userRepository.
                 findByUsername(username).
                 orElseThrow(() -> new NullPointerException("No user exists with this username"));
-        user.addRole(this.roleRepository.findByName(roleEnum).get());
+
+        if (roleEnum.name().equals("ADMIN")) {
+            user.addRole(this.roleRepository.findByName(RoleEnum.ADMIN).get());
+            user.addRole(this.roleRepository.findByName(RoleEnum.MODERATOR).get());
+        } else if (roleEnum.name().equals("MODERATOR")) {
+            user.addRole(this.roleRepository.findByName(RoleEnum.MODERATOR).get());
+        }
+
         this.userRepository.save(user);
     }
 
@@ -103,8 +116,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkPasswordMatch(String username, String adminPassword) {
         String dbPassword = this.userRepository.findByUsername(username).get().getPassword();
-        boolean result = passwordEncoder.matches(adminPassword, dbPassword);
-        return result;
+        return passwordEncoder.matches(adminPassword, dbPassword);
 
     }
 }

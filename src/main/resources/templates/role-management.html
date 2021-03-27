@@ -8,6 +8,7 @@
 <div class="container-scroller">
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-10 col-md-8 col-lg-6">
+
             <!-- Form -->
             <form
                     class="form-example"
@@ -15,6 +16,9 @@
                     th:action="@{roles/add}"
                     th:object="${userRoleUpdateBindingModel}">
                 <h1>Update user roles</h1>
+                <div class="bg-success"
+                     id="successMessage"
+                     th:if="${successfullyAddedRole}">Success!</div>
                 <p>Please fill all required fields below:</p>
                 <!-- Input fields -->
                 <div class="form-group">
@@ -31,11 +35,15 @@
                         Please enter a username.</small>
                     <small class="alert alert-danger" id="nonExistingUsernameError" th:if="${nonExistingUsernameError}">
                         No user was found with this username.</small>
+                    <small class="alert alert-danger" id="sameUserError" th:if="${sameUserError}">
+                        You cannot add/remove roles for yourself.</small>
+
 
                 </div>
                 <div class="form-group">
                     <select id="role" name="role" th:field="*{role}">
-                        <option th:each="r : ${T(softuni.unisports.enums.RoleEnum).values()}"
+                        <option th:each="r : ${roles}"
+                                th:if="${r != 'ROOT'}"
                                 th:text="${r}"
                                 th:value="${r}"></option>
                     </select>
@@ -51,12 +59,12 @@
                             placeholder="Password..."
                             th:field="*{adminPassword}"
                             type="password">
-                    <small th:if="${passwordError}" class="alert alert-danger" id="passwordError">
+                    <small class="alert alert-danger" id="passwordError" th:if="${passwordError}">
                         Invalid password!
                     </small>
 
                 </div>
-                <button class="btn btn-primary btn-customized" type="submit">Change roles</button>
+                <button class="btn btn-primary btn-customized" type="submit">Add role</button>
             </form>
         </div>
     </div>
