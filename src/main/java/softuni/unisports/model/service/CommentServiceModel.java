@@ -41,7 +41,7 @@ public class CommentServiceModel {
         return this;
     }
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+
     public LocalDateTime getAddedOn() {
         return addedOn;
     }

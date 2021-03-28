@@ -32,7 +32,7 @@ public class CommentsRestController {
     public List<CommentViewModel> getComments(@PathVariable String newsId) {
         List<CommentViewModel> comments =
                 this.commentService.
-                        getAllCommentsByNewsId(newsId).
+                        getAllCommentsByNewsIdSorted(newsId).
                         stream().
                         map(c -> modelMapper.map(c, CommentViewModel.class)).
                         collect(Collectors.toList());

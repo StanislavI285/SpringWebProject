@@ -97,7 +97,7 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     public Set<CommentEntity> getComments() {
         return comments;
     }

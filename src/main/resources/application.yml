@@ -7,6 +7,9 @@ logging:
 #          descriptor: TRACE
 server:
   port: 8080
+  error:
+    include-message: always
+    include-stacktrace: never
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver

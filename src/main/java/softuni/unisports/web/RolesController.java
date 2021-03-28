@@ -1,5 +1,6 @@
 package softuni.unisports.web;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class RolesController {
     @GetMapping()
     public String addRole(Model model) {
 
-        model.addAttribute("roles", List.of("ADMIN", "MODERATOR")); // <--- every registered user gets USER role, only 1 is ROOT
+        model.addAttribute("roles", List.of("ADMIN", "MODERATOR", "USER"));
 
         if (!model.containsAttribute("userRoleUpdateBindingModel")) {
             model.addAttribute("userRoleUpdateBindingModel", new UserRoleUpdateBindingModel());
@@ -63,13 +64,6 @@ public class RolesController {
             return "redirect:/roles";
         }
 
-
-        if (this.userService.getUserRoles(userRoleUpdateBindingModel.getUsername()).contains(userRoleUpdateBindingModel.getRole())) {
-            redirectAttributes.addFlashAttribute("userRoleUpdateBindingModel", userRoleUpdateBindingModel);
-            redirectAttributes.addFlashAttribute("roleAlreadyPresentError", true);
-            return "redirect:/roles";
-        }
-
         if (!this.userService.checkPasswordMatch(principal.getUsername(), userRoleUpdateBindingModel.getAdminPassword())) {
             redirectAttributes.addFlashAttribute("userRoleUpdateBindingModel", userRoleUpdateBindingModel);
             redirectAttributes.addFlashAttribute("passwordError", true);
@@ -82,7 +76,7 @@ public class RolesController {
             return "redirect:/roles";
         }
 
-        this.userService.addUserRole(userRoleUpdateBindingModel.getUsername(), RoleEnum.valueOf(userRoleUpdateBindingModel.getRole()));
+        this.userService.setUserRole(userRoleUpdateBindingModel.getUsername(), RoleEnum.valueOf(userRoleUpdateBindingModel.getRole()));
         redirectAttributes.addFlashAttribute("successfullyAddedRole", true);
         return "redirect:/roles";
     }

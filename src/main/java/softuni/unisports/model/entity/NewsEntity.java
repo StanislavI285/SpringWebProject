@@ -1,5 +1,7 @@
 package softuni.unisports.model.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -93,7 +95,8 @@ public class NewsEntity extends BaseEntity {
         return this;
     }
 
-    @Column(name = "added_on")
+    @Column(name = "added_on", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDateTime getAddedOn() {
         return addedOn;
     }

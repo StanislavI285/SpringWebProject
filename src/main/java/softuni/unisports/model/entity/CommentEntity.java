@@ -51,8 +51,8 @@ public class CommentEntity extends BaseEntity {
         return this;
     }
 
-    @Column(name = "added_on")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @Column(name = "added_on", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDateTime getAddedOn() {
         return addedOn;
     }

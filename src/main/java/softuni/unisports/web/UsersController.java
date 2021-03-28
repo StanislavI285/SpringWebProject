@@ -11,12 +11,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.unisports.model.binding.UserRegistrationBindingModel;
 import softuni.unisports.model.service.UserServiceModel;
+import softuni.unisports.model.view.UserListViewModel;
 import softuni.unisports.model.view.UserViewModel;
 import softuni.unisports.repository.RoleRepository;
 import softuni.unisports.service.RoleService;
 import softuni.unisports.service.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -58,6 +60,26 @@ public class UsersController {
 
 
         return "user-profile";
+    }
+
+    @GetMapping("/details/{id}")
+    public String userDetails(@PathVariable String id, Model model) {
+
+        UserViewModel user = modelMapper.map(this.userService.findUserById(id), UserViewModel.class);
+        model.addAttribute("userView", user);
+
+
+
+        return "user-details";
+    }
+
+    @GetMapping("/list")
+    public String listAllUsers(Model model) {
+
+        List<UserListViewModel> allUsers = this.userService.getAllUsers();
+        model.addAttribute("allUsers", allUsers);
+
+        return "all-users";
     }
 
     @PostMapping("/register")

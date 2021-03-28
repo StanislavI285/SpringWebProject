@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<CommentEntity, String> {
 
-    @Query("SELECT c FROM CommentEntity c WHERE c.newsEntity.id = ?1")
+    @Query("SELECT c FROM CommentEntity c WHERE c.newsEntity.id = ?1 ORDER BY c.addedOn ASC")
     List<CommentEntity> findAllByNewsId(String id);
 }

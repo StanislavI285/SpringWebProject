@@ -11,12 +11,14 @@ import softuni.unisports.enums.RoleEnum;
 import softuni.unisports.model.entity.RoleEntity;
 import softuni.unisports.model.entity.UserEntity;
 import softuni.unisports.model.service.UserServiceModel;
+import softuni.unisports.model.view.UserListViewModel;
+import softuni.unisports.model.view.UserViewModel;
 import softuni.unisports.repository.RoleRepository;
 import softuni.unisports.repository.UserRepository;
 import softuni.unisports.security.UniSportsUserDetailsService;
 import softuni.unisports.service.UserService;
 
-import javax.management.relation.Role;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -59,6 +61,7 @@ public class UserServiceImpl implements UserService {
                 orElseThrow(() -> new IllegalStateException("USER role not found. Please seed the roles."));
 
         userEntity.addRole(userRole);
+        userEntity.setImageUrl("https://res.cloudinary.com/dhrjhgp37/image/upload/v1616228208/avatar_l23qcd.jpg");
 
         userEntity = userRepository.save(userEntity);
 
@@ -92,16 +95,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUserRole(String username, RoleEnum roleEnum) {
+    public void setUserRole(String username, RoleEnum roleEnum) {
         UserEntity user = this.userRepository.
                 findByUsername(username).
                 orElseThrow(() -> new NullPointerException("No user exists with this username"));
 
         if (roleEnum.name().equals("ADMIN")) {
-            user.addRole(this.roleRepository.findByName(RoleEnum.ADMIN).get());
-            user.addRole(this.roleRepository.findByName(RoleEnum.MODERATOR).get());
+            user.setRoles(Set.of(this.roleRepository.findByName(RoleEnum.ADMIN).get(),
+                    this.roleRepository.findByName(RoleEnum.MODERATOR).get(),
+                    this.roleRepository.findByName(RoleEnum.USER).get()));
         } else if (roleEnum.name().equals("MODERATOR")) {
-            user.addRole(this.roleRepository.findByName(RoleEnum.MODERATOR).get());
+            user.setRoles(Set.of(this.roleRepository.findByName(RoleEnum.MODERATOR).get(),
+                    this.roleRepository.findByName(RoleEnum.USER).get()));
+        } else if (roleEnum.name().equals("USER")) {
+            user.setRoles(Set.of(this.roleRepository.findByName(RoleEnum.USER).get()));
         }
 
         this.userRepository.save(user);
@@ -109,7 +116,10 @@ public class UserServiceImpl implements UserService {
 
     public List<String> getUserRoles(String username) {
         Set<RoleEntity> roleEntities = this.userRepository.findByUsername(username).get().getRoles(); //<-- check for username already made in roles controller
-        List<String> rolesAsString = roleEntities.stream().map(r -> r.getName().toString()).collect(Collectors.toList());
+        List<String> rolesAsString = roleEntities.
+                stream().
+                map(r -> r.getName().toString()).
+                collect(Collectors.toList());
         return rolesAsString;
     }
 
@@ -118,5 +128,28 @@ public class UserServiceImpl implements UserService {
         String dbPassword = this.userRepository.findByUsername(username).get().getPassword();
         return passwordEncoder.matches(adminPassword, dbPassword);
 
+    }
+
+    @Override
+    public List<UserListViewModel> getAllUsers() {
+        return this.userRepository.
+                findAll().
+                stream().
+                map(u -> {
+                    UserListViewModel viewModel = modelMapper.map(u, UserListViewModel.class);
+                    viewModel.setRoles(u.getRoles().
+                            stream().
+                            map(r -> r.getName().toString()).
+                            sorted().
+                            collect(Collectors.toCollection(LinkedHashSet::new)));
+                    return viewModel;
+                }).
+                collect(Collectors.toList());
+    }
+
+    @Override
+    public UserViewModel findUserById(String id) {
+        return modelMapper.map(this.userRepository.findById(id),
+                        UserViewModel.class);
     }
 }

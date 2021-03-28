@@ -6,7 +6,7 @@ import softuni.unisports.model.view.CommentViewModel;
 import java.util.List;
 
 public interface CommentService {
-    List<CommentServiceModel> getAllCommentsByNewsId(String id);
+    List<CommentServiceModel> getAllCommentsByNewsIdSorted(String id);
 
     void addCommentToNews(CommentServiceModel commentServiceModel);
 }

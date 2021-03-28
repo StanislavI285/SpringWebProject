@@ -13,6 +13,7 @@ import softuni.unisports.service.NewsService;
 import softuni.unisports.service.UserService;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentServiceModel> getAllCommentsByNewsId(String id) {
+    public List<CommentServiceModel> getAllCommentsByNewsIdSorted(String id) {
         List<CommentServiceModel> result = this.commentRepository.
                 findAllByNewsId(id).
                 stream().
