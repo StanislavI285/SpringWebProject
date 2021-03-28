@@ -2,6 +2,7 @@ package softuni.unisports.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import softuni.unisports.errors.NewsNotFoundException;
 import softuni.unisports.model.entity.CommentEntity;
 import softuni.unisports.model.entity.NewsEntity;
 import softuni.unisports.model.entity.UserEntity;
@@ -46,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void addCommentToNews(CommentServiceModel commentServiceModel) {
+    public void addCommentToNews(CommentServiceModel commentServiceModel)  {
         CommentEntity commentEntity = this.modelMapper.map(commentServiceModel, CommentEntity.class);
         UserServiceModel userServiceModel = userService.findUserByUsername(commentServiceModel.getAuthor().getUsername());
         UserEntity author = modelMapper.map(userServiceModel, UserEntity.class);

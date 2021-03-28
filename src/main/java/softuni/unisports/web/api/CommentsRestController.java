@@ -2,6 +2,7 @@ package softuni.unisports.web.api;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
+import softuni.unisports.errors.NewsNotFoundException;
 import softuni.unisports.model.binding.CommentBindingModel;
 import softuni.unisports.model.service.CommentServiceModel;
 import softuni.unisports.model.view.CommentViewModel;

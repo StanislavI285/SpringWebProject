@@ -1,5 +1,6 @@
 package softuni.unisports.service;
 
+import softuni.unisports.errors.NewsNotFoundException;
 import softuni.unisports.model.service.NewsAddServiceModel;
 import softuni.unisports.model.service.NewsGetServiceModel;
 import softuni.unisports.model.view.NewsViewModel;
@@ -8,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface NewsService {
-    NewsViewModel getNewsById(String id);
+    NewsViewModel getNewsById(String id) throws NewsNotFoundException;
 
     List<NewsGetServiceModel> getAllNewsSortedByDate();
 

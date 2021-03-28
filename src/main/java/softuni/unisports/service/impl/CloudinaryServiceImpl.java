@@ -25,6 +25,8 @@ public class CloudinaryServiceImpl implements CloudinaryService {
 
         File file = File.createTempFile(TEMP_FILE, multipartFile.getOriginalFilename());
         multipartFile.transferTo(file);
+        
+
         return this.cloudinary.
                 uploader().
                 upload(file, Collections.emptyMap()).  //second param can be empty, will be assigned as empty map by the method

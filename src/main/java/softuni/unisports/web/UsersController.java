@@ -13,8 +13,6 @@ import softuni.unisports.model.binding.UserRegistrationBindingModel;
 import softuni.unisports.model.service.UserServiceModel;
 import softuni.unisports.model.view.UserListViewModel;
 import softuni.unisports.model.view.UserViewModel;
-import softuni.unisports.repository.RoleRepository;
-import softuni.unisports.service.RoleService;
 import softuni.unisports.service.UserService;
 
 import javax.validation.Valid;
@@ -67,7 +65,6 @@ public class UsersController {
 
         UserViewModel user = modelMapper.map(this.userService.findUserById(id), UserViewModel.class);
         model.addAttribute("userView", user);
-
 
 
         return "user-details";

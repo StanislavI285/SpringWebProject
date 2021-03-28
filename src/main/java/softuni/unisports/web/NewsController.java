@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import softuni.unisports.errors.NewsNotFoundException;
 import softuni.unisports.model.binding.CommentBindingModel;
 import softuni.unisports.model.binding.NewsAddBindingModel;
 import softuni.unisports.model.service.NewsAddServiceModel;
@@ -100,6 +101,8 @@ public class NewsController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.newsAddBindingModel", bindingResult);
             return "redirect:add";
         }
+
+        //TODO check file extension
 
         NewsAddServiceModel newsAddServiceModel = modelMapper.map(newsAddBindingModel, NewsAddServiceModel.class);
         this.newsService.addNews(newsAddServiceModel);

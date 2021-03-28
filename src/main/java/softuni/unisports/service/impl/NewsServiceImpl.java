@@ -3,6 +3,7 @@ package softuni.unisports.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import softuni.unisports.errors.NewsNotFoundException;
 import softuni.unisports.model.entity.CategoryEntity;
 import softuni.unisports.model.entity.NewsEntity;
 import softuni.unisports.model.entity.UserEntity;
@@ -40,8 +41,8 @@ public class NewsServiceImpl implements NewsService {
 
 
     @Override
-    public NewsViewModel getNewsById(String id) {
-        NewsEntity newsEntity = this.newsRepository.findById(id).get();
+    public NewsViewModel getNewsById(String id)  {
+        NewsEntity newsEntity = this.newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Resource not found"));
         NewsViewModel nvm = this.modelMapper.map(newsEntity, NewsViewModel.class);
 
         return nvm;
@@ -71,17 +72,5 @@ public class NewsServiceImpl implements NewsService {
                 setLastUpdated(LocalDateTime.now());
 
         newsRepository.save(newsEntity);
-
-
-        //    private UserEntity author;
-        //    private CategoryEntity category;
-        //    private Set<CountryEntity> countries = new HashSet<>();
-        //    private Set<CommentEntity> comments = new HashSet<>();
-        //    private int views;
-        //    private LocalDateTime addedOn;
-        //    private LocalDateTime lastUpdated;
-        //    private String imageUrl;
-
-
     }
 }
