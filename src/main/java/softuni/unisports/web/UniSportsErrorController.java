@@ -16,6 +16,7 @@ public class UniSportsErrorController implements ErrorController {
 
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
+
         if(status != null) {
             Integer errorCode = Integer.parseInt(status.toString());
 

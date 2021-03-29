@@ -6,10 +6,14 @@ import org.springframework.stereotype.Repository;
 import softuni.unisports.model.entity.NewsEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface NewsRepository extends JpaRepository<NewsEntity, String> {
 
-    @Query("SELECT n FROM NewsEntity n ORDER BY n.addedOn DESC")
+    @Query(value = "SELECT n FROM NewsEntity n ORDER BY n.addedOn DESC")
     List<NewsEntity> findAllByAddedOn();
+
+    @Query(value = "SELECT n FROM NewsEntity n ORDER BY n.comments.size DESC")
+    List<NewsEntity> findAllByCommentsCount();
 }

@@ -13,26 +13,19 @@
         <div class="content-wrapper">
             <div class="container">
                 <div class="row" data-aos="fade-up">
-                    <div class="col-xl-8 stretch-card grid-margin">
+                    <div class="col-xl-8 stretch-card grid-margin" th:object="${mostCommentedNews}">
                         <a class="news-item" href="#">
                             <div class="position-relative">
 
                                 <img
                                         alt="banner"
                                         class="img-fluid"
-                                        src="/img/dashboard/banner.jpg"
+                                        th:src="*{imageUrl}"
                                 />
                                 <div class="banner-content">
-
-                                    <div class="badge badge-danger fs-12 font-weight-bold mb-3">
-                                        global news
-                                    </div>
-                                    <h1 class="mb-0">NEW CHAMPION</h1>
-                                    <h1 class="mb-2">
-                                        Minior Pernik wins their first title in Bulgarian football league.
-                                    </h1>
+                                    <h1 class="mb-2" th:text="*{title}"></h1>
                                     <div class="fs-12">
-                                        <span class="mr-2">Photo </span>10 Minutes ago
+                                        <span class="mr-2" th:text="*{category.name}">Photo </span>
                                     </div>
                                 </div>
                             </div>

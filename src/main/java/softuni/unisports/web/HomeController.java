@@ -5,13 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-import softuni.unisports.model.view.NewsViewModel;
 import softuni.unisports.service.NewsService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -21,6 +18,7 @@ public class HomeController {
 
     public HomeController(NewsService newsService, ModelMapper modelMapper) {
         this.newsService = newsService;
+
         this.modelMapper = modelMapper;
     }
 
@@ -29,15 +27,8 @@ public class HomeController {
         LocalDateTime currentDate = LocalDateTime.now();
         String dateStr = currentDate.format(DateTimeFormatter.ofPattern("MMMM dd, yyyy hh:mm a"));
         model.addAttribute("currentDate", dateStr);
-
-
-        if (this.newsService.getAllNewsSortedByDate().size() > 2) {
-            List<NewsViewModel> latestNews = this.newsService.
-                    getAllNewsSortedByDate().subList(0, 3).
-                    stream().map(n -> modelMapper.map(n, NewsViewModel.class)).
-                    collect(Collectors.toList());
-            model.addAttribute("latestNews", latestNews);
-        }
+        model.addAttribute("latestNews", this.newsService.getLatestNews());
+        model.addAttribute("mostCommentedNews", this.newsService.getAllNewsSortedByComments().get(0));
 
         return "index";
     }
@@ -62,7 +53,7 @@ public class HomeController {
     }
 
     @GetMapping("/aboutus")
-    public ModelAndView aboutus(ModelAndView modelAndView) {
+    public ModelAndView aboutUs(ModelAndView modelAndView) {
         modelAndView.setViewName("aboutus");
         return modelAndView;
     }

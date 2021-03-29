@@ -1,4 +1,4 @@
-package softuni.unisports.errors;
+package softuni.unisports.exception;
 
 
 import org.springframework.http.HttpStatus;

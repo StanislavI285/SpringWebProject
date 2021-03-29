@@ -74,6 +74,7 @@ public class UsersController {
     public String listAllUsers(Model model) {
 
         List<UserListViewModel> allUsers = this.userService.getAllUsers();
+
         model.addAttribute("allUsers", allUsers);
 
         return "all-users";

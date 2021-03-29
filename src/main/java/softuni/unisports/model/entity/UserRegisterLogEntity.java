@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "logs")
+@Table(name = "registrations_log")
 public class UserRegisterLogEntity extends BaseEntity{
 
     private UserEntity userEntity;

@@ -1,8 +1,7 @@
 package softuni.unisports.service;
 
-import softuni.unisports.errors.NewsNotFoundException;
+import softuni.unisports.exception.NewsNotFoundException;
 import softuni.unisports.model.service.CommentServiceModel;
-import softuni.unisports.model.view.CommentViewModel;
 
 import java.util.List;
 

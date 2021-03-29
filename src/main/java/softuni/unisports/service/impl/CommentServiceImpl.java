@@ -2,7 +2,6 @@ package softuni.unisports.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import softuni.unisports.errors.NewsNotFoundException;
 import softuni.unisports.model.entity.CommentEntity;
 import softuni.unisports.model.entity.NewsEntity;
 import softuni.unisports.model.entity.UserEntity;
@@ -14,7 +13,6 @@ import softuni.unisports.service.NewsService;
 import softuni.unisports.service.UserService;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 

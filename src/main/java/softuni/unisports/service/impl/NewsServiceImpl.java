@@ -3,7 +3,7 @@ package softuni.unisports.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import softuni.unisports.errors.NewsNotFoundException;
+import softuni.unisports.exception.NewsNotFoundException;
 import softuni.unisports.model.entity.CategoryEntity;
 import softuni.unisports.model.entity.NewsEntity;
 import softuni.unisports.model.entity.UserEntity;
@@ -19,6 +19,7 @@ import softuni.unisports.service.UserService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,8 +42,8 @@ public class NewsServiceImpl implements NewsService {
 
 
     @Override
-    public NewsViewModel getNewsById(String id)  {
-        NewsEntity newsEntity = this.newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Resource not found"));
+    public NewsViewModel getNewsById(String id) {
+        NewsEntity newsEntity = this.newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Seems like this article doesn't exist."));
         NewsViewModel nvm = this.modelMapper.map(newsEntity, NewsViewModel.class);
 
         return nvm;
@@ -54,6 +55,26 @@ public class NewsServiceImpl implements NewsService {
                 stream().
                 map(n -> modelMapper.map(n, NewsGetServiceModel.class)).
                 collect(Collectors.toList());
+    }
+
+    @Override
+    public List<NewsGetServiceModel> getAllNewsSortedByComments() {
+        return this.newsRepository.findAllByCommentsCount().
+                stream().
+                map(n -> modelMapper.map(n, NewsGetServiceModel.class)).
+                collect(Collectors.toList());
+    }
+
+    @Override
+    public List<NewsGetServiceModel> getLatestNews() {
+        if (this.newsRepository.count() > 2) {
+            return this.newsRepository.findAllByAddedOn().
+                    stream().
+                    map(n -> modelMapper.map(n, NewsGetServiceModel.class)).
+                    collect(Collectors.toList()).
+                    subList(0, 3);
+        }
+        return new ArrayList<>();
     }
 
     @Override
