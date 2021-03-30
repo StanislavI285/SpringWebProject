@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface LogRepository extends JpaRepository<UserRegisterLogEntity, String> {
+public interface RegistrationLogRepository extends JpaRepository<UserRegisterLogEntity, String> {
 
     @Query(value = "SELECT l FROM UserRegisterLogEntity l ORDER BY l.registrationDateAndTime ASC")
     List<UserRegisterLogEntity> findAllSortedByDate();

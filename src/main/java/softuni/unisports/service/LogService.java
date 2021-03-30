@@ -11,5 +11,5 @@ public interface LogService {
 
     List<UserRegisterLogViewModel> getLogsForCurrentMonth();
 
-    void createErrorLog(String action, LocalDateTime errorDateAndTime);
+
 }

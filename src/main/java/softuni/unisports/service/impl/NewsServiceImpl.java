@@ -1,6 +1,5 @@
 package softuni.unisports.service.impl;
 
-import org.apache.tomcat.jni.Local;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +10,6 @@ import softuni.unisports.model.entity.UserEntity;
 import softuni.unisports.model.service.NewsAddServiceModel;
 import softuni.unisports.model.service.NewsGetServiceModel;
 import softuni.unisports.model.service.UserServiceModel;
-import softuni.unisports.model.view.NewsViewModel;
 import softuni.unisports.repository.NewsRepository;
 import softuni.unisports.service.CategoryService;
 import softuni.unisports.service.CloudinaryService;
@@ -100,7 +98,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public void incrementViews(String newsId) {
-        NewsEntity newsEntity = this.newsRepository.findById(newsId).get();
+        NewsEntity newsEntity = this.newsRepository.findById(newsId).orElseThrow(() -> new NewsNotFoundException("Seems like this article doesn't exist."));
         newsEntity.setViews(newsEntity.getViews() + 1);
         this.newsRepository.save(newsEntity);
     }

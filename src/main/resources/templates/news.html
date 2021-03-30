@@ -43,6 +43,7 @@
                                                 </h2>
                                                 <p class="fs-13 text-muted mb-0">
                                                     <span class="mr-2" th:text="*{category.name}">Photo </span>
+                                                    <span style="float: right" th:text="${#temporals.format(n.addedOn, 'dd-MMM|HH:mm')}" ></span>
                                                 </p>
                                                 <!--                                                <p class="fs-15" th:text="*{content}">-->
                                                 <!--                                                    Lorem Ipsum has been the industry's standard dummy-->
@@ -68,8 +69,8 @@
                                                                 Ways to stay social online while in self..
                                                             </h5>
                                                             <p class="fs-13 text-muted mb-0">
-                                                                <span class="mr-2" th:text="*{category.name}">Photo </span>10
-                                                                Minutes ago
+                                                                <span class="mr-2" th:text="*{category.name}">Photo </span>
+                                                                <span style="float: right" th:text="${#temporals.format(news.addedOn, 'dd-MMM|HH:mm')}" ></span>
                                                             </p>
                                                         </div>
                                                         <div class="col-sm-4">
