@@ -60,9 +60,11 @@ public class NewsController {
     public ModelAndView showNewsArticle(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView("article");
 
-        NewsViewModel newsViewModel = this.newsService.getNewsById(id);
+        NewsViewModel newsViewModel = modelMapper.map(this.newsService.getNewsById(id), NewsViewModel.class);
+
         modelAndView.addObject("newsViewModel", newsViewModel);
         modelAndView.addObject("commentBidingModel", new CommentBindingModel());
+        modelAndView.addObject("date", newsViewModel.getAddedOn());
         List<String> paragraphs =
                 Arrays.
                         stream(newsViewModel.getContent().trim().split("\n")).

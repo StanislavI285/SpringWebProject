@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="row" data-aos="fade-up">
                     <div class="col-xl-8 stretch-card grid-margin" th:object="${mostCommentedNews}">
-                        <a class="news-item" href="#">
+                        <a class="news-item" th:href="@{/news/{id}(id = *{id})}">
                             <div class="position-relative">
 
                                 <img

@@ -11773,7 +11773,6 @@ footer .footer-bottom {
 }
 
 
-
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
     display: block;
@@ -11818,7 +11817,15 @@ footer .footer-bottom {
     width: 220px;
 }
 
-.login-box-comments .nav-item{
+.login-box-comments .nav-item {
     color: #032A63;
     margin: 20px;
+}
+
+.date-label {
+    float: left;
+}
+
+.views-comments-label {
+    float: right;
 }

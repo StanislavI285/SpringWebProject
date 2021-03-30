@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface NewsService {
-    NewsViewModel getNewsById(String id) throws NewsNotFoundException;
+    NewsGetServiceModel getNewsById(String id) throws NewsNotFoundException;
 
     List<NewsGetServiceModel> getAllNewsSortedByDate();
 
@@ -19,4 +19,6 @@ public interface NewsService {
 
 
     void addNews(NewsAddServiceModel newsAddServiceModel) throws IOException;
+
+    void incrementViews(String newsId);
 }

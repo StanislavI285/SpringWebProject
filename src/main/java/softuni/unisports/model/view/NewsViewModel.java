@@ -4,6 +4,8 @@ import softuni.unisports.enums.CategoryEnum;
 import softuni.unisports.model.entity.CategoryEntity;
 import softuni.unisports.model.entity.CommentEntity;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +17,8 @@ public class NewsViewModel {
     private CategoryEntity category;
     private Set<CommentEntity> comments = new HashSet<>();
     private String imageUrl;
+    private LocalDateTime addedOn;
+    private int views;
 
 
     public NewsViewModel() {
@@ -81,6 +85,24 @@ public class NewsViewModel {
 
     public NewsViewModel setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public LocalDateTime getAddedOn() {
+        return addedOn;
+    }
+
+    public NewsViewModel setAddedOn(LocalDateTime addedOn) {
+        this.addedOn = addedOn;
+        return this;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public NewsViewModel setViews(int views) {
+        this.views = views;
         return this;
     }
 }

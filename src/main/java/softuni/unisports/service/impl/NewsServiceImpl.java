@@ -1,5 +1,6 @@
 package softuni.unisports.service.impl;
 
+import org.apache.tomcat.jni.Local;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ import softuni.unisports.service.UserService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,11 +44,11 @@ public class NewsServiceImpl implements NewsService {
 
 
     @Override
-    public NewsViewModel getNewsById(String id) {
+    public NewsGetServiceModel getNewsById(String id) {
         NewsEntity newsEntity = this.newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Seems like this article doesn't exist."));
-        NewsViewModel nvm = this.modelMapper.map(newsEntity, NewsViewModel.class);
+        NewsGetServiceModel newsGetServiceModel = this.modelMapper.map(newsEntity, NewsGetServiceModel.class);
 
-        return nvm;
+        return newsGetServiceModel;
     }
 
     @Override
@@ -85,6 +87,7 @@ public class NewsServiceImpl implements NewsService {
         CategoryEntity category = this.categoryService.findByName(newsAddServiceModel.getCategory());
         UserServiceModel userServiceModel = this.userService.findUserByUsername(newsAddServiceModel.getAuthor());
         UserEntity author = modelMapper.map(userServiceModel, UserEntity.class);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         newsEntity.
                 setImageUrl(imageUrl).
                 setAuthor(author).
@@ -93,5 +96,12 @@ public class NewsServiceImpl implements NewsService {
                 setLastUpdated(LocalDateTime.now());
 
         newsRepository.save(newsEntity);
+    }
+
+    @Override
+    public void incrementViews(String newsId) {
+        NewsEntity newsEntity = this.newsRepository.findById(newsId).get();
+        newsEntity.setViews(newsEntity.getViews() + 1);
+        this.newsRepository.save(newsEntity);
     }
 }

@@ -2,16 +2,13 @@ package softuni.unisports.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import softuni.unisports.model.binding.UserRegistrationBindingModel;
 import softuni.unisports.service.LogService;
 
-import javax.servlet.RequestDispatcher;
 import java.time.LocalDateTime;
-import javax.servlet.http.HttpServletRequest;
 
 @Aspect
 @Component
