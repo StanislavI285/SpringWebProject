@@ -58,11 +58,17 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public List<NewsGetServiceModel> getAllNewsSortedByComments() {
-        return this.newsRepository.findAllByCommentsCount().
-                stream().
-                map(n -> modelMapper.map(n, NewsGetServiceModel.class)).
-                collect(Collectors.toList());
+    public NewsGetServiceModel getMostCommentedNews() {
+        if (this.newsRepository.count() > 0) {
+            NewsGetServiceModel newsGetServiceModel = this.newsRepository.findAllByCommentsCount().
+                    stream().
+                    map(n -> modelMapper.map(n, NewsGetServiceModel.class)).
+                    collect(Collectors.toList()).
+                    get(0);
+            return newsGetServiceModel;
+        }
+
+        return new NewsGetServiceModel();
     }
 
     @Override

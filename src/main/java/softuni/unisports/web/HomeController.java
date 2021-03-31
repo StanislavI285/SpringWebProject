@@ -28,7 +28,7 @@ public class HomeController {
         String dateStr = currentDate.format(DateTimeFormatter.ofPattern("MMMM dd, yyyy hh:mm a"));
         model.addAttribute("currentDate", dateStr);
         model.addAttribute("latestNews", this.newsService.getLatestNews());
-        model.addAttribute("mostCommentedNews", this.newsService.getAllNewsSortedByComments().get(0));
+        model.addAttribute("mostCommentedNews", this.newsService.getMostCommentedNews());
 
         return "index";
     }

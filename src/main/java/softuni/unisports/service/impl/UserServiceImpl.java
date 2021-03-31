@@ -88,10 +88,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserServiceModel findUserByUsername(String name) {
-        UserServiceModel userServiceModel = modelMapper.
-                map(this.userRepository.findByUsername(name).get(),
-                        UserServiceModel.class);
-        return userServiceModel;
+        UserEntity userEntity = this.userRepository.findByUsername(name).orElse(null);
+        if (userEntity == null) {
+            return null;
+        }
+        return modelMapper.map(userEntity, UserServiceModel.class);
     }
 
     @Override
@@ -150,6 +151,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserViewModel findUserById(String id) {
         return modelMapper.map(this.userRepository.findById(id),
-                        UserViewModel.class);
+                UserViewModel.class);
     }
 }

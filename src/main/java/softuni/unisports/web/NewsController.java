@@ -56,6 +56,18 @@ public class NewsController {
     }
 
 
+    @GetMapping("/list")
+    public String listAllArticles(Model model) {
+        List<NewsViewModel> allNews = this.newsService.getAllNewsSortedByDate().
+                stream().
+                map(n -> modelMapper.map(n, NewsViewModel.class)).
+                collect(Collectors.toList());
+        model.addAttribute("allNews", allNews);
+
+        return "all-articles";
+    }
+
+
     @GetMapping("/{id}")
     public ModelAndView showNewsArticle(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView("article");

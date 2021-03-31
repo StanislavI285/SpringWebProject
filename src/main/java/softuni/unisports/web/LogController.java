@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import softuni.unisports.model.view.UserRegisterLogViewModel;
-import softuni.unisports.service.LogService;
+import softuni.unisports.service.RegistrationLogService;
 
 import java.util.List;
 
@@ -13,17 +13,17 @@ import java.util.List;
 @RequestMapping("/logs")
 public class LogController {
 
-    private final LogService logService;
+    private final RegistrationLogService registrationLogService;
 
-    public LogController(LogService logService) {
-        this.logService = logService;
+    public LogController(RegistrationLogService registrationLogService) {
+        this.registrationLogService = registrationLogService;
     }
 
 
     @GetMapping("/new-users")
     public String getNewUsersLog(Model model) {
 
-        List<UserRegisterLogViewModel> newRegistrations = this.logService.getLogsForCurrentMonth();
+        List<UserRegisterLogViewModel> newRegistrations = this.registrationLogService.getLogsForCurrentMonth();
         model.addAttribute("newRegistrations", newRegistrations);
 
         return "new-users-log";

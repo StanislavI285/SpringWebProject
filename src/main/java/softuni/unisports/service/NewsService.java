@@ -13,7 +13,7 @@ public interface NewsService {
 
     List<NewsGetServiceModel> getAllNewsSortedByDate();
 
-    List<NewsGetServiceModel> getAllNewsSortedByComments();
+    NewsGetServiceModel getMostCommentedNews();
 
     List<NewsGetServiceModel> getLatestNews();
 

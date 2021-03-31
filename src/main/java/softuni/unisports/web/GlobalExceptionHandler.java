@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({NewsNotFoundException.class})
+    @ExceptionHandler(value = {NewsNotFoundException.class})
     @GetMapping("/error")
     public ModelAndView newsNotFoundExceptionHandler(HttpServletRequest req, NewsNotFoundException ex) {
         ModelAndView mav = new ModelAndView("404");
@@ -22,10 +22,19 @@ public class GlobalExceptionHandler {
         return mav;
     }
 
-    @ExceptionHandler({Exception.class, RuntimeException.class})
+    @ExceptionHandler(value = {Exception.class})
     @GetMapping("/error")
     public ModelAndView unexpectedExceptionHandler(HttpServletRequest req, Exception ex) {
-        ModelAndView mav = new ModelAndView("404");
+        ModelAndView mav = new ModelAndView("500");
+        mav.addObject("message", ex.getMessage());
+
+        return mav;
+    }
+
+    @ExceptionHandler(value = {RuntimeException.class})
+    @GetMapping("/error")
+    public ModelAndView runtimeException(HttpServletRequest req, RuntimeException ex) {
+        ModelAndView mav = new ModelAndView("500");
         mav.addObject("message", ex.getMessage());
 
         return mav;

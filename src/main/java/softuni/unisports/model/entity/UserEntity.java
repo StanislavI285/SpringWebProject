@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
-
+//TODO Registered on
     private String username;
     private String firstName;
     private String lastName;

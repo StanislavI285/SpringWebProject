@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import softuni.unisports.model.binding.UserRegistrationBindingModel;
-import softuni.unisports.service.LogService;
+import softuni.unisports.service.RegistrationLogService;
 
 import java.time.LocalDateTime;
 
@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 @Component
 public class LogAspect {
 
-    private final LogService logService;
+    private final RegistrationLogService registrationLogService;
 
-    public LogAspect(LogService logService) {
-        this.logService = logService;
+    public LogAspect(RegistrationLogService registrationLogService) {
+        this.registrationLogService = registrationLogService;
     }
 
     @Pointcut("execution(* softuni.unisports.web.UsersController.registerUser(..))")
@@ -26,13 +26,12 @@ public class LogAspect {
 
     @After("userRegisterPointcut()")
     public void afterRegisterAdvice(JoinPoint joinPoint) {
-
         Object[] args = joinPoint.getArgs();
         UserRegistrationBindingModel userRegistrationBindingModel = (UserRegistrationBindingModel) args[0];
         String username = userRegistrationBindingModel.getUsername();
         LocalDateTime registerDateAndTime = LocalDateTime.now();
+        registrationLogService.createLog(username, registerDateAndTime);
 
-        logService.createLog(username, registerDateAndTime);
     }
 
 }
