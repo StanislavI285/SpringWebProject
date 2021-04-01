@@ -1,16 +1,21 @@
 package softuni.unisports.web;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 import softuni.unisports.enums.CategoryEnum;
 import softuni.unisports.enums.RoleEnum;
 import softuni.unisports.model.entity.CategoryEntity;
@@ -23,11 +28,14 @@ import softuni.unisports.repository.RoleRepository;
 import softuni.unisports.repository.UserRepository;
 import softuni.unisports.service.CloudinaryService;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -43,6 +51,8 @@ public class NewsControllerTest {
     CloudinaryService mockCloudinaryService;
 
     @Autowired
+    private WebApplicationContext webApplicationContext;
+    @Autowired
     private MockMvc mockMvc;
     @Autowired
     private NewsRepository newsRepository;
@@ -55,21 +65,23 @@ public class NewsControllerTest {
 
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws IOException {
         newsRepository.deleteAll();
         userRepository.deleteAll();
         roleRepository.deleteAll();
+        when(mockCloudinaryService.uploadImage(Mockito.any())).thenReturn("https://images.com/image.png");
         this.init();
     }
 
-    @AfterEach
-    public void cleanUp() {
+//    @AfterEach
+//    public void cleanUp() {
 //        newsRepository.deleteAll();
 //        userRepository.deleteAll();
 //        roleRepository.deleteAll();
-    }
+//    }
 
     private void init() {
+
 
         RoleEntity roleAdmin = new RoleEntity();
         roleAdmin.setName(RoleEnum.ADMIN);
@@ -120,5 +132,50 @@ public class NewsControllerTest {
 
     }
 
+    @Test
+    @WithMockUser(username = "username", roles = {"ADMIN", "USER"})
+    public void testAddNewsShouldWork() throws Exception {
+
+        //TODO check - returns status 403
+
+        MockMultipartFile mockImgFile = new MockMultipartFile(
+                "image",
+                "image.png",
+                MediaType.TEXT_PLAIN_VALUE,
+                "I am an image" .getBytes()
+        );
+
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.multipart(NEWS_CONTROLLER_PREFIX + "/add")
+                        .file(mockImgFile)
+                        .param("title", "News Titleeeee")
+                        .param("content", "News content here")
+                        .param("author", "username")
+                        .param("category", "FOOTBALL")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection());
+
+        Assertions.assertEquals(2, newsRepository.count());
+
+
+    }
+
+    @Test
+    public void testGetAllNewsShouldWork() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.
+                get(NEWS_CONTROLLER_PREFIX + "/all")).
+                andExpect(status().isOk()).
+                andExpect(view().name("news")).
+                andExpect(model().attributeExists("allNews"));
+    }
+
+
+    @Test
+    public void testGetNewsShouldThrow() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.
+                get(NEWS_CONTROLLER_PREFIX + "invalidnewsid")).
+                andExpect(status().isNotFound());
+    }
 
 }

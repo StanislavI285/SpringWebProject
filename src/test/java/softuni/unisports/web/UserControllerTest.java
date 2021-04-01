@@ -38,9 +38,7 @@ public class UserControllerTest {
 
     @BeforeEach
     private void setUp() {
-
         init();
-
     }
 
 //        @AfterEach
@@ -79,7 +77,6 @@ public class UserControllerTest {
 
 
     }
-
 
 
 }
