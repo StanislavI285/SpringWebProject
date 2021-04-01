@@ -43,7 +43,6 @@ public class CommentsRestController {
     @PostMapping("/add")
     public CommentBindingModel addComment(@RequestBody CommentBindingModel commentBindingModel) {
 
-        System.out.println();
         CommentServiceModel commentServiceModel = this.modelMapper.map(commentBindingModel, CommentServiceModel.class);
         commentServiceModel.setAuthor(userService.findUserByUsername(commentBindingModel.getAuthor()));
 

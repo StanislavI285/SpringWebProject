@@ -14,7 +14,6 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import softuni.unisports.enums.CategoryEnum;
 import softuni.unisports.enums.RoleEnum;
@@ -144,7 +143,6 @@ public class NewsControllerTest {
                 MediaType.TEXT_PLAIN_VALUE,
                 "I am an image" .getBytes()
         );
-
 
         mockMvc.perform(
                 MockMvcRequestBuilders.multipart(NEWS_CONTROLLER_PREFIX + "/add")
