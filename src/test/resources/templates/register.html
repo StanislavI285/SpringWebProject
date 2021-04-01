@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="https://www.thymeleaf.org">
+
+
+<th:block th:include="~{fragments/head}"></th:block>
+<body>
+<th:block th:include="~{fragments/_navbar}"></th:block>
+<div class="container-scroller">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-10 col-md-8 col-lg-6">
+            <!-- Form -->
+            <form class="form-example"
+                  th:object="${userRegistrationBindingModel}"
+                  th:action="@{/users/register}"
+                  method="POST">
+                <h1>Sign in</h1>
+                <p>Please fill all required fields below:</p>
+                <!-- Input fields -->
+                <div class="form-group">
+                    <label for="username">Username*</label>
+                    <input
+                            th:value="*{username}"
+                            th:errorclass="is-invalid"
+                            type="text"
+                            class="form-control"
+                            id="username"
+                            placeholder="Username..."
+                            name="username">
+                    <small id="usernameError" class="invalid-feedback">
+                        Invalid username! Username must be at least 3 characters long.</small>
+                    <small th:if="${usernameExistsError}" id="usernameUniqueError"
+                           class="alert alert-danger">Username already exists!</small>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="firstName">First name*</label>
+                    <input
+                            th:value="*{firstName}"
+                            th:errorclass="is-invalid"
+                            type="text"
+                            class="form-control"
+                            id="firstName"
+                            placeholder="First name..."
+                            name="firstName">
+                    <small id="firstNameError" class="invalid-feedback">
+                        Invalid first name! Name must be at least 2 characters long.</small>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last name*</label>
+                    <input th:value="*{firstName}"
+                           th:errorclass="is-invalid"
+                           type="text"
+                           class="form-control"
+                           id="lastName"
+                           placeholder="Last name..."
+                           name="lastName">
+                    <small id="lastNameError" class="invalid-feedback">
+                        Invalid last name! Name must be at least 2 characters long.</small>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email*</label>
+                    <input
+                            th:value="*{email}"
+                            th:errorclass="is-invalid"
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            placeholder="Email..."
+                            name="email">
+                    <small id="emailError" class="invalid-feedback">
+                        Invalid email address!</small>
+                    <small th:if="${emailExistsError}" id="emailExistsError" class="alert alert-danger">
+                        There is already a user registered with this email!</small>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password*</label>
+                    <input name="password"
+                           th:errorclass="is-invalid"
+                           type="password"
+                           class="form-control"
+                           id="password"
+                           placeholder="Password...">
+                    <small id="passwordError" class="invalid-feedback">
+                        Invalid password! Passwords should match, must be at least 8 characters long and contain:
+                        <br> - at least one uppercase letter
+                        <br> - at least one lowercase letter
+                        <br> - at least one number
+                        <br> - at least one special character
+                    </small>
+
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm password*</label>
+                    <input name="confirmPassword"
+                           th:errorclass="is-invalid"
+                           type="password"
+                           class="form-control"
+                           id="confirmPassword"
+                           placeholder="Confirm password...">
+                    <small id="confirmPasswordError" class="invalid-feedback">
+                        Passwords not matching!
+                    </small>
+
+                </div>
+                <button type="submit" class="btn btn-primary btn-customized">Sign in</button>
+            </form>
+        </div>
+    </div>
+    <p></p>
+</div>
+<!-- main-panel ends -->
+<!-- container-scroller ends -->
+
+<!-- partial:partials/_footer.html -->
+<th:block th:include="~{fragments/_footer}"></th:block>
+
+<!-- partial -->
+
+<!-- inject:js -->
+<script src="/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- plugin js for this page -->
+<script src="/vendors/aos/dist/aos.js/aos.js"></script>
+<!-- End plugin js for this page -->
+<!-- Custom js for this page-->
+<script src="/js/demo.js"></script>
+<script src="/js/jquery.easeScroll.js"></script>
+<!-- End custom js for this page-->
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="https://www.thymeleaf.org">
+
+
+<th:block th:include="~{fragments/head}"></th:block>
+<body>
+<th:block th:include="~{fragments/_navbar}"></th:block>
+<div class="container-scroller">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-10 col-md-8 col-lg-6">
+
+            <!-- Form -->
+            <form
+                    class="form-example"
+                    method="POST"
+                    th:action="@{roles/add}"
+                    th:object="${userRoleUpdateBindingModel}">
+                <h1>Update user roles</h1>
+                <div class="bg-success"
+                     id="successMessage"
+                     th:if="${successfullyAddedRole}">Success!</div>
+                <p>Please fill all required fields below:</p>
+                <!-- Input fields -->
+                <div class="form-group">
+                    <label for="username">Username*</label>
+                    <input
+                            class="form-control"
+                            id="username"
+                            name="username"
+                            placeholder="Username..."
+                            th:errorclass="is-invalid"
+                            th:field="*{username}"
+                            type="text">
+                    <small class="invalid-feedback" id="usernameError">
+                        Please enter a username.</small>
+                    <small class="alert alert-danger" id="nonExistingUsernameError" th:if="${nonExistingUsernameError}">
+                        No user was found with this username.</small>
+                    <small class="alert alert-danger" id="sameUserError" th:if="${sameUserError}">
+                        You cannot add/remove roles for yourself.</small>
+
+
+                </div>
+                <div class="form-group">
+                    <select id="role" name="role" th:field="*{role}">
+                        <option th:each="r : ${roles}"
+                                th:if="${r != 'ROOT'}"
+                                th:text="${r}"
+                                th:value="${r}"></option>
+                    </select>
+                    <small class="alert alert-danger" id="roleAlreadyPresentError" th:if="${roleAlreadyPresentError}">
+                        The user already has this role assigned.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password*</label>
+                    <input
+                            class="form-control"
+                            id="password"
+                            name="password"
+                            placeholder="Password..."
+                            th:field="*{adminPassword}"
+                            type="password">
+                    <small class="alert alert-danger" id="passwordError" th:if="${passwordError}">
+                        Invalid password!
+                    </small>
+
+                </div>
+                <button class="btn btn-primary btn-customized" type="submit">Set role</button>
+            </form>
+        </div>
+    </div>
+    <p></p>
+</div>
+<!-- main-panel ends -->
+<!-- container-scroller ends -->
+
+<!-- partial:partials/_footer.html -->
+<th:block th:include="~{fragments/_footer}"></th:block>
+
+<!-- partial -->
+
+<!-- inject:js -->
+<script src="/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- plugin js for this page -->
+<script src="/vendors/aos/dist/aos.js/aos.js"></script>
+<!-- End plugin js for this page -->
+<!-- Custom js for this page-->
+<script src="/js/demo.js"></script>
+<script src="/js/jquery.easeScroll.js"></script>
+<!-- End custom js for this page-->
+</body>
+</html>

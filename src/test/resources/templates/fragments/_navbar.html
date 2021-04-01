@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="https://www.thymeleaf.org">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<th:block>
+    <header id="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="navbar-top">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <ul class="navbar-top-left-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/aboutus">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/events">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Write for Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">In the Press</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="navbar-bottom">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <a class="navbar-brand" href="/">
+                                <img alt="" src="/img/logo-new2.jpg"/>
+                            </a>
+                        </div>
+                        <div>
+                            <button
+                                    aria-controls="navbarSupportedContent"
+                                    aria-expanded="false"
+                                    aria-label="Toggle navigation"
+                                    class="navbar-toggler"
+                                    data-target="#navbarSupportedContent"
+                                    type="button"
+                            >
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div
+                                    class="navbar-collapse justify-content-center collapse"
+                                    id="navbarSupportedContent"
+                            >
+                                <ul class="navbar-nav d-lg-flex justify-content-between align-items-center">
+                                    <li>
+                                        <button class="navbar-close">
+                                            <i class="mdi mdi-close"></i>
+                                        </button>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="/">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/news/all">News</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/galleries">Galleries</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/standings">Standings</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/results">Results</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/contactus">Contact</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <ul class="navbar-nav d-lg-flex justify-content-between align-items-center">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="mdi mdi-magnify"></i></a>
+                            </li>
+                            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                                <a class="nav-link" th:href="@{/users/login}">Login</a>
+                            </li>
+                            <li class="nav-item" sec:authorize="!isAuthenticated()">
+                                <a class="nav-link" th:href="@{/users/register}">Sign in</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <button class="dropbtn" sec:authorize="isAuthenticated()">Profile</button>
+                                    <div class="dropdown-content" sec:authorize="isAuthenticated()">
+                                        <div sec:authorize="isAuthenticated()">
+                                            <a class="nav-link"
+                                               th:href="@{/users/profile/show/{username}(username = ${loggedUsername})}">My
+                                                Profile</a>
+                                        </div>
+                                        <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+                                            <a class="nav-link" th:href="@{/admin-panel}">Admin Panel</a>
+                                        </div>
+                                        <div sec:authorize="hasAuthority('ROLE_MODERATOR')">
+                                            <a class="nav-link" th:href="@{/moderator-panel}">Moderator Panel</a>
+                                        </div>
+                                        <div>
+                                            <form method="POST" th:action="@{/logout}">
+                                                <button class="button" type="submit">
+                                                    Logout
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!--                                    <div class="dropdown-content" sec:authorize="hasAuthority('ROLE_MODERATOR')">-->
+                                    <!--                                        <a class="nav-link" th:href="@{/moderator-panel}">Moderator Panel</a>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="dropdown-content" sec:authorize="isAuthenticated()">-->
+                                    <!--                                        <form method="POST" th:action="@{/logout}">-->
+                                    <!--                                            <button class="button nav-link" type="submit">-->
+                                    <!--                                                Logout-->
+                                    <!--                                            </button>-->
+                                    <!--                                        </form>-->
+                                    <!--                                    </div>-->
+                                </div>
+                            </li>
+                            <!--                            <li sec:authorize="hasAuthority('ROLE_USER')" th:object="${principal}" class="nav-item">-->
+                            <!--                                <a th:href="@{/users/profile/show/{username}(username = ${principal.getUsername()})}" class="nav-link">My Profile</a>-->
+                            <!--                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+</th:block>

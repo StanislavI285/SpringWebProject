@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<th:block th:include="~{fragments/head}"></th:block>
+<body>
+<div class="container-scroller">
+    <div class="main-panel">
+        <th:block th:include="~{fragments/_navbar}"></th:block>
+
+        <h3>All users</h3>
+        <table class="table-responsive-lg table-light" style="width: 75%">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Views count</th>
+                <th>Comments count</th>
+            </tr>
+            <tr th:each="n : ${allNews}" th:object="${n}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{title}"></td>
+                <td th:text="*{author.username}"></td>
+                <td th:text="*{category.name}"></td>
+                <td th:text="*{views}"></td>
+                <td th:text="*{comments.size()}"></td>
+            </tr>
+        </table>
+
+
+    </div>
+</div>
+</body>
+</html>

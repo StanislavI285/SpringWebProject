@@ -1,0 +1,124 @@
+package softuni.unisports.web;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import softuni.unisports.enums.CategoryEnum;
+import softuni.unisports.enums.RoleEnum;
+import softuni.unisports.model.entity.CategoryEntity;
+import softuni.unisports.model.entity.NewsEntity;
+import softuni.unisports.model.entity.RoleEntity;
+import softuni.unisports.model.entity.UserEntity;
+import softuni.unisports.repository.CategoryRepository;
+import softuni.unisports.repository.NewsRepository;
+import softuni.unisports.repository.RoleRepository;
+import softuni.unisports.repository.UserRepository;
+import softuni.unisports.service.CloudinaryService;
+
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@AutoConfigureTestDatabase
+public class NewsControllerTest {
+
+
+    private static final String NEWS_CONTROLLER_PREFIX = "/news";
+    private String testNewsId;
+
+    @MockBean
+    CloudinaryService mockCloudinaryService;
+
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired
+    private NewsRepository newsRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private RoleRepository roleRepository;
+
+
+    @BeforeEach
+    public void setUp() {
+        newsRepository.deleteAll();
+        userRepository.deleteAll();
+        roleRepository.deleteAll();
+        this.init();
+    }
+
+    @AfterEach
+    public void cleanUp() {
+//        newsRepository.deleteAll();
+//        userRepository.deleteAll();
+//        roleRepository.deleteAll();
+    }
+
+    private void init() {
+
+        RoleEntity roleAdmin = new RoleEntity();
+        roleAdmin.setName(RoleEnum.ADMIN);
+        RoleEntity roleUser = new RoleEntity();
+        roleAdmin.setName(RoleEnum.USER);
+
+        roleRepository.saveAll(List.of(roleUser, roleAdmin));
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername("username").
+                setPassword("Aa1@aaaaaa").
+                setRoles(Set.of(roleUser, roleAdmin)).
+                setFirstName("Pesho").
+                setLastName("Peshov").
+                setEmail("pesho@email.com").
+                setImageUrl("http://images.com/peshoPicture.jpeg");
+
+
+        userRepository.save(userEntity);
+
+
+        CategoryEntity categoryEntity = new CategoryEntity(CategoryEnum.FOOTBALL);
+        categoryRepository.save(categoryEntity);
+
+        NewsEntity newsEntity = new NewsEntity();
+        newsEntity.setTitle("title").
+                setAuthor(userEntity).
+                setContent("some interesting stuff happened yesterday").
+                setCategory(categoryEntity).
+                setAddedOn(LocalDateTime.now()).
+                setImageUrl("https://newspictures.com/news.jpeg").
+                setComments(new HashSet<>());
+
+        newsRepository.save(newsEntity);
+        testNewsId = newsEntity.getId();
+
+    }
+
+    @Test
+    @WithMockUser(username = "username", roles = {"ADMIN", "USER"})
+    public void shouldReturnValidStatusViewNameAndModel() throws Exception {
+        mockMvc
+                .perform(MockMvcRequestBuilders.get(NEWS_CONTROLLER_PREFIX + "/{id}", testNewsId))
+                .andExpect(status().isOk())
+                .andExpect(view().name("article"))
+                .andExpect(model().attributeExists("newsViewModel"));
+
+
+    }
+
+
+}

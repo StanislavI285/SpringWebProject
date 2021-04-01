@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<th:block th:include="~{fragments/head}"></th:block>
+<body>
+<div class="container-scroller">
+    <div class="main-panel">
+        <th:block th:include="~{fragments/_navbar}"></th:block>
+
+        <h3>All users</h3>
+        <table class="table-responsive-lg table-light" style="width: 75%">
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Registered on</th>
+                <th>Profile</th>
+            </tr>
+            <tr th:each="r : ${newRegistrations}" th:object="${r}">
+                <td th:text="*{user.id}"></td>
+                <td th:text="*{user.username}"></td>
+                <td th:text="*{user.firstName}"></td>
+                <td th:text="*{user.lastName}"></td>
+                <td th:text="*{user.email}"></td>
+                <td th:text="*{registrationDateAndTime}"></td>
+                <td><a th:href="@{/users/details/{id}(id = *{user.id})}">Details</a></td>
+            </tr>
+        </table>
+
+
+    </div>
+</div>
+</body>
+</html>
