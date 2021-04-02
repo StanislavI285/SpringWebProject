@@ -1,5 +1,6 @@
 package softuni.unisports.web;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,8 +50,7 @@ public class NewsControllerTest {
     @MockBean
     CloudinaryService mockCloudinaryService;
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
+
     @Autowired
     private MockMvc mockMvc;
     @Autowired
@@ -65,34 +65,27 @@ public class NewsControllerTest {
 
     @BeforeEach
     public void setUp() throws IOException {
-        newsRepository.deleteAll();
-        userRepository.deleteAll();
-        roleRepository.deleteAll();
         when(mockCloudinaryService.uploadImage(Mockito.any())).thenReturn("https://images.com/image.png");
         this.init();
     }
 
-//    @AfterEach
-//    public void cleanUp() {
-//        newsRepository.deleteAll();
-//        userRepository.deleteAll();
-//        roleRepository.deleteAll();
-//    }
+    @AfterEach
+    public void cleanUp() {
+        newsRepository.deleteAll();
+        userRepository.deleteAll();
+    }
 
     private void init() {
 
 
-        RoleEntity roleAdmin = new RoleEntity();
-        roleAdmin.setName(RoleEnum.ADMIN);
-        RoleEntity roleUser = new RoleEntity();
-        roleAdmin.setName(RoleEnum.USER);
-
-        roleRepository.saveAll(List.of(roleUser, roleAdmin));
+        RoleEntity roleAdmin = roleRepository.findByName(RoleEnum.ADMIN).get();
+        RoleEntity roleUser = roleRepository.findByName(RoleEnum.USER).get();
+        RoleEntity roleModerator = roleRepository.findByName(RoleEnum.MODERATOR).get();
 
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername("username").
                 setPassword("Aa1@aaaaaa").
-                setRoles(Set.of(roleUser, roleAdmin)).
+                setRoles(Set.of(roleUser, roleAdmin, roleModerator)).
                 setFirstName("Pesho").
                 setLastName("Peshov").
                 setEmail("pesho@email.com").
@@ -102,8 +95,8 @@ public class NewsControllerTest {
         userRepository.save(userEntity);
 
 
-        CategoryEntity categoryEntity = new CategoryEntity(CategoryEnum.FOOTBALL);
-        categoryRepository.save(categoryEntity);
+        CategoryEntity categoryEntity = categoryRepository.findByName(CategoryEnum.FOOTBALL).get();
+
 
         NewsEntity newsEntity = new NewsEntity();
         newsEntity.setTitle("title").
@@ -132,7 +125,7 @@ public class NewsControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "username", roles = {"ADMIN", "USER"})
+    @WithMockUser(username = "username", roles = {"ADMIN", "USER", "MODERATOR"})
     public void testAddNewsShouldWork() throws Exception {
 
         //TODO check - returns status 403
@@ -143,6 +136,7 @@ public class NewsControllerTest {
                 MediaType.TEXT_PLAIN_VALUE,
                 "I am an image" .getBytes()
         );
+
 
         mockMvc.perform(
                 MockMvcRequestBuilders.multipart(NEWS_CONTROLLER_PREFIX + "/add")

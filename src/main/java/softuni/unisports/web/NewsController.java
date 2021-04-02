@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +51,11 @@ public class NewsController {
         if (allNews.size() > 2) {
             List<NewsViewModel> latestNews = allNews.subList(0, 3);
             model.addAttribute("latestNews", latestNews);
+
+            List<NewsViewModel> trending = allNews.stream().
+                    sorted((n1, n2) -> n2.getViews() - n1.getViews()).
+                    collect(Collectors.toList());
+            model.addAttribute("trending", trending);
         }
 
         return "news";
@@ -114,8 +120,6 @@ public class NewsController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.newsAddBindingModel", bindingResult);
             return "redirect:add";
         }
-
-        //TODO check file extension
 
         NewsAddServiceModel newsAddServiceModel = modelMapper.map(newsAddBindingModel, NewsAddServiceModel.class);
         this.newsService.addNews(newsAddServiceModel);

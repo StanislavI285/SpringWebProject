@@ -18,7 +18,7 @@ public class LogInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) {
-        //TODO uncomment
+//        //TODO uncomment
 //        long startTime = System.currentTimeMillis();
 //        logger.info("Request URL::" + request.getRequestURL().toString()
 //                + ":: Start Time=" + System.currentTimeMillis());
@@ -37,7 +37,7 @@ public class LogInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request,
                                 HttpServletResponse response, Object handler, Exception ex) {
-        //TODO uncomment
+//        //TODO uncomment
 //        long startTime = (Long) request.getAttribute("startTime");
 //        logger.info("Request URL::" + request.getRequestURL().toString()
 //                + ":: End Time=" + System.currentTimeMillis());

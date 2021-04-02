@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
         return mav;
     }
 
-    @ExceptionHandler(value = {Exception.class})
+    @ExceptionHandler(Exception.class)
     @GetMapping("/error")
     public ModelAndView unexpectedExceptionHandler(HttpServletRequest req, Exception ex) {
         ModelAndView mav = new ModelAndView("500");
@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
         return mav;
     }
 
-    @ExceptionHandler(value = {RuntimeException.class})
+    @ExceptionHandler(RuntimeException.class)
     @GetMapping("/error")
     public ModelAndView runtimeException(HttpServletRequest req, RuntimeException ex) {
         ModelAndView mav = new ModelAndView("500");

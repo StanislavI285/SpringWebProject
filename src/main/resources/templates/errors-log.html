@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<th:block th:include="~{fragments/head}"></th:block>
+<body>
+<div class="container-scroller">
+    <div class="main-panel">
+        <th:block th:include="~{fragments/_navbar}"></th:block>
+
+        <h3>All users</h3>
+        <table class="table-responsive-lg table-light" style="width: 75%">
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Exception</th>
+                <th>Reason</th>
+            </tr>
+            <tr th:each="e : ${errors}" th:object="${e}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{date}"></td>
+                <td th:text="*{exception}"></td>
+                <td th:text="*{reason}"></td>
+            </tr>
+        </table>
+
+
+    </div>
+</div>
+</body>
+</html>

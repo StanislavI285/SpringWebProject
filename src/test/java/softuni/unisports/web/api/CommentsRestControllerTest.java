@@ -114,7 +114,7 @@ public class CommentsRestControllerTest {
                         contentType(MediaType.APPLICATION_JSON).
                         content(json).
                         with(csrf())).
-                andExpect(status().isOk());
+                andExpect(status().isCreated());
     }
 
 
