@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
+import softuni.unisports.service.CategoryService;
 import softuni.unisports.service.NewsService;
 
 import java.time.LocalDateTime;
@@ -14,10 +15,12 @@ import java.time.format.DateTimeFormatter;
 public class HomeController {
 
     private final NewsService newsService;
+    private final CategoryService categoryService;
     private final ModelMapper modelMapper;
 
-    public HomeController(NewsService newsService, ModelMapper modelMapper) {
+    public HomeController(NewsService newsService, CategoryService categoryService, ModelMapper modelMapper) {
         this.newsService = newsService;
+        this.categoryService = categoryService;
 
         this.modelMapper = modelMapper;
     }
@@ -29,6 +32,8 @@ public class HomeController {
         model.addAttribute("currentDate", dateStr);
         model.addAttribute("latestNews", this.newsService.getLatestNews());
         model.addAttribute("mostCommentedNews", this.newsService.getMostCommentedNews());
+        model.addAttribute("categories", this.categoryService.getAllCategories());
+        model.addAttribute("newsWithMoreThan10Views", this.newsService.getNewsWithViewsMoreThan10());
 
         return "index";
     }
@@ -70,11 +75,6 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/moderator-panel")
-    public ModelAndView moderatorPanel(ModelAndView modelAndView) {
-        modelAndView.setViewName("moderator-panel");
-        return modelAndView;
-    }
 
 
 }

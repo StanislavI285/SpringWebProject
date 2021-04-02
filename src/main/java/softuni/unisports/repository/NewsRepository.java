@@ -16,4 +16,7 @@ public interface NewsRepository extends JpaRepository<NewsEntity, String> {
 
     @Query(value = "SELECT n FROM NewsEntity n ORDER BY n.comments.size DESC")
     List<NewsEntity> findAllByCommentsCount();
+
+    @Query(value = "SELECT n FROM NewsEntity n WHERE n.views > 10")
+    List<NewsEntity> findAllByViewsMoreThan10();
 }

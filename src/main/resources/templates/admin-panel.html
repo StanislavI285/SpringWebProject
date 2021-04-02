@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zxx" xmlns:th="https://www.thymeleaf.org">
+<html lang="zxx" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:include="~{fragments/head}"></th:block>
 
 
@@ -27,7 +28,7 @@
                         <div class="card-body">
                             <h2>Category</h2>
                             <ul class="vertical-menu">
-                                <li>Users
+                                <li sec:authorize="hasAuthority('ROLE_ADMIN')">Users
                                     <ul>
                                         <li><a th:href="@{/users/list}">All users</a></li>
                                         <li><a th:href="@{/roles}">Set user's role</a></li>
@@ -39,7 +40,7 @@
                                         <li><a th:href="@{/news/add}">Add news article</a></li>
                                     </ul>
                                 </li>
-                                <li>Logs
+                                <li sec:authorize="hasAuthority('ROLE_ADMIN')">Logs
                                     <ul>
                                         <li><a th:href="@{logs/new-users}">New users log</a></li>
                                     </ul>
@@ -47,7 +48,7 @@
                                         <li><a th:href="@{logs/errors}">Errors log</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">Site statistics</a></li>
+                                <li sec:authorize="hasAuthority('ROLE_ADMIN')"><a href="#">Site statistics</a></li>
 <!--                                <li><a href="#">Jobs</a></li>-->
 <!--                                <li><a href="#">Media</a></li>-->
 <!--                                <li><a href="#">Administration</a></li>-->

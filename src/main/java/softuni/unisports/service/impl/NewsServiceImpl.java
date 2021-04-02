@@ -10,6 +10,7 @@ import softuni.unisports.model.entity.UserEntity;
 import softuni.unisports.model.service.NewsAddServiceModel;
 import softuni.unisports.model.service.NewsGetServiceModel;
 import softuni.unisports.model.service.UserServiceModel;
+import softuni.unisports.model.view.NewsViewModel;
 import softuni.unisports.repository.NewsRepository;
 import softuni.unisports.service.CategoryService;
 import softuni.unisports.service.CloudinaryService;
@@ -58,25 +59,25 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public NewsGetServiceModel getMostCommentedNews() {
+    public NewsViewModel getMostCommentedNews() {
         if (this.newsRepository.count() > 0) {
-            NewsGetServiceModel newsGetServiceModel = this.newsRepository.findAllByCommentsCount().
+            NewsViewModel newsViewModel = this.newsRepository.findAllByCommentsCount().
                     stream().
-                    map(n -> modelMapper.map(n, NewsGetServiceModel.class)).
+                    map(n -> modelMapper.map(n, NewsViewModel.class)).
                     collect(Collectors.toList()).
                     get(0);
-            return newsGetServiceModel;
+            return newsViewModel;
         }
 
-        return new NewsGetServiceModel();
+        return new NewsViewModel();
     }
 
     @Override
-    public List<NewsGetServiceModel> getLatestNews() {
+    public List<NewsViewModel> getLatestNews() {
         if (this.newsRepository.count() > 2) {
             return this.newsRepository.findAllByAddedOn().
                     stream().
-                    map(n -> modelMapper.map(n, NewsGetServiceModel.class)).
+                    map(n -> modelMapper.map(n, NewsViewModel.class)).
                     collect(Collectors.toList()).
                     subList(0, 3);
         }
@@ -108,4 +109,14 @@ public class NewsServiceImpl implements NewsService {
         newsEntity.setViews(newsEntity.getViews() + 1);
         this.newsRepository.save(newsEntity);
     }
+
+    @Override
+    public List<NewsViewModel> getNewsWithViewsMoreThan10() {
+        List<NewsEntity> news = this.newsRepository.findAllByViewsMoreThan10();
+        return news.
+                stream().
+                map(n -> modelMapper.map(n, NewsViewModel.class)).
+                collect(Collectors.toList());
+    }
+
 }

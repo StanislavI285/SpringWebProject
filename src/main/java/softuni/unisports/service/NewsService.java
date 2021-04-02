@@ -13,12 +13,13 @@ public interface NewsService {
 
     List<NewsGetServiceModel> getAllNewsSortedByDate();
 
-    NewsGetServiceModel getMostCommentedNews();
+    NewsViewModel getMostCommentedNews();
 
-    List<NewsGetServiceModel> getLatestNews();
-
+    List<NewsViewModel> getLatestNews();
 
     void addNews(NewsAddServiceModel newsAddServiceModel) throws IOException;
 
     void incrementViews(String newsId);
+
+    List<NewsViewModel> getNewsWithViewsMoreThan10();
 }

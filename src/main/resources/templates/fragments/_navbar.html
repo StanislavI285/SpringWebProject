@@ -13,7 +13,7 @@
                                 <a class="nav-link" href="/aboutus">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/events">Events</a>
+                                <a class="nav-link" href="/#">Events</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Write for Us</a>
@@ -92,11 +92,8 @@
                                                th:href="@{/users/profile/show/{username}(username = ${loggedUsername})}">My
                                                 Profile</a>
                                         </div>
-                                        <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-                                            <a class="nav-link" th:href="@{/admin-panel}">Admin Panel</a>
-                                        </div>
                                         <div sec:authorize="hasAuthority('ROLE_MODERATOR')">
-                                            <a class="nav-link" th:href="@{/moderator-panel}">Moderator Panel</a>
+                                            <a class="nav-link" th:href="@{/admin-panel}">Admin Panel</a>
                                         </div>
                                         <div>
                                             <form method="POST" th:action="@{/logout}">
