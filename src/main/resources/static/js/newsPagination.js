@@ -11,9 +11,13 @@ function newsPagination() {
 function createNewsRow(news) {
 
     let {id, title, content, author, category, comments, imageUrl, addedOn, views} = news;
-
-
-
+    let d = new Date(addedOn);
+    let month = new Intl.DateTimeFormat('default', { month: 'short' }).format(d);
+    let date = new Intl.DateTimeFormat('default', { day: '2-digit' }).format(d);
+    let hour = new Intl.DateTimeFormat('default', { hour: 'numeric', minute: 'numeric' }).format(d);
+    // let min = new Intl.DateTimeFormat('en', { minute: 'numeric' }).format(d);
+    let datePrint = `${date}-${month} | ${hour}`;
+    console.log()
     let newDiv = `<div class="row">
                                         <div class="col-sm-4 grid-margin">
                                             <div class="rotate-img">
@@ -30,7 +34,7 @@ function createNewsRow(news) {
                                                 <p class="fs-13 text-muted mb-0">
                                                     <span class="mr-2">${category.name}</span>
                                                     <span style="float: right"
-                                                          text=${addedOn}></span>
+                                                          >${datePrint}</span>
                                                 </p>
                                             </a>
                                             <p class="fs-15">${content.toString().substr(0, 200)}</p>
