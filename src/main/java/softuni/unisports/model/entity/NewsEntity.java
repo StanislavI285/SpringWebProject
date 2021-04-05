@@ -21,6 +21,7 @@ public class NewsEntity extends BaseEntity {
     private LocalDateTime addedOn;
     private LocalDateTime lastUpdated;
     private String imageUrl;
+    private String videoUrl;
 
     public NewsEntity() {
     }
@@ -116,13 +117,23 @@ public class NewsEntity extends BaseEntity {
         return this;
     }
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", nullable = false)
     public String getImageUrl() {
         return imageUrl;
     }
 
     public NewsEntity setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    @Column(name = "video_url")
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public NewsEntity setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
         return this;
     }
 }

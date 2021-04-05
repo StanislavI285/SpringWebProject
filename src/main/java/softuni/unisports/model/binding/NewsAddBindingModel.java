@@ -4,6 +4,8 @@ import org.springframework.web.multipart.MultipartFile;
 import softuni.unisports.model.validators.multipartFile.MultiPartNotNull;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class NewsAddBindingModel {
@@ -13,6 +15,7 @@ public class NewsAddBindingModel {
     private String author;
     private String category;
     private MultipartFile image;
+    private String videoUrl;
 
     public NewsAddBindingModel() {
     }
@@ -65,6 +68,18 @@ public class NewsAddBindingModel {
 
     public NewsAddBindingModel setImage(MultipartFile image) {
         this.image = image;
+        return this;
+    }
+
+
+
+    @Pattern(regexp = "^(http(s)?:\\/\\/)?((w){3}.)?youtu(be|.be)?(\\.com)?\\/.+")
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public NewsAddBindingModel setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
         return this;
     }
 }

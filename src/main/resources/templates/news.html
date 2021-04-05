@@ -4,7 +4,7 @@
 <th:block th:include="~{fragments/head}"></th:block>
 
 
-<body>
+<body onload="newsPagination()">
 <div class="container-scroller">
     <div class="main-panel">
         <!-- partial:../partials/_navbar.html -->
@@ -25,38 +25,8 @@
                                 </div>
                             </div>
                             <div class="row"> <!-- th:each for all news items from DB -->
-                                <div class="col-lg-8">
-                                    <div class="row" th:each="n : ${allNews}" th:object="${n}">
-                                        <div class="col-sm-4 grid-margin">
-                                            <div class="rotate-img">
-                                                <img
-                                                        alt="banner"
-                                                        class="img-fluid"
-                                                        th:src="*{imageUrl}"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8 grid-margin">
-                                            <a th:href="@{/news/{id}(id = *{id})}">
-                                                <h2 class="font-weight-600 mb-2" th:href="@{/news/{id}(id = *{id})}"
-                                                    th:text="*{title}">
-                                                    No charges over 2017 battle bus cases
-                                                </h2>
-                                                <p class="fs-13 text-muted mb-0">
-                                                    <span class="mr-2" th:text="*{category.name}">Photo </span>
-                                                    <span style="float: right"
-                                                          th:text="${#temporals.format(n.addedOn, 'dd-MMM|HH:mm')}"></span>
-                                                </p>
-                                                <!--                                                <p class="fs-15" th:text="*{content}">-->
-                                                <!--                                                    Lorem Ipsum has been the industry's standard dummy-->
-                                                <!--                                                    text ever since the 1500s, when an unknown printer-->
-                                                <!--                                                    took a galley of type and scrambled it to make a-->
-                                                <!--                                                    type specimen book.-->
-                                                <!--                                                </p>-->
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="col-lg-8 pagination-wrapper" id="news-wrapper"></div>
+
                                 <div class="col-lg-4">
                                     <h2 class="mb-4 text-primary font-weight-600">
                                         Latest news
@@ -91,6 +61,7 @@
                                             </div>
                                         </a>
                                     </div>
+
                                     <div class="trending">
                                         <h2 class="mb-4 text-primary font-weight-600">
                                             Trending
@@ -152,6 +123,7 @@
 <!-- Custom js for this page-->
 <script src="/js/demo.js"></script>
 <script src="/js/jquery.easeScroll.js"></script>
+<script src="/js/newsPagination.js"></script>
 <!-- End custom js for this page-->
 </body>
 </html>

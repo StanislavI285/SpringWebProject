@@ -15,7 +15,7 @@ public class NewsViewModel {
     private String content;
     private UserViewModel author;
     private CategoryEntity category;
-    private Set<CommentEntity> comments = new HashSet<>();
+    private Set<CommentViewModel> comments = new HashSet<>();
     private String imageUrl;
     private LocalDateTime addedOn;
     private int views;
@@ -70,11 +70,11 @@ public class NewsViewModel {
     }
 
 
-    public Set<CommentEntity> getComments() {
+    public Set<CommentViewModel> getComments() {
         return comments;
     }
 
-    public NewsViewModel setComments(Set<CommentEntity> comments) {
+    public NewsViewModel setComments(Set<CommentViewModel> comments) {
         this.comments = comments;
         return this;
     }

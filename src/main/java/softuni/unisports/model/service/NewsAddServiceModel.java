@@ -14,6 +14,7 @@ public class NewsAddServiceModel {
     private String category;
     private Set<CommentEntity> comments = new HashSet<>();
     private MultipartFile image;
+    private String videoUrl;
 
     public NewsAddServiceModel() {
     }
@@ -78,6 +79,15 @@ public class NewsAddServiceModel {
 
     public NewsAddServiceModel setImage(MultipartFile image) {
         this.image = image;
+        return this;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public NewsAddServiceModel setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
         return this;
     }
 }

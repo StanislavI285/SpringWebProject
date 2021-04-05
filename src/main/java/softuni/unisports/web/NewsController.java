@@ -54,7 +54,8 @@ public class NewsController {
 
             List<NewsViewModel> trending = allNews.stream().
                     sorted((n1, n2) -> n2.getViews() - n1.getViews()).
-                    collect(Collectors.toList());
+                    collect(Collectors.toList())
+                    .subList(0,5);
             model.addAttribute("trending", trending);
         }
 
