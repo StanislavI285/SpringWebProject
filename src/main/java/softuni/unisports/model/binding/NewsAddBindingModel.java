@@ -73,13 +73,13 @@ public class NewsAddBindingModel {
 
 
 
-    @Pattern(regexp = "^(http(s)?:\\/\\/)?((w){3}.)?youtu(be|.be)?(\\.com)?\\/.+")
-    public String getVideoUrl() {
-        return videoUrl;
-    }
-
-    public NewsAddBindingModel setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
-        return this;
-    }
+//    @Pattern(regexp = "^(http(s)?:\\/\\/)?((w){3}.)?youtu(be|.be)?(\\.com)?\\/.+", message = "Invalid URL.")
+//    public String getVideoUrl() {
+//        return videoUrl;
+//    }
+//
+//    public NewsAddBindingModel setVideoUrl(String videoUrl) {
+//        this.videoUrl = videoUrl;
+//        return this;
+//    }
 }

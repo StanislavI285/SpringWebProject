@@ -26,7 +26,6 @@
                             </div>
                             <div class="row"> <!-- th:each for all news items from DB -->
                                 <div class="col-lg-8 pagination-wrapper" id="news-wrapper"></div>
-
                                 <div class="col-lg-4">
                                     <h2 class="mb-4 text-primary font-weight-600">
                                         Latest news
@@ -97,8 +96,10 @@
                                             </a>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
+                            <div id="pagination" class="page-numbers"></div>
                         </div>
                     </div>
                 </div>
@@ -121,9 +122,9 @@
 <script src="/vendors/aos/dist/aos.js/aos.js"></script>
 <!-- End plugin js for this page -->
 <!-- Custom js for this page-->
-<script src="/js/demo.js"></script>
-<script src="/js/jquery.easeScroll.js"></script>
-<script src="/js/newsPagination.js"></script>
+<script th:src="@{/js/demo.js}"></script>
+<script th:src="@{/js/jquery.easeScroll.js}"></script>
+<script th:src="@{/js/newsPagination.js}"></script>
 <!-- End custom js for this page-->
 </body>
 </html>
