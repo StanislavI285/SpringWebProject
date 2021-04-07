@@ -4936,6 +4936,8 @@ input[type="button"].btn-block {
     border-radius: 0.25rem;
 }
 
+
+
 .page-link {
     position: relative;
     display: block;
@@ -11828,4 +11830,8 @@ footer .footer-bottom {
 
 .views-comments-label {
     float: right;
+}
+
+.page-numbers button.active {
+    background-color: #032A63;
 }

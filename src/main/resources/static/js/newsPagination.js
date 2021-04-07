@@ -2,7 +2,7 @@ async function newsPagination() {
     let newsList = await fetchNews();
     const newsWrapper = document.getElementById("news-wrapper")
     const paginationElement = document.getElementById('pagination');
-
+    let pageCount;
     let currentPage = 1;
     const newsPerPage = 5;
 
@@ -10,31 +10,42 @@ async function newsPagination() {
     setupPagination(newsList, paginationElement, newsPerPage);
 
 
-    function displayElements(newsList, wrapper, rowsPerPage, pageNumber) {
-        wrapper.innerHTML = '';
+    function displayElements(newsList, newsWrapper, newsPerPage, pageNumber) {
+        newsWrapper.innerHTML = '';
         pageNumber--;
 
-        let start = rowsPerPage * pageNumber;
-        let end = start + rowsPerPage;
+        let start = newsPerPage * pageNumber;
+        let end = start + newsPerPage;
         let paginatedItems = newsList.slice(start, end);
         for (let i = 0; i < paginatedItems.length; i++) {
             let item = paginatedItems[i];
-            createNewsRow(wrapper, item);
+            createNewsRow(newsWrapper, item);
         }
     }
 
-    function setupPagination(newsList, wrapper, rowsPerPage) {
+    function setupPagination(newsList, wrapper, newsPerPage) {
         wrapper.innerHTML = '';
-        let pageCount = Math.ceil(newsList.length / rowsPerPage);
-        for (let i = 1; i < pageCount + 1; i++) {
-           let button = paginationButton(i, newsList);
-           wrapper.appendChild(button);
+        pageCount = Math.ceil(newsList.length / newsPerPage);
+
+
+        wrapper.appendChild(createPrevBtn())
+
+        let pageBtnsCount = pageCount > 10 ? 10 : pageCount;
+
+        for (let i = 1; i < pageBtnsCount + 1; i++) {
+            let button = paginationButton(i, newsList);
+            wrapper.appendChild(button);
         }
+
+        wrapper.appendChild(createNextBtn());
+
+
     }
 
     function paginationButton(page, items) {
         let button = document.createElement('button');
         button.innerText = page;
+        button.id = "pageBtn" + page;
 
         if (currentPage === page) {
             button.classList.add('active');
@@ -43,6 +54,8 @@ async function newsPagination() {
 
         button.addEventListener('click', function () {
             currentPage = page;
+            document.getElementById("prevBtn").disabled = currentPage === 1;
+            document.getElementById("nextBtn").disabled = currentPage === pageCount;
             displayElements(items, newsWrapper, newsPerPage, currentPage);
 
             let currentBtn = document.querySelector('.page-numbers button.active');
@@ -52,6 +65,41 @@ async function newsPagination() {
 
         return button;
     }
+
+    function createPrevBtn() {
+        let prevBtn = document.createElement("button");
+        prevBtn.id = "prevBtn";
+        prevBtn.innerText = '<';
+        prevBtn.disabled = true;
+        prevBtn.addEventListener('click', function () {
+            currentPage--;
+            document.getElementById('nextBtn').disabled = false;
+            prevBtn.disabled = currentPage === 1;
+            displayElements(newsList, newsWrapper, newsPerPage, currentPage);
+            let currentBtn = document.querySelector('.page-numbers button.active');
+            currentBtn.classList.remove('active');
+            document.getElementById("pageBtn" + currentPage).classList.add('active');
+        })
+        return prevBtn;
+    }
+
+    function createNextBtn() {
+        let nextBtn = document.createElement("button");
+        nextBtn.id = "nextBtn";
+        nextBtn.innerText = '>';
+        nextBtn.addEventListener('click', function () {
+            currentPage++;
+            document.getElementById('prevBtn').disabled = false;
+
+            nextBtn.disabled = currentPage === pageCount;
+            displayElements(newsList, newsWrapper, newsPerPage, currentPage);
+            let currentBtn = document.querySelector('.page-numbers button.active');
+            currentBtn.classList.remove('active');
+            document.getElementById("pageBtn" + currentPage).classList.add('active');
+        })
+        return nextBtn;
+    }
+
 
 }
 
