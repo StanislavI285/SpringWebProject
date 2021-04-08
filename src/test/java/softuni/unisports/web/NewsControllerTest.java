@@ -128,7 +128,6 @@ public class NewsControllerTest {
     @WithMockUser(username = "username", roles = {"ADMIN", "USER", "MODERATOR"})
     public void testAddNewsShouldWork() throws Exception {
 
-        //TODO check - returns status 403
 
         MockMultipartFile mockImgFile = new MockMultipartFile(
                 "image",

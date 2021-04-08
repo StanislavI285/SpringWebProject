@@ -16,6 +16,7 @@ import softuni.unisports.model.view.UserViewModel;
 import softuni.unisports.service.UserService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -50,7 +51,12 @@ public class UsersController {
     }
 
     @GetMapping("/profile/show/{username}")
-    public String userProfile(@PathVariable String username, Model model) {
+    public String userProfile(@PathVariable String username, Model model, Principal principal) {
+
+        if (!username.equals(principal.getName())) {
+            return "redirect:/";
+        }
+
 
         UserViewModel user = modelMapper.map(this.userService.findUserByUsername(username), UserViewModel.class);
         model.addAttribute("userView", user);
@@ -59,6 +65,24 @@ public class UsersController {
 
         return "user-profile";
     }
+
+    @GetMapping("/profile/edit/{username}")
+    public String editProfile(@PathVariable String username, Model model, Principal principal) {
+
+        if (!username.equals(principal.getName())) {
+            return "redirect:/";
+        }
+
+
+        UserViewModel user = modelMapper.map(this.userService.findUserByUsername(username), UserViewModel.class);
+        model.addAttribute("userView", user);
+        //TODO fill the html template for user profile and implement the controller
+
+
+        return "edit-profile";
+    }
+
+
 
     @GetMapping("/details/{id}")
     public String userDetails(@PathVariable String id, Model model) {
@@ -111,6 +135,23 @@ public class UsersController {
         userService.registerUser(userServiceModel);
 
         return "redirect:/";
+    }
+
+
+    @PostMapping("/profile/edit/{username}")
+    public String editProfileConfirm(@PathVariable String username, Model model, Principal principal) {
+
+        if (!username.equals(principal.getName())) {
+            return "redirect:/";
+        }
+
+
+        UserViewModel user = modelMapper.map(this.userService.findUserByUsername(username), UserViewModel.class);
+        model.addAttribute("userView", user);
+        //TODO finish post mapping
+
+
+        return "edit-profile";
     }
 
     @PostMapping("/login-error")

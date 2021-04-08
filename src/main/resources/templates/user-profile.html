@@ -1,14 +1,81 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="zxx"
+      xmlns:th="https://www.thymeleaf.org">
 <th:block th:include="~{fragments/head}"></th:block>
+
+
 <body>
 <div class="container-scroller">
     <div class="main-panel">
+        <!-- partial:../partials/_navbar.html -->
         <th:block th:include="~{fragments/_navbar}"></th:block>
 
         <!-- partial -->
-        <th:block th:include="~{fragments/flash-news-banner}"></th:block>
+        <!--        <th:block th:include="~{fragments/flash-news-banner}"></th:block>-->
+        <div class="content-wrapper">
+            <div class="container">
+                <div class="col-sm-12">
+                    <div class="card" data-aos="fade-up">
+                        <div class="card-body" th:object="${userView}">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h1 class="font-weight-600 mb-4">My Profile</h1>
+                                    <img alt="user-profile-pic" style="height: 150px; width: 150px"
+                                         th:src="*{imageUrl}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="user-profile-field-label" for="username">Username:</label>
+                                    <div class="user-profile-field-content" id="username" th:text="*{username}"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="user-profile-field-label" for="firstName">First name:</label>
+                                    <div class="user-profile-field-content" id="firstName" th:text="*{firstName}"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="user-profile-field-label" for="lastName">Last name:</label>
+                                    <div class="user-profile-field-content" id="lastName" th:text="*{lastName}"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label class="user-profile-field-label" for="email">Email:</label>
+                                    <div class="user-profile-field-content" id="email" th:text="*{email}"></div>
+                                </div>
+                            </div>
+                            <a th:href="@{/users/profile/edit/{username}(username = *{username})}">
+                                <button class="btn btn-primary">Edit</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- main-panel ends -->
+        <!-- container-scroller ends -->
+
+        <!-- partial:../partials/_footer.html -->
+        <th:block th:include="~{fragments/_footer}"></th:block>
+
+        <!-- partial -->
     </div>
 </div>
+<!-- inject:js -->
+<script src="/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- plugin js for this page -->
+
+<script src="/vendors/aos/dist/aos.js/aos.js"></script>
+<!-- End plugin js for this page -->
+<!-- Custom js for this page-->
+<script src="/js/demo.js"></script>
+<script src="/js/comment.js"></script>
+<script src="/js/jquery.easeScroll.js"></script>
+<!-- End custom js for this page-->
 </body>
 </html>

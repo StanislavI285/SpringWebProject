@@ -106,7 +106,7 @@ async function newsPagination() {
 
 function createNewsRow(wrapper, news) {
 
-    let {id, title, content, author, category, comments, imageUrl, addedOn, views} = news;
+    let {id, title, content, category, imageUrl, addedOn} = news;
     let d = new Date(addedOn);
     let month = new Intl.DateTimeFormat('default', {month: 'short'}).format(d);
     let date = new Intl.DateTimeFormat('default', {day: '2-digit'}).format(d);

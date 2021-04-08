@@ -11835,3 +11835,16 @@ footer .footer-bottom {
 .page-numbers button.active {
     background-color: #032A63;
 }
+
+.user-profile-field-content {
+    padding: 3px 3px 3px 3px;
+    float: left;
+
+}
+
+.user-profile-field-label {
+    padding: 3px 3px 3px 3px;
+    float: left;
+    font-weight: bold;
+}
+
