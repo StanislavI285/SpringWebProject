@@ -35,6 +35,7 @@ public class ErrorLogServiceImpl implements ErrorLogService {
     public List<ErrorsLogViewModel> getErrorsForCurrentDate() {
         return this.errorLogRepository.findAll().
                 stream().map(e -> modelMapper.map(e, ErrorsLogViewModel.class)).
+                sorted((e1, e2) -> e2.getDate().compareTo(e1.getDate())).
                 collect(Collectors.toList());
     }
 

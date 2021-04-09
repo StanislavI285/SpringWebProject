@@ -48,8 +48,8 @@
                                     <div class="user-profile-field-content" id="email" th:text="*{email}"></div>
                                 </div>
                             </div>
-                            <a th:href="@{/users/profile/edit/{username}(username = *{username})}">
-                                <button class="btn btn-primary">Edit</button>
+                            <a th:href="@{/users/profile/changePassword/{username}(username = *{username})}">
+                                <button class="btn btn-primary">Change password</button>
                             </a>
                         </div>
                     </div>
@@ -74,7 +74,6 @@
 <!-- End plugin js for this page -->
 <!-- Custom js for this page-->
 <script src="/js/demo.js"></script>
-<script src="/js/comment.js"></script>
 <script src="/js/jquery.easeScroll.js"></script>
 <!-- End custom js for this page-->
 </body>

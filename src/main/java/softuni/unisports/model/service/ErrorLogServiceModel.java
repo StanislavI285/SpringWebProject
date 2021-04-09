@@ -7,6 +7,7 @@ public class ErrorLogServiceModel {
     private LocalDateTime date;
     private String exception;
     private String reason;
+    private String stackTrace;
 
 
     public ErrorLogServiceModel() {
@@ -36,6 +37,15 @@ public class ErrorLogServiceModel {
 
     public ErrorLogServiceModel setReason(String reason) {
         this.reason = reason;
+        return this;
+    }
+
+    public String getStackTrace() {
+        return stackTrace;
+    }
+
+    public ErrorLogServiceModel setStackTrace(String stackTrace) {
+        this.stackTrace = stackTrace;
         return this;
     }
 }

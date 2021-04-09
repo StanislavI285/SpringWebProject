@@ -18,7 +18,6 @@ public class GlobalExceptionHandler {
     public ModelAndView newsNotFoundExceptionHandler(HttpServletRequest req, NewsNotFoundException ex) {
         ModelAndView mav = new ModelAndView("404");
         mav.addObject("message", ex.getMessage());
-
         return mav;
     }
 
@@ -36,7 +35,6 @@ public class GlobalExceptionHandler {
     public ModelAndView runtimeException(HttpServletRequest req, RuntimeException ex) {
         ModelAndView mav = new ModelAndView("500");
         mav.addObject("message", ex.getMessage());
-
         return mav;
     }
 

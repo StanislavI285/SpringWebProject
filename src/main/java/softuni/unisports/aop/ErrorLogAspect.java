@@ -34,6 +34,9 @@ public class ErrorLogAspect {
         String action = joinpoint.getSignature().getName();
 
         ErrorLogServiceModel error = new ErrorLogServiceModel();
+
+
+
         error.setException(ex.toString())
                 .setReason(request.getRequestURI())
                 .setDate(LocalDateTime.now());
@@ -41,7 +44,6 @@ public class ErrorLogAspect {
         errorLogService.logError(error);
 
     }
-
 
 
 }

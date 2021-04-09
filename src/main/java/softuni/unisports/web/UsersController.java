@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import softuni.unisports.model.binding.UserEditBindingModel;
 import softuni.unisports.model.binding.UserRegistrationBindingModel;
 import softuni.unisports.model.service.UserServiceModel;
 import softuni.unisports.model.view.UserListViewModel;
@@ -57,29 +58,29 @@ public class UsersController {
             return "redirect:/";
         }
 
-
         UserViewModel user = modelMapper.map(this.userService.findUserByUsername(username), UserViewModel.class);
         model.addAttribute("userView", user);
-        //TODO fill the html template for user profile and implement the controller
-
 
         return "user-profile";
     }
 
-    @GetMapping("/profile/edit/{username}")
+    @GetMapping("/profile/changePassword/{username}")
     public String editProfile(@PathVariable String username, Model model, Principal principal) {
 
         if (!username.equals(principal.getName())) {
             return "redirect:/";
         }
 
+        if (!model.containsAttribute("userEditBindingModel")) {
+            model.addAttribute("userEditBindingModel", new UserEditBindingModel());
+        }
+
 
         UserViewModel user = modelMapper.map(this.userService.findUserByUsername(username), UserViewModel.class);
         model.addAttribute("userView", user);
-        //TODO fill the html template for user profile and implement the controller
 
 
-        return "edit-profile";
+        return "change-password";
     }
 
 
@@ -138,20 +139,25 @@ public class UsersController {
     }
 
 
-    @PostMapping("/profile/edit/{username}")
-    public String editProfileConfirm(@PathVariable String username, Model model, Principal principal) {
+    @PostMapping("/profile/changePassword/{username}")
+    public String editProfileConfirm(@Valid @ModelAttribute UserEditBindingModel userEditBindingModel, BindingResult bindingResult,
+                                     RedirectAttributes redirectAttributes, @PathVariable String username, Principal principal) {
 
         if (!username.equals(principal.getName())) {
             return "redirect:/";
         }
 
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userEditBindingModel", userEditBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userEditBindingModel", bindingResult);
+            return "redirect:/users/profile/changePassword/" + username;
+        }
 
-        UserViewModel user = modelMapper.map(this.userService.findUserByUsername(username), UserViewModel.class);
-        model.addAttribute("userView", user);
+        System.out.println();
         //TODO finish post mapping
 
 
-        return "edit-profile";
+        return "redirect:/users/profile/show/" + username;
     }
 
     @PostMapping("/login-error")

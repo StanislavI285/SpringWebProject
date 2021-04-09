@@ -29,7 +29,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 //                csrf().disable(). //in html must be th:action instead of action, in order to have csrf token and the login to work properly
         authorizeRequests().
                 antMatchers("/js/**", "/css/**", "/img/**").permitAll().  //<----- статичните ресурси са видими от всеки
-                antMatchers( "/roles", "/users/list", "/logs/new-users").hasAnyAuthority("ROLE_ADMIN"). //<----- само админ има достъп до админ панел
+                antMatchers( "/roles", "/users/list", "/logs/new-users", "/logs/errors").hasAnyAuthority("ROLE_ADMIN"). //<----- само админ има достъп до админ панел
                 antMatchers("/news/add", "/admin-panel").hasAuthority("ROLE_MODERATOR"). //<----- админ и модератор могат да добавят новини
                 antMatchers("/users/profile/show/{username}").authenticated().
                 anyRequest().permitAll().
