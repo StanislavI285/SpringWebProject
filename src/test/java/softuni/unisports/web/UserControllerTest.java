@@ -12,7 +12,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import softuni.unisports.enums.RoleEnum;
-import softuni.unisports.model.entity.RoleEntity;
 import softuni.unisports.model.entity.UserEntity;
 import softuni.unisports.repository.RoleRepository;
 import softuni.unisports.repository.UserRepository;
@@ -41,17 +40,13 @@ public class UserControllerTest {
         init();
     }
 
-//        @AfterEach
+//    @AfterEach
 //    public void cleanUp() {
 //        userRepository.deleteAll();
-//        roleRepository.deleteAll();
+//
 //    }
 
     private void init() {
-
-//        RoleEntity roleEntity = new RoleEntity();
-//        roleEntity.setName(RoleEnum.USER);
-//        roleRepository.save(roleEntity);
 
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername("username").
@@ -68,7 +63,7 @@ public class UserControllerTest {
 
     @Test
     @WithMockUser(username = "username")
-    public void shouldReturnValidStatusViewNameAndModel() throws Exception {
+    public void showUserProfileShouldWork() throws Exception {
         mockMvc
                 .perform(MockMvcRequestBuilders.get(NEWS_CONTROLLER_PREFIX + "/profile/show/{username}", testUsername))
                 .andExpect(status().isOk())

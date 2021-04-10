@@ -1,8 +1,8 @@
 package softuni.unisports.service.impl;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -14,7 +14,6 @@ import softuni.unisports.model.entity.RoleEntity;
 import softuni.unisports.model.entity.UserEntity;
 import softuni.unisports.model.service.UserServiceModel;
 import softuni.unisports.model.view.UserListViewModel;
-import softuni.unisports.model.view.UserViewModel;
 import softuni.unisports.repository.RoleRepository;
 import softuni.unisports.repository.UserRepository;
 import softuni.unisports.security.UniSportsUserDetailsService;
@@ -23,6 +22,7 @@ import softuni.unisports.service.UserService;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
@@ -39,6 +39,7 @@ public class UserServiceImplTest {
     ModelMapper mockModelMapper;
     @Mock
     UniSportsUserDetailsService mockUserDetailsService;
+    @Mock
     PasswordEncoder passwordEncoder;
 
     public UserServiceImplTest() {
@@ -63,7 +64,6 @@ public class UserServiceImplTest {
 
     @Test
     public void testUserExists() {
-
 
 
         Mockito.when(mockUserRepository.findByUsername("newUser")).
@@ -114,4 +114,124 @@ public class UserServiceImplTest {
     }
 
 
+    @Test
+    public void testGetUserRoles() {
+
+        Mockito.when(mockUserRepository.findByUsername("newUser")).
+                thenReturn(Optional.of(userEntity));
+
+        List<String> roles = serviceToTest.getUserRoles("newUser");
+
+        Assertions.assertEquals(1, roles.size());
+
+    }
+
+
+    @Test
+    public void testPasswordMatches() {
+
+        Mockito.when(mockUserRepository.findByUsername("newUser")).
+                thenReturn(Optional.of(userEntity));
+
+        Mockito.when(passwordEncoder.matches("12345", "12345"))
+                .thenReturn(true);
+
+        boolean result = serviceToTest.checkPasswordMatch("newUser", "12345");
+
+        Assertions.assertTrue(result);
+
+    }
+
+
+    @Test
+    public void testSetAdminRole() {
+
+        Mockito.when(mockUserRepository.findByUsername("newUser")).
+                thenReturn(Optional.of(userEntity));
+
+        RoleEntity adminRole = new RoleEntity().setName(RoleEnum.ADMIN);
+        RoleEntity moderatorRole = new RoleEntity().setName(RoleEnum.MODERATOR);
+        RoleEntity userRole = new RoleEntity().setName(RoleEnum.USER);
+
+        Mockito.when(mockRoleRepository.findByName(RoleEnum.ADMIN)).
+                thenReturn(Optional.of(adminRole));
+        Mockito.when(mockRoleRepository.findByName(RoleEnum.MODERATOR)).
+                thenReturn(Optional.of(moderatorRole));
+        Mockito.when(mockRoleRepository.findByName(RoleEnum.USER)).
+                thenReturn(Optional.of(userRole));
+
+        serviceToTest.setUserRole("newUser", RoleEnum.ADMIN);
+
+        List<String> userRoles =
+                mockUserRepository
+                        .findByUsername("newUser")
+                        .get()
+                        .getRoles()
+                        .stream()
+                        .map(r -> r.getName().toString())
+                        .collect(Collectors.toList());
+
+
+        Assertions.assertTrue(userRoles.contains("ADMIN"));
+        Assertions.assertTrue(userRoles.contains("MODERATOR"));
+        Assertions.assertTrue(userRoles.contains("USER"));
+    }
+
+    @Test
+    public void testSetModeratorRole() {
+
+        Mockito.when(mockUserRepository.findByUsername("newUser")).
+                thenReturn(Optional.of(userEntity));
+
+        RoleEntity moderatorRole = new RoleEntity().setName(RoleEnum.MODERATOR);
+        RoleEntity userRole = new RoleEntity().setName(RoleEnum.USER);
+
+        Mockito.when(mockRoleRepository.findByName(RoleEnum.MODERATOR)).
+                thenReturn(Optional.of(moderatorRole));
+        Mockito.when(mockRoleRepository.findByName(RoleEnum.USER)).
+                thenReturn(Optional.of(userRole));
+
+        serviceToTest.setUserRole("newUser", RoleEnum.MODERATOR);
+
+        List<String> userRoles =
+                mockUserRepository
+                        .findByUsername("newUser")
+                        .get()
+                        .getRoles()
+                        .stream()
+                        .map(r -> r.getName().toString())
+                        .collect(Collectors.toList());
+
+        Assertions.assertTrue(userRoles.contains("MODERATOR"));
+        Assertions.assertTrue(userRoles.contains("USER"));
+        Assertions.assertFalse(userRoles.contains("ADMIN"));
+    }
+
+
+    @Test
+    public void testSetUserRole() {
+
+        Mockito.when(mockUserRepository.findByUsername("newUser")).
+                thenReturn(Optional.of(userEntity));
+
+        RoleEntity userRole = new RoleEntity().setName(RoleEnum.USER);
+
+        Mockito.when(mockRoleRepository.findByName(RoleEnum.USER)).
+                thenReturn(Optional.of(userRole));
+
+        serviceToTest.setUserRole("newUser", RoleEnum.USER);
+
+        List<String> userRoles =
+                mockUserRepository
+                        .findByUsername("newUser")
+                        .get()
+                        .getRoles()
+                        .stream()
+                        .map(r -> r.getName().toString())
+                        .collect(Collectors.toList());
+
+        Assertions.assertTrue(userRoles.contains("USER"));
+        Assertions.assertFalse(userRoles.contains("MODERATOR"));
+        Assertions.assertFalse(userRoles.contains("ADMIN"));
+    }
 }

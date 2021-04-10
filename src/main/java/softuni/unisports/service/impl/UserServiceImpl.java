@@ -128,7 +128,6 @@ public class UserServiceImpl implements UserService {
     public boolean checkPasswordMatch(String username, String adminPassword) {
         String dbPassword = this.userRepository.findByUsername(username).get().getPassword();
         return passwordEncoder.matches(adminPassword, dbPassword);
-
     }
 
     @Override

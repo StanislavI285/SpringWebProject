@@ -27,8 +27,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void seedRoles() {
         if (this.roleRepository.count() == 0) {
-            List<RoleEntity> rolesList = new ArrayList<>() {
-            };
+            List<RoleEntity> rolesList = new ArrayList<>() {};
             rolesList.add(new RoleEntity().setName(RoleEnum.ROOT));
             rolesList.add(new RoleEntity().setName(RoleEnum.ADMIN));
             rolesList.add(new RoleEntity().setName(RoleEnum.MODERATOR));

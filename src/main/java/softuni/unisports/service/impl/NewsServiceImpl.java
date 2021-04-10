@@ -33,7 +33,8 @@ public class NewsServiceImpl implements NewsService {
     private final CategoryService categoryService;
     private final ModelMapper modelMapper;
 
-    public NewsServiceImpl(NewsRepository newsRepository, CloudinaryService cloudinaryService, UserService userService, CategoryService categoryService, ModelMapper modelMapper) {
+    public NewsServiceImpl(NewsRepository newsRepository, CloudinaryService cloudinaryService,
+                           UserService userService, CategoryService categoryService, ModelMapper modelMapper) {
         this.newsRepository = newsRepository;
         this.cloudinaryService = cloudinaryService;
         this.userService = userService;
@@ -44,7 +45,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public NewsGetServiceModel getNewsById(String id) {
-        NewsEntity newsEntity = this.newsRepository.findById(id).orElseThrow(() -> new NewsNotFoundException("Seems like this article doesn't exist."));
+        NewsEntity newsEntity = this.newsRepository.findById(id).
+                orElseThrow(() -> new NewsNotFoundException("Seems like this article doesn't exist."));
         NewsGetServiceModel newsGetServiceModel = this.modelMapper.map(newsEntity, NewsGetServiceModel.class);
 
         return newsGetServiceModel;
