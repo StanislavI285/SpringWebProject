@@ -40,6 +40,7 @@ public class RolesController {
             model.addAttribute("roleAlreadyPresentError", false);
             model.addAttribute("passwordError", false);
             model.addAttribute("sameUserError", false);
+            model.addAttribute("rootUserError", false);
             model.addAttribute("successfullyAddedRole", false);
         }
 
@@ -64,6 +65,7 @@ public class RolesController {
             return "redirect:/roles";
         }
 
+
         if (!this.userService.checkPasswordMatch(principal.getUsername(), userRoleUpdateBindingModel.getAdminPassword())) {
             redirectAttributes.addFlashAttribute("userRoleUpdateBindingModel", userRoleUpdateBindingModel);
             redirectAttributes.addFlashAttribute("passwordError", true);
@@ -73,6 +75,12 @@ public class RolesController {
         if (principal.getUsername().equals(userRoleUpdateBindingModel.getUsername())) {
             redirectAttributes.addFlashAttribute("userRoleUpdateBindingModel", userRoleUpdateBindingModel);
             redirectAttributes.addFlashAttribute("sameUserError", true);
+            return "redirect:/roles";
+        }
+
+        if (userRoleUpdateBindingModel.getUsername().equals("root")) {
+            redirectAttributes.addFlashAttribute("userRoleUpdateBindingModel", userRoleUpdateBindingModel);
+            redirectAttributes.addFlashAttribute("rootUserError", true);
             return "redirect:/roles";
         }
 

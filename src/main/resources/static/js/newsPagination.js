@@ -30,7 +30,7 @@ async function newsPagination() {
 
         wrapper.appendChild(createPrevBtn())
 
-        let pageBtnsCount = pageCount > 10 ? 10 : pageCount;
+        let pageBtnsCount = pageCount;
 
         for (let i = 1; i < pageBtnsCount + 1; i++) {
             let button = paginationButton(i, newsList);
@@ -148,9 +148,7 @@ async function fetchNews() {
         }
         return list;
     });
-    console.log(list);
     return list;
-
 }
 
 

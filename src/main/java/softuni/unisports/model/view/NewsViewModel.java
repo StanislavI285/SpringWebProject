@@ -19,6 +19,7 @@ public class NewsViewModel {
     private String imageUrl;
     private LocalDateTime addedOn;
     private int views;
+    private String videoUrl;
 
 
     public NewsViewModel() {
@@ -103,6 +104,15 @@ public class NewsViewModel {
 
     public NewsViewModel setViews(int views) {
         this.views = views;
+        return this;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public NewsViewModel setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
         return this;
     }
 }

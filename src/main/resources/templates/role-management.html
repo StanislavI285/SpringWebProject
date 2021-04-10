@@ -37,6 +37,8 @@
                         No user was found with this username.</small>
                     <small class="alert alert-danger" id="sameUserError" th:if="${sameUserError}">
                         You cannot add/remove roles for yourself.</small>
+                    <small class="alert alert-danger" id="rootUserError" th:if="${rootUserError}">
+                        You cannot change roles for root.</small>
 
 
                 </div>

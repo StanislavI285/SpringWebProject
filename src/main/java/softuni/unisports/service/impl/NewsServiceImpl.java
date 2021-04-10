@@ -116,7 +116,28 @@ public class NewsServiceImpl implements NewsService {
         return news.
                 stream().
                 map(n -> modelMapper.map(n, NewsViewModel.class)).
+                collect(Collectors.toList()).
+                subList(0, 5);
+    }
+
+    @Override
+    public List<NewsViewModel> getVideoNewsOrderedByViewsCount() {
+
+        List<NewsViewModel> result = this.newsRepository.getVideoNewsOrderedByViewsCount().
+                stream().
+                map(n -> modelMapper.map(n, NewsViewModel.class)).
                 collect(Collectors.toList());
+
+        return result;
+    }
+
+    @Override
+    public List<NewsViewModel> getLatestVideoNews() {
+        return this.newsRepository.getLatestVideoNews().
+                stream().
+                map(n -> modelMapper.map(n, NewsViewModel.class)).
+                collect(Collectors.toList()).
+                subList(0, 5);
     }
 
 }

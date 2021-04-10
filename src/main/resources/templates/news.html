@@ -54,6 +54,15 @@
                                                                         th:src="*{imageUrl}"
                                                                 />
                                                             </div>
+                                                            <div class="badge-positioned w-90"
+                                                                 th:if="*{videoUrl != null}">
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <div class="video-icon">
+                                                                        <i class="mdi mdi-play"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -99,7 +108,7 @@
 
                                 </div>
                             </div>
-                            <div id="pagination" class="page-numbers"></div>
+                            <div class="page-numbers" id="pagination"></div>
                         </div>
                     </div>
                 </div>
@@ -112,18 +121,18 @@
 
         <!-- partial -->
         <th:block th:include="~{fragments/_footer}"></th:block>
+
     </div>
 </div>
 <!-- inject:js -->
 <script src="/vendors/js/vendor.bundle.base.js"></script>
 <!-- endinject -->
 <!-- plugin js for this page -->
-
 <script src="/vendors/aos/dist/aos.js/aos.js"></script>
 <!-- End plugin js for this page -->
 <!-- Custom js for this page-->
-<script th:src="@{/js/demo.js}"></script>
-<script th:src="@{/js/jquery.easeScroll.js}"></script>
+<script src="/js/demo.js"></script>
+<script src="/js/jquery.easeScroll.js"></script>
 <script th:src="@{/js/newsPagination.js}"></script>
 <!-- End custom js for this page-->
 </body>

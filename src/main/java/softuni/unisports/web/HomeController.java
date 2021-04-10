@@ -34,6 +34,8 @@ public class HomeController {
         model.addAttribute("mostCommentedNews", this.newsService.getMostCommentedNews());
         model.addAttribute("categories", this.categoryService.getAllCategories());
         model.addAttribute("newsWithMoreThan10Views", this.newsService.getNewsWithViewsMoreThan10());
+        model.addAttribute("topVideoNews", this.newsService.getVideoNewsOrderedByViewsCount().subList(0, 3));
+        model.addAttribute("latestVideoNews", this.newsService.getVideoNewsOrderedByViewsCount().subList(0, 3));
 
         return "index";
     }

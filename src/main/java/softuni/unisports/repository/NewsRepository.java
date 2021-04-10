@@ -4,7 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import softuni.unisports.model.entity.NewsEntity;
+import softuni.unisports.model.view.NewsViewModel;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,4 +21,10 @@ public interface NewsRepository extends JpaRepository<NewsEntity, String> {
 
     @Query(value = "SELECT n FROM NewsEntity n WHERE n.views > 10")
     List<NewsEntity> findAllByViewsMoreThan10();
+
+    @Query(value = "SELECT n FROM NewsEntity  n WHERE n.videoUrl IS NOT null ORDER BY n.views DESC")
+    List<NewsEntity> getVideoNewsOrderedByViewsCount();
+
+    @Query(value = "SELECT n FROM NewsEntity  n WHERE n.videoUrl IS NOT null ORDER BY n.addedOn DESC")
+    List<NewsEntity> getLatestVideoNews();
 }

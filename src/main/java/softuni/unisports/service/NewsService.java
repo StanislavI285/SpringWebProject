@@ -22,4 +22,8 @@ public interface NewsService {
     void incrementViews(String newsId);
 
     List<NewsViewModel> getNewsWithViewsMoreThan10();
+
+    List<NewsViewModel> getVideoNewsOrderedByViewsCount();
+
+    List<NewsViewModel> getLatestVideoNews();
 }
