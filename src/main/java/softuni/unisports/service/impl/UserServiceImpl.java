@@ -153,4 +153,11 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(this.userRepository.findById(id),
                 UserViewModel.class);
     }
+
+    @Override
+    public void changePassword(UserServiceModel userServiceModel) {
+        UserEntity userEntity = this.userRepository.findByUsername(userServiceModel.getUsername()).get();
+        userEntity.setPassword(passwordEncoder.encode(userServiceModel.getPassword()));
+        userRepository.save(userEntity);
+    }
 }

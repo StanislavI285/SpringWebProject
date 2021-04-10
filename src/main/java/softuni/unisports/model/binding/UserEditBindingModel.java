@@ -14,12 +14,22 @@ import javax.validation.constraints.Size;
         message = "Passwords are not matching."
 )
 public class UserEditBindingModel {
+    private String username;
     private MultipartFile image;
     private String password;
     private String confirmPassword;
 
 
     public UserEditBindingModel() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public UserEditBindingModel setUsername(String username) {
+        this.username = username;
+        return this;
     }
 
     public MultipartFile getImage() {

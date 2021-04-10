@@ -9,6 +9,7 @@ import softuni.unisports.service.CommentService;
 import softuni.unisports.service.UserService;
 
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,10 +43,11 @@ public class CommentsRestController {
     }
 
     @PostMapping("/add")
-    public CommentBindingModel addComment(@RequestBody CommentBindingModel commentBindingModel, HttpServletResponse response) {
+    public CommentBindingModel addComment(@RequestBody CommentBindingModel commentBindingModel, HttpServletResponse response,
+                                          Principal principal) {
 
         CommentServiceModel commentServiceModel = this.modelMapper.map(commentBindingModel, CommentServiceModel.class);
-        commentServiceModel.setAuthor(userService.findUserByUsername(commentBindingModel.getAuthor()));
+        commentServiceModel.setAuthor(userService.findUserByUsername(principal.getName()));
 
         this.commentService.addCommentToNews(commentServiceModel);
         response.setStatus(HttpServletResponse.SC_CREATED);

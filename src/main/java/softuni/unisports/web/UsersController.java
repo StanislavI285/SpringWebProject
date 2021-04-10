@@ -65,7 +65,7 @@ public class UsersController {
     }
 
     @GetMapping("/profile/changePassword/{username}")
-    public String editProfile(@PathVariable String username, Model model, Principal principal) {
+    public String changePassword(@PathVariable String username, Model model, Principal principal) {
 
         if (!username.equals(principal.getName())) {
             return "redirect:/";
@@ -140,7 +140,7 @@ public class UsersController {
 
 
     @PostMapping("/profile/changePassword/{username}")
-    public String editProfileConfirm(@Valid @ModelAttribute UserEditBindingModel userEditBindingModel, BindingResult bindingResult,
+    public String changePasswordConfirm(@Valid @ModelAttribute UserEditBindingModel userEditBindingModel, BindingResult bindingResult,
                                      RedirectAttributes redirectAttributes, @PathVariable String username, Principal principal) {
 
         if (!username.equals(principal.getName())) {
@@ -153,8 +153,8 @@ public class UsersController {
             return "redirect:/users/profile/changePassword/" + username;
         }
 
-        System.out.println();
-        //TODO finish post mapping
+        UserServiceModel userServiceModel = modelMapper.map(userEditBindingModel, UserServiceModel.class);
+        userService.changePassword(userServiceModel);
 
 
         return "redirect:/users/profile/show/" + username;

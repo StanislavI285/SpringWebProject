@@ -29,4 +29,6 @@ public interface UserService {
     List<UserListViewModel> getAllUsers();
 
     UserViewModel findUserById(String id);
+
+    void changePassword(UserServiceModel userServiceModel);
 }
